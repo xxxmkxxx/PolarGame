@@ -30,7 +30,7 @@
                 <div class = "Error_message" id="Error_message"></div>
             </div>
 
-            <input type="submit" name = "button_sign_in" id = "button_sign_in" class ="button_create_account"> войти </input>
+            <input type="submit" name = "button_sign_in" id = "button_sign_in" class ="button_create_account" value="войти"/>
 
             <div class = "bottom_line">
                 <div class = "back"> <a th:href="@{/}"> Назад </a> </div>

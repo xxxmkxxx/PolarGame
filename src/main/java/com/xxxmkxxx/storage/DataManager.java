@@ -1,39 +1,45 @@
 package com.xxxmkxxx.storage;
 
+import com.xxxmkxxx.services.DataBaseService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class DataManager implements IDataLayer {
-    private IDataLayer data;
+public class DataManager <T> implements IDataAccessLayer {
+    private IDataAccessLayer <T> data;
 
     @Override
-    public Object getRecordById(int id, String tableName) {
-        return null;
+    public T read(int id, Class model) {
+        return (T) data.read(id, model);
     }
 
     @Override
-    public List<Object> getAllRecords(String tableName) {
-        return null;
+    public List<T> read(Class model) {
+        return data.read(model);
     }
 
     @Override
-    public void removeRecord(int id, String tableName) {
+    public List<T> read(Class model, String query) {
+        return data.read(model, query);
+    }
+
+    @Override
+    public void delete(int id, Class model) {
 
     }
 
     @Override
-    public void replaceRecord(int id, Object object, String tableName) {
+    public void update(int id, Class model) {
 
     }
 
     @Override
-    public void saveRecord(Object object) {
+    public void create(Class model) {
 
     }
 
-    public DataManager() {
-        this.data = new DataBaseService("localhost", "PolarGame", "admin", "admin");
+    public DataManager(DataBaseService data) {
+        this.data = data;
     }
 }

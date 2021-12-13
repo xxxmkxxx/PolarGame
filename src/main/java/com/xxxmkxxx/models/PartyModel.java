@@ -1,12 +1,34 @@
 package com.xxxmkxxx.models;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "party")
 public class PartyModel {
+    @Id
+    @Column(name = "id_party")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partyId;
-    private int gameId;
-    private int ownerId;
-    private int usersCount;
-    private boolean closed = false;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private GameModel game;
+
+    @ManyToOne
+    @JoinColumn(name = "party_creator")
+    private UserModel user;
+
+    @Column(name = "gamers_amount")
+    private int usersAmount;
+
+    @Column(name = "privacy")
+    private String closed;
+
+    @Column(name = "party_description")
     private String description;
+
+    @Column(name = "party_icon")
     private String urlPartyIcon;
 
     public int getPartyId() {
@@ -17,35 +39,35 @@ public class PartyModel {
         this.partyId = partyId;
     }
 
-    public int getGameId() {
-        return gameId;
+    public GameModel getGame() {
+        return game;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setGame(GameModel game) {
+        this.game = game;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 
-    public int getUsersCount() {
-        return usersCount;
+    public int getUsersAmount() {
+        return usersAmount;
     }
 
-    public void setUsersCount(int usersCount) {
-        this.usersCount = usersCount;
+    public void setUsersAmount(int usersAmount) {
+        this.usersAmount = usersAmount;
     }
 
-    public boolean isClosed() {
+    public String getClosed() {
         return closed;
     }
 
-    public void setClosed(boolean closed) {
+    public void setClosed(String closed) {
         this.closed = closed;
     }
 
@@ -62,16 +84,6 @@ public class PartyModel {
     }
 
     public void setUrlPartyIcon(String urlPartyIcon) {
-        this.urlPartyIcon = urlPartyIcon;
-    }
-
-    public PartyModel(int partyId, int gameId, int ownerId, int usersCount, boolean closed, String description, String urlPartyIcon) {
-        this.partyId = partyId;
-        this.gameId = gameId;
-        this.ownerId = ownerId;
-        this.usersCount = usersCount;
-        this.closed = closed;
-        this.description = description;
         this.urlPartyIcon = urlPartyIcon;
     }
 }

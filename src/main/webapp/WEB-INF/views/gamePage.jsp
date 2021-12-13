@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -97,34 +97,21 @@
 
     <div class = "sections">
 			<span class = "section1">
-				<div  class = "gamesection">
-					<div class = "game_data">
-						<div class = "game_icon"> <img id="game_icon" th:src="@{/images/images/example_pic.png}"> </div>
+				<div class = "gamesection">
+                    <div class = "game_data">
+                        <div class = "game_icon"> <img id="game_icon" th:src="@{'/images/' + ${game.urlGameIcon}}"> </div>
 
-						<div class = "game_data_right">
-							<div class = "game_name" id="game_name"> НАЗВАНИЕ ИГРЫ </div>
-							<div class = "game_rating">
+                        <div class = "game_data_right">
+                            <div class = "game_name" id="game_name" th:text="${game.name}"></div>
+                            <div class = "game_rating">
 
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
-					</div>
+                    </div>
 
-					<div class = "game_description" id="game_description">
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-						описание игры описание игры описание игры описание игры описание игры
-
-					</div>
+                    <div class = "game_description" id="game_description" th:text="${game.description}"></div>
 				</div>
 
 
@@ -142,9 +129,17 @@
                         </div>
                     </form>
 
+					<div th:each="comment : ${gameComments}" class = "review_block2" id="review_block2">
+                        <div class="comment">
+                            <div class="author_data">
+                                <span class="author_icon">
+                                    <img th:src="@{'/images/' + ${comment[1].urlUserIcon}}"/>
+                                </span>
+                                <span class="author_name" th:text="${comment[1].login}"></span>
+                            </div>
 
-					<div class = "review_block2" id="review_block2">
-
+                            <div class="comment_text" th:text="${comment[0].text}"></div>
+                        </div>
 					</div>
 
 
@@ -172,11 +167,26 @@
 
 				<div class = "search_message" id="search_message"> </div>
 				<div class = "com_party_place" id="com_party_place">
+                    <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
+                        <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
+                            <div class="formsdata">
+                                <span class="form_img">
+                                    <img th:src="@{'/images/' + ${party.user.urlUserIcon}}">
+                                </span>
 
-					<div class = "row1" id="rowParty">
+                                <span class="party_creator" th:text="${party.user.login}"></span>
+                            </div>
 
-					</div>
+                            <div class="row2">
 
+                                <span class="participans" th:text="${partyMemberDAO.getMembersByPartyId(party.partyId).size()} + ' из ' + ${party.usersAmount}"></span>
+
+                                <span class="come_in" th:id="${party.partyId}">
+                                    <img th:src="@{/images/images/come_in_icon.png}">
+                                </span>
+                            </div>
+                        </span>
+                    </div>
 				</div>
 			</span>
     </div>

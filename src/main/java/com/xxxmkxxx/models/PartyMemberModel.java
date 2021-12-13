@@ -1,27 +1,39 @@
 package com.xxxmkxxx.models;
 
-import com.xxxmkxxx.common.PartyMemberRoles;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "party_members")
 public class PartyMemberModel {
+    @Id
+    @Column(name = "id_member")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int partyMemberId;
+
+    @Column(name = "party_id")
     private int partyId;
-    private int userId;
+
+    @ManyToOne
+    @JoinColumn(name = "members_party_id")
+    private UserModel user;
+
+    @Column(name = "nickname")
     private String nick;
-    private PartyMemberRoles role;
 
-    public int getPartyId() {
-        return partyId;
+    public int getPartyMemberId() {
+        return partyMemberId;
     }
 
-    public void setPartyId(int partyId) {
-        this.partyId = partyId;
+    public void setPartyMemberId(int partyMemberId) {
+        this.partyMemberId = partyMemberId;
     }
 
-    public int getUserId() {
-        return userId;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 
     public String getNick() {
@@ -32,18 +44,11 @@ public class PartyMemberModel {
         this.nick = nick;
     }
 
-    public PartyMemberRoles getRole() {
-        return role;
+    public int getPartyId() {
+        return partyId;
     }
 
-    public void setRole(PartyMemberRoles role) {
-        this.role = role;
-    }
-
-    public PartyMemberModel(int partyId, int userId, String nick, PartyMemberRoles role) {
+    public void setPartyId(int partyId) {
         this.partyId = partyId;
-        this.userId = userId;
-        this.nick = nick;
-        this.role = role;
     }
 }

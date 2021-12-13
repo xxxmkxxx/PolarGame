@@ -1,14 +1,30 @@
 package com.xxxmkxxx.models;
 
-import com.xxxmkxxx.common.GameGenres;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "game")
 public class GameModel {
+    @Id
+    @Column(name = "game_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameId;
+
+    @Column(name = "game_name")
     private String name;
-    private GameGenres genre;
+
+    @Column(name = "game_description")
     private String description;
+
+    @Column(name = "game_icon_link")
     private String urlGameIcon;
+
+    @Column(name = "popularity")
     private String popularity;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private List<PartyModel> parties;
 
     public int getGameId() {
         return gameId;
@@ -24,14 +40,6 @@ public class GameModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public GameGenres getGenre() {
-        return genre;
-    }
-
-    public void setGenre(GameGenres genre) {
-        this.genre = genre;
     }
 
     public String getDescription() {
@@ -58,12 +66,11 @@ public class GameModel {
         this.popularity = popularity;
     }
 
-    public GameModel(int gameId, String name, GameGenres genre, String description, String urlGameIcon, String popularity) {
-        this.gameId = gameId;
-        this.name = name;
-        this.genre = genre;
-        this.description = description;
-        this.urlGameIcon = urlGameIcon;
-        this.popularity = popularity;
+    public List<PartyModel> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<PartyModel> parties) {
+        this.parties = parties;
     }
 }

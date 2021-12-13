@@ -1,13 +1,28 @@
 package com.xxxmkxxx.models;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "game_comments")
 public class GameCommentModel {
+    @Id
+    @Column(name = "id_comment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentId;
+
+    @Column(name = "game_id")
     private int gameId;
-    private int userId;
+
+    @Column(name = "comment_text")
     private String text;
+
+    @Column(name = "date_time")
     private Date date;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_user")
+    private UserModel user;
 
     public int getCommentId() {
         return commentId;
@@ -23,14 +38,6 @@ public class GameCommentModel {
 
     public void setGameId(int gameId) {
         this.gameId = gameId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getText() {
@@ -49,11 +56,11 @@ public class GameCommentModel {
         this.date = date;
     }
 
-    public GameCommentModel(int commentId, int gameId, int userId, String text, Date date) {
-        this.commentId = commentId;
-        this.gameId = gameId;
-        this.userId = userId;
-        this.text = text;
-        this.date = date;
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel userModel) {
+        this.user = userModel;
     }
 }

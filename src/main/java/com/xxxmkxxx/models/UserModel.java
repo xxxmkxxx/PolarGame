@@ -1,15 +1,39 @@
 package com.xxxmkxxx.models;
 
-import com.xxxmkxxx.common.UserTypes;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "users")
 public class UserModel {
+    @Id
+    @Column(name = "id_user")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String mail;
+
+    @Column(name = "user_description")
     private String description;
+
+    @Column(name = "user_icon")
     private String urlUserIcon;
-    private UserTypes type;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<GameCommentModel> gameComments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<PartyModel> parties;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<PartyMemberModel> partiesMember;
 
     public int getUserId() {
         return userId;
@@ -59,21 +83,27 @@ public class UserModel {
         this.urlUserIcon = urlUserIcon;
     }
 
-    public UserTypes getType() {
-        return type;
+    public List<GameCommentModel> getGameComments() {
+        return gameComments;
     }
 
-    public void setType(UserTypes type) {
-        this.type = type;
+    public void setGameComments(List<GameCommentModel> gameComments) {
+        this.gameComments = gameComments;
     }
 
-    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, UserTypes type) {
-        this.userId = userId;
-        this.login = login;
-        this.password = password;
-        this.mail = mail;
-        this.description = description;
-        this.urlUserIcon = urlUserIcon;
-        this.type = type;
+    public List<PartyModel> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<PartyModel> parties) {
+        this.parties = parties;
+    }
+
+    public List<PartyMemberModel> getPartiesMember() {
+        return partiesMember;
+    }
+
+    public void setPartiesMember(List<PartyMemberModel> partiesMember) {
+        this.partiesMember = partiesMember;
     }
 }
