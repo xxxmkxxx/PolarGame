@@ -4,9 +4,15 @@
     <meta charset="utf-8">
     <title> СТРАНИЦА ИГРЫ </title>
     <link th:href="@{/styles/css/game.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/js/jquery.js}"></script>
 </head>
 
 <body>
+
+<script type="application/javascript" th:inline="javascript">
+    var gameId = [[${game.gameId}]];
+    var countAllComments = [[${countAllComments}]];
+</script>
 
 <header>
     <div class = "click_logo">
@@ -129,16 +135,16 @@
                         </div>
                     </form>
 
-					<div th:each="comment : ${gameComments}" class = "review_block2" id="review_block2">
-                        <div class="comment">
+					<div class = "review_block2" id="review_block2">
+                        <div th:each="comment, i : ${gameComments}" class="comment" th:id="'comment_id ' + ${i.index}">
                             <div class="author_data">
                                 <span class="author_icon">
-                                    <img th:src="@{'/images/' + ${comment[1].urlUserIcon}}"/>
+                                    <img th:src="@{'/images/' + ${comment.user.urlUserIcon}}"/>
                                 </span>
-                                <span class="author_name" th:text="${comment[1].login}"></span>
+                                <span class="author_name" th:text="${comment.user.login}"></span>
                             </div>
 
-                            <div class="comment_text" th:text="${comment[0].text}"></div>
+                            <div class="comment_text" th:text="${comment.text}"></div>
                         </div>
 					</div>
 
@@ -156,7 +162,7 @@
 				</div>
 
 				<div class = "filter_row">
-					<form id="party_search">
+					<form id="party_search" action="/PolarGame/ajax/game/party/search" method="post">
 						<input type="text" id="find_party" class = "find_game_inp" placeholder="ник создателя пати">
 					</form>
 					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/images/find_icon.png}"></span>
@@ -169,17 +175,16 @@
 				<div class = "com_party_place" id="com_party_place">
                     <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
                         <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
-                            <div class="formsdata">
+                            <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
                                 <span class="form_img">
-                                    <img th:src="@{'/images/' + ${party.user.urlUserIcon}}">
+                                    <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
                                 </span>
 
-                                <span class="party_creator" th:text="${party.user.login}"></span>
+                                <span class="party_creator" th:text="${owner.login}"></span>
                             </div>
 
                             <div class="row2">
-
-                                <span class="participans" th:text="${partyMemberDAO.getMembersByPartyId(party.partyId).size()} + ' из ' + ${party.usersAmount}"></span>
+                                <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
 
                                 <span class="come_in" th:id="${party.partyId}">
                                     <img th:src="@{/images/images/come_in_icon.png}">
@@ -192,6 +197,9 @@
     </div>
 
 </main>
+
+<script type="application/javascript" th:src="@{/scripts/js/Game.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/js/GameCommentController.js}"></script>
 
 </body>
 </html>

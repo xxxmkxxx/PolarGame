@@ -1,11 +1,15 @@
 package com.xxxmkxxx.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "game_comments")
-public class GameCommentModel {
+public class GameCommentModel implements Serializable {
     @Id
     @Column(name = "id_comment")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +24,8 @@ public class GameCommentModel {
     @Column(name = "date_time")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @ManyToOne
     @JoinColumn(name="id_user")
     private UserModel user;
 

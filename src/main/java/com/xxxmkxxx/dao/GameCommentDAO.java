@@ -1,24 +1,28 @@
 package com.xxxmkxxx.dao;
 
 import com.xxxmkxxx.models.GameCommentModel;
-import com.xxxmkxxx.storage.DataManager;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class GameCommentDAO {
-    private DataManager <GameCommentModel> data;
+    private SessionFactory sessionFactory;
 
     @Transactional
     public List<GameCommentModel> getAllComments(int gameId) {
-        String query = "from GameCommentModel gcm left join gcm.user where gcm.gameId = " + gameId;
+        Session session = sessionFactory.getCurrentSession();
+        String query = "from GameCommentModel as gameComment right join fetch gameComment.user where gameComment.gameId = " + gameId;
 
-        return data.read(GameCommentModel.class, query);
+        return session.createQuery(query).getResultList();
     }
 
-   public GameCommentDAO(DataManager<GameCommentModel> data) {
-       this.data = data;
-   }
+    public GameCommentDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

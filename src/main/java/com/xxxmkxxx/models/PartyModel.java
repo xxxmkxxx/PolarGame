@@ -1,23 +1,23 @@
 package com.xxxmkxxx.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "party")
-public class PartyModel {
+public class PartyModel implements Serializable {
     @Id
     @Column(name = "id_party")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partyId;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private GameModel game;
-
-    @ManyToOne
-    @JoinColumn(name = "party_creator")
-    private UserModel user;
+    @Column(name = "game_id")
+    private int gameId;
 
     @Column(name = "gamers_amount")
     private int usersAmount;
@@ -31,6 +31,10 @@ public class PartyModel {
     @Column(name = "party_icon")
     private String urlPartyIcon;
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
+    private List<PartyMemberModel> members;
+
     public int getPartyId() {
         return partyId;
     }
@@ -39,20 +43,12 @@ public class PartyModel {
         this.partyId = partyId;
     }
 
-    public GameModel getGame() {
-        return game;
+    public int getGameId() {
+        return gameId;
     }
 
-    public void setGame(GameModel game) {
-        this.game = game;
-    }
-
-    public UserModel getUser() {
-        return user;
-    }
-
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public int getUsersAmount() {
@@ -85,5 +81,13 @@ public class PartyModel {
 
     public void setUrlPartyIcon(String urlPartyIcon) {
         this.urlPartyIcon = urlPartyIcon;
+    }
+
+    public List<PartyMemberModel> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<PartyMemberModel> members) {
+        this.members = members;
     }
 }

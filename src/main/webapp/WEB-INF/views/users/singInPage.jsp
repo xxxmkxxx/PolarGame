@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> АВТОРИЗАЦИЯ </title>
     <link th:href="@{/styles/css/sign_in.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/js/jquery.js}"></script>
 </head>
 
 <body>
@@ -15,15 +16,15 @@
 </header>
 
 <main>
-    <form id="sing_in" th:method="POST" th:action="@{/users/verefication/}">
+    <form id="sing_in" th:method="POST" th:action="@{/user/login}">
         <div class = "main_form_reg">
             <div class = "main_form_reg_name" id="main_form_reg_name"> Вход </div>
 
             <div class = "main_form_reg_fields_names"> Логин </div>
-            <input type="text" id = "sign_form_login" required name = "sign_form_login" class = "main_form_reg_fields" size="40">
+            <input type="text" id = "sign_form_login" name = "sign_form_login" class = "main_form_reg_fields" size="40">
 
             <div class = "main_form_reg_fields_names"> Пароль </div>
-            <input type="password" id = "sign_form_password"required name = "sign_form_password" class = "main_form_reg_fields" size="40">
+            <input type="password" id = "sign_form_password" name = "sign_form_password" class = "main_form_reg_fields" size="40">
 
             <div class = "Error_form">
                 <div class = "error_icon"> <img  id="error_icon" src="" > </div>
@@ -40,6 +41,8 @@
         </div>
     </form>
 </main>
+
+<script type="application/javascript" th:src="@{/scripts/js/SingInController.js}"></script>
 
 </body>
 

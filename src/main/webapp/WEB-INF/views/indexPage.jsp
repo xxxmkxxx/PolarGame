@@ -10,7 +10,7 @@
 <body>
 
 <script type="application/javascript" th:inline="javascript">
-    var test = [[${test}]];
+
 </script>
 
 <header>
@@ -37,9 +37,8 @@
         <div class = "main_column_1_in">
             <div class = "main_column_1_in_fields">
 
-
-                <form th:method="POST" th:action="@{/user/new}">
-                    <input type="text" id = "registration_inputtype" placeholder="email" />
+                <form th:method="POST" th:action="@{'/user/new/' + ${mail}}">
+                    <input type="text" id = "registration_inputtype" placeholder="email" th:value="${mail}"/>
 
                     <input type="submit" name = "main_button_registration" id = "registration_button" value="создать аккаунт" />
                 </form>
@@ -51,6 +50,8 @@
     <div class = "main_column_2"> <img th:src="@{/images/images/logotest2.png}"> </div>
 
 </main>
+
+<script type="application/javascript" th:src="@{/scripts/js/index.js}"></script>
 
 </body>
 

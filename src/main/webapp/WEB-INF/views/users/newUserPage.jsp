@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> РЕГИСТРАЦИЯ </title>
     <link th:href="@{/styles/css/registration.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/js/jquery.js}"></script>
 </head>
 
 <body>
@@ -16,21 +17,21 @@
 </header>
 
 <main>
-    <form id="registration" th:method="POST" th:action="@{/users/new/}">
+    <form id="registration" th:method="POST" th:action="@{/user/new}">
         <div class = "main_form_reg">
             <div id = "main_form_reg_name" class = "main_form_reg_name"> Регистрация </div>
 
             <div class = "main_form_reg_fields_names"> Логин <span class = "sign_required_field"> * </span> </div>
-            <input type="text" id = "reg_form_login" name = "reg_form_login" required class = "main_form_reg_fields" size="40">
+            <input type="text" id = "reg_form_login" name = "reg_form_login" class = "main_form_reg_fields" size="40">
 
             <div class = "main_form_reg_fields_names"> Email <span class = "sign_required_field"> * </span></div>
-            <input type="text" id = "reg_form_mail" name = "reg_form_mail" required class = "main_form_reg_fields" size="40">
+            <input type="text" id = "reg_form_mail" name = "reg_form_mail" class = "main_form_reg_fields" size="40" th:value="${mail}">
 
             <div class = "main_form_reg_fields_names"> Пароль <span class = "sign_required_field"> * </span></div>
-            <input type="password" id = "reg_form_password" name = "reg_form_password" required class = "main_form_reg_fields" size="40">
+            <input type="password" id = "reg_form_password" name = "reg_form_password" class = "main_form_reg_fields" size="40">
 
             <div class = "main_form_reg_fields_names"> Повторите пароль <span class = "sign_required_field"> * </span></div>
-            <input type="password" id = "reg_form_password2" name = "reg_form_password2" required class = "main_form_reg_fields" size="40">
+            <input type="password" id = "reg_form_password2" name = "reg_form_password2" class = "main_form_reg_fields" size="40">
 
 
             <div class = "Error_form">
@@ -45,6 +46,8 @@
     </form>
 
 </main>
+
+<script type="application/javascript" th:src="@{/scripts/js/registration.js}"></script>
 
 </body>
 

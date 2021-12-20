@@ -1,11 +1,16 @@
 package com.xxxmkxxx.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class UserModel {
+public class UserModel implements Serializable {
     @Id
     @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +31,13 @@ public class UserModel {
     @Column(name = "user_icon")
     private String urlUserIcon;
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<GameCommentModel> gameComments;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<PartyModel> parties;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<PartyMemberModel> partiesMember;
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private PartyMemberModel partyMember;
 
     public int getUserId() {
         return userId;
@@ -91,19 +95,11 @@ public class UserModel {
         this.gameComments = gameComments;
     }
 
-    public List<PartyModel> getParties() {
-        return parties;
+    public PartyMemberModel getPartyMember() {
+        return partyMember;
     }
 
-    public void setParties(List<PartyModel> parties) {
-        this.parties = parties;
-    }
-
-    public List<PartyMemberModel> getPartiesMember() {
-        return partiesMember;
-    }
-
-    public void setPartiesMember(List<PartyMemberModel> partiesMember) {
-        this.partiesMember = partiesMember;
+    public void setPartyMember(PartyMemberModel partyMember) {
+        this.partyMember = partyMember;
     }
 }

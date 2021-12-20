@@ -1,11 +1,15 @@
 package com.xxxmkxxx.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "game")
-public class GameModel {
+public class GameModel implements Serializable {
     @Id
     @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +25,7 @@ public class GameModel {
     private String urlGameIcon;
 
     @Column(name = "popularity")
-    private String popularity;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    private List<PartyModel> parties;
+    private int popularity;
 
     public int getGameId() {
         return gameId;
@@ -58,19 +59,11 @@ public class GameModel {
         this.urlGameIcon = urlGameIcon;
     }
 
-    public String getPopularity() {
+    public int getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(String popularity) {
+    public void setPopularity(int popularity) {
         this.popularity = popularity;
-    }
-
-    public List<PartyModel> getParties() {
-        return parties;
-    }
-
-    public void setParties(List<PartyModel> parties) {
-        this.parties = parties;
     }
 }

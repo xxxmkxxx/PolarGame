@@ -1,14 +1,24 @@
 package com.xxxmkxxx.services;
 
+import com.xxxmkxxx.dao.PartyDAO;
 import com.xxxmkxxx.models.PartyModel;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class PartyService {
-    public static List<List<PartyModel>> groupParties(int count, List<PartyModel> parties) {
+    private PartyDAO partyDAO;
+
+    @Transactional
+    public List<PartyModel> getParties(int gameId) {
+        return new ArrayList(partyDAO.getAllParties(gameId));
+    }
+
+    @Transactional
+    public List<List<PartyModel>> groupParties(int count, List<PartyModel> parties) {
         List<List<PartyModel>> partyGroups = new ArrayList();
         List<PartyModel> group = new ArrayList();
         int indexPartyInRow = 0;
@@ -30,5 +40,29 @@ public class PartyService {
         }
 
         return partyGroups;
+    }
+
+    @Transactional
+    public List<PartyModel> getPartiesByPattern(String pattern, int gameId) {
+        final String temp = pattern;
+        List<PartyModel> resultPartiesList = new ArrayList();
+
+        for(PartyModel party : getParties(gameId)) {
+            boolean flag = party.getMembers()
+                    .stream()
+                    .anyMatch(member -> member.getUser().getLogin().contains(temp));
+
+            if(flag) {
+                resultPartiesList.add(party);
+                System.out.println(temp);
+                System.out.println("Подходит!");
+            }
+        }
+
+        return resultPartiesList;
+    }
+
+    public PartyService(PartyDAO partyDAO) {
+        this.partyDAO = partyDAO;
     }
 }

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> КАТАЛОГ ИГР </title>
     <link th:href="@{/styles/css/game_catalog.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/js/jquery.js}"></script>
 </head>
 
 <body>
@@ -55,22 +56,24 @@
         </form>
     </div>
 
-
-    <div class = "search_message" id="search_message"> </div>
-
     <div id="game_catalog">
         <div class = "popular_games_row" id="popular_games_row">
-
+            <span th:each="game : ${popularGames}" class="pop_game" th:id="${game.gameId}">
+                <img th:src="@{'/images/' + ${game.urlGameIcon}}">
+            </span>
         </div>
 
-
         <div class = "games_block" id="games_block">
-            <div class = "games_row" id="games_row">
-
+            <div th:each="row : ${sortedGames}" class = "games_row" id="games_row">
+                <span th:each="game : ${row}" class="game" th:data-tooltip="${game.name}" th:id="${game.gameId}">
+                    <img th:src="@{'/images/' + ${game.urlGameIcon}}">
+                </span>
             </div>
         </div>
     </div>
 </main>
+
+<script type="application/javascript" th:src="@{/scripts/js/GameCatalogController.js}"></script>
 
 </body>
 
