@@ -37,8 +37,8 @@
         <div class = "main_column_1_in">
             <div class = "main_column_1_in_fields">
 
-                <form th:method="POST" th:action="@{'/user/new/' + ${mail}}">
-                    <input type="text" id = "registration_inputtype" placeholder="email" th:value="${mail}"/>
+                <form id="create_account_with_mail" th:method="GET">
+                    <input type="text" id = "registration_inputtype" placeholder="email"/>
 
                     <input type="submit" name = "main_button_registration" id = "registration_button" value="создать аккаунт" />
                 </form>
@@ -51,7 +51,7 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/js/index.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/js/indexController.js}"></script>
 
 </body>
 

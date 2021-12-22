@@ -1,25 +1,17 @@
 package com.xxxmkxxx.controllers;
 
 import com.xxxmkxxx.config.PartiesConfig;
-import com.xxxmkxxx.dao.GameCommentDAO;
-import com.xxxmkxxx.dao.GameDAO;
-import com.xxxmkxxx.dao.PartyDAO;
-import com.xxxmkxxx.dao.PartyMemberDAO;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
-import com.xxxmkxxx.models.PartyMemberModel;
-import com.xxxmkxxx.models.PartyModel;
 import com.xxxmkxxx.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/game")
