@@ -2,6 +2,7 @@ $(document).ready(mainFunction());
 
 function mainFunction() {
     getMoreGameComments();
+    createComment();
 }
 
 function getMoreGameComments() {
@@ -76,4 +77,38 @@ function displayComment(number, comment) {
     commentDiv.append(div_comment_text);
 
     $('#review_block2').append(commentDiv);
+}
+
+function createComment() {
+    $(document).on('click', ".write", function (obj) {
+        obj.preventDefault();
+
+        $("#write_commment").show();
+
+        pushData();
+    });
+}
+
+function pushData() {
+    $("#write_commment_form").submit(function (event) {
+        event.preventDefault();
+
+        var commentInfo = {
+            gameId : gameId,
+            text : $("#write_commment_area").val()
+        }
+
+        $.ajax({
+            type : 'POST',
+            url : '/PolarGame/ajax/game/comments/create',
+            data: commentInfo,
+            success: function (message) {
+                if(message === "success")
+                    $("#write_commment").hide();
+            },
+            error : function (message) {
+                console.log(message);
+            }
+        });
+    });
 }

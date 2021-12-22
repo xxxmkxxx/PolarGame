@@ -14,12 +14,17 @@ import java.util.Set;
 public class GameCommentDAO {
     private SessionFactory sessionFactory;
 
-    @Transactional
     public List<GameCommentModel> getAllComments(int gameId) {
         Session session = sessionFactory.getCurrentSession();
         String query = "from GameCommentModel as gameComment right join fetch gameComment.user where gameComment.gameId = " + gameId;
 
         return session.createQuery(query).getResultList();
+    }
+
+    public void saveComment(GameCommentModel comment) {
+        Session session = sessionFactory.getCurrentSession();
+
+        session.save(comment);
     }
 
     public GameCommentDAO(SessionFactory sessionFactory) {

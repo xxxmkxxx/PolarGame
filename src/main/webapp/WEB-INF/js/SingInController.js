@@ -19,8 +19,11 @@ function checkSingInData() {
                 data: UserData,
                 url : '/PolarGame/ajax/user/validateSingInData',
                 success : function(errInfo) {
-                    displayErrorMessage(errInfo);
-                    isCorrectData(errInfo == "");
+                    if(errInfo === "success")
+                        isCorrectData();
+                    else
+                        displayErrorMessage(errInfo);
+
                 },
                 error: function (message) {
                     console.log(message);
@@ -46,14 +49,12 @@ function isFieldsNotNull() {
 
 }
 
-function isCorrectData(flag) {
-    if(flag) {
-        $.ajax({
-            type : 'POST',
-            url : '/PolarGame/user/successfulAuthentication',
-            success: function () {
-                window.location.href = '/PolarGame/catalog';
-            }
-        });
-    }
+function isCorrectData() {
+    $.ajax({
+        type : 'POST',
+        url : '/PolarGame/user/successfulAuthentication',
+        success: function () {
+            window.location.href = '/PolarGame/catalog';
+        }
+    });
 }

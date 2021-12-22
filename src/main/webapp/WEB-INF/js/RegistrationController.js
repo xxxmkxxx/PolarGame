@@ -85,11 +85,13 @@ function sendData() {
             data: UserData,
             url : '/PolarGame/ajax/user/validateRegistrationData',
             success : function(errInfo) {
-                displayErrorMessage(errInfo);
-                isCorrectData(errInfo == "");
+                if(errInfo === "success")
+                    isCorrectData();
+                else
+                    displayErrorMessage(errInfo);
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError);
+            error: function (message) {
+                console.log(message);
             }
         });
     });
@@ -99,14 +101,12 @@ function displayErrorMessage(message) {
     $("#Error_message").text(message);
 }
 
-function isCorrectData(flag) {
-    if(flag) {
-        $.ajax({
-            type : 'POST',
-            url : '/PolarGame/user/successfulRegistration',
-            success: function () {
-                window.location.href = '/PolarGame/catalog';
-            }
-        });
-    }
+function isCorrectData() {
+    $.ajax({
+        type : 'POST',
+        url : '/PolarGame/user/successfulRegistration',
+        success: function () {
+            window.location.href = '/PolarGame/catalog';
+        }
+    });
 }

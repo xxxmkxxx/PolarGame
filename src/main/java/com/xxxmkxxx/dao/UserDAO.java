@@ -12,14 +12,12 @@ import java.util.List;
 public class UserDAO {
     private SessionFactory sessionFactory;
 
-    @Transactional
     public UserModel getUserById(int id) {
         Session session = sessionFactory.getCurrentSession();
 
         return session.get(UserModel.class, id);
     }
 
-    @Transactional
     public UserModel getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
         String query =
@@ -35,7 +33,6 @@ public class UserDAO {
 
     }
 
-    @Transactional
     public UserModel getUserByMail(String mail) {
         Session session = sessionFactory.getCurrentSession();
         String query =
@@ -48,6 +45,11 @@ public class UserDAO {
             return new UserModel();
         else
             return users.get(0);
+    }
+
+    public void saveUser(UserModel user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
     }
 
     public UserDAO(SessionFactory sessionFactory) {

@@ -9,16 +9,15 @@ import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.PartyMemberModel;
 import com.xxxmkxxx.models.PartyModel;
-import com.xxxmkxxx.services.GameCommentsService;
-import com.xxxmkxxx.services.GameService;
-import com.xxxmkxxx.services.PartyMembersService;
-import com.xxxmkxxx.services.PartyService;
+import com.xxxmkxxx.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +28,12 @@ public class GameController {
     private GameCommentsService gameCommentsService;
     private PartyService partyService;
     private PartyMembersService partyMembersService;
+    private UserService userService;
 
     @GetMapping("/{id}")
-    public String gamePage(@PathVariable("id") int id, Model model) {
+    public String gamePage(@PathVariable("id") int id, Model model, HttpSession session) {
+        String view = "gamePage";
+
         GameModel game = gameService.getGame(id);
         int gameId = game.getGameId();
         List<GameCommentModel> comments = gameCommentsService.getComments(gameId);
@@ -42,13 +44,20 @@ public class GameController {
         model.addAttribute("partyMembersService", partyMembersService);
         model.addAttribute("countAllComments", comments.size());
 
-        return "gamePage";
+        if(session.getAttribute("userLogin") != null) {
+            model.addAttribute("user", userService.getUserByLogin((String) session.getAttribute("userLogin")));
+        } else {
+            view = "redirect:/user/login";
+        }
+
+        return view;
     }
 
-    public GameController(GameService gameService, GameCommentsService gameCommentsService, PartyService partyService, PartyMembersService partyMembersService) {
+    public GameController(GameService gameService, GameCommentsService gameCommentsService, PartyService partyService, PartyMembersService partyMembersService, UserService userService) {
         this.gameService = gameService;
         this.gameCommentsService = gameCommentsService;
         this.partyService = partyService;
         this.partyMembersService = partyMembersService;
+        this.userService = userService;
     }
 }

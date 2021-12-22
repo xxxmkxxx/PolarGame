@@ -3,6 +3,7 @@ package com.xxxmkxxx.services;
 import com.xxxmkxxx.config.GameCommentConfig;
 import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.models.GameCommentModel;
+import com.xxxmkxxx.models.UserModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,22 @@ public class GameCommentsService {
     @Transactional
     public List<GameCommentModel> getMoreComments(int lastCommentId, int gameId) {
         return getPartComments(lastCommentId, getComments(gameId));
+    }
+
+    public String validateComment(String commentText) {
+        String message = "success";
+
+        boolean isCommentTextNotNull = !commentText.equals("");
+
+        if(!isCommentTextNotNull)
+            message = "null";
+
+        return message;
+    }
+
+    @Transactional
+    public void saveComment(int gameId, String text, UserModel user) {
+        gameCommentDAO.saveComment(new GameCommentModel(gameId, text, user));
     }
 
     public GameCommentsService(GameCommentDAO gameCommentDAO) {

@@ -15,8 +15,8 @@
     </div>
 
     <div class = "profile_data">
-        <span class = "profile" id="profile">  </span>
-        <div class = "profile_icon"> <img th:src="@{/images/images/profile_icon.png}"></div>
+        <span class = "profile" id="profile" th:text="${user.login}"></span>
+        <div class = "profile_icon"> <img th:src="@{'/images/' + ${user.urlUserIcon}}"></div>
         <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/images/menu_icon.png}"></span>
     </div>
 </header>

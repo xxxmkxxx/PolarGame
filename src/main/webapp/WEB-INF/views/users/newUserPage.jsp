@@ -47,7 +47,7 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/js/registration.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/js/RegistrationController.js}"></script>
 
 </body>
 

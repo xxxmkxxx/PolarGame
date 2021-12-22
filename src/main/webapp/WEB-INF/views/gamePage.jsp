@@ -21,9 +21,8 @@
     </div>
 
     <div class = "profile_data">
-
-        <span class = "profile" id="profile"> TESTTT </span>
-        <div class = "profile_icon"> <img th:src="@{/images/images/profile_icon.png}"></div>
+        <span class = "profile" id="profile" th:text="${user.login}"></span>
+        <div class = "profile_icon"> <img th:src="@{'/images/' + ${user.urlUserIcon}}"></div>
         <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/images/menu_icon.png}"></span>
     </div>
 </header>
@@ -128,10 +127,10 @@
 						<span class = "write"> <img th:src="@{/images/images/write_comment.png}">  </span>
 					</div>
 
-                    <form id="write_commment_form"> <!-- Форма создания отзыва -->
-                        <div class = "write_commment">
+                    <form id="write_commment_form" th:method="GET" th:action="@{'/game/' + ${game.gameId}}"> <!-- Форма создания отзыва -->
+                        <div class = "write_commment" id="write_commment">
                             <textarea id="write_commment_area" wrap="soft" class="write_commment_area"> </textarea>
-                            <button class = "comment_but" id="write_commment_button"> отправить </button>
+                            <input type="submit" class = "comment_but" id="write_commment_button"/>
                         </div>
                     </form>
 

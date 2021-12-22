@@ -44,25 +44,28 @@ public class UserService {
 
     @Transactional
     public String validateRegistrationData(String login, String reg_form_mail, String reg_form_password, String reg_form_password2) {
-        String message = "";
+        String message = "success";
 
         if(!validateLogin(login))
-            message =  environment.getRequiredProperty("error.registerPage.incorrectLogin");
+            message = environment.getRequiredProperty("error.registerPage.incorrectLogin");
         else if(!validateMail(reg_form_mail))
-            message =  environment.getRequiredProperty("error.registerPage.incorrectMail");
+            message = environment.getRequiredProperty("error.registerPage.incorrectMail");
         else if(!reg_form_password.equals(reg_form_password2))
-            message =  environment.getRequiredProperty("error.registerPage.passwordMismatch");
+            message = environment.getRequiredProperty("error.registerPage.passwordMismatch");
         else if(getUserByLogin(login).getLogin() != null)
-            message =  environment.getRequiredProperty("error.registerPage.loginAlreadyExists");
+            message = environment.getRequiredProperty("error.registerPage.loginAlreadyExists");
         else if(getUserByMail(reg_form_mail).getMail() != null)
-            message =  environment.getRequiredProperty("error.registerPage.mailAlreadyExists");
+            message = environment.getRequiredProperty("error.registerPage.mailAlreadyExists");
+
+        if(message.equals("success"))
+            userDAO.saveUser(new UserModel(login, reg_form_password, reg_form_mail));
 
         return message;
     }
 
     @Transactional
     public String authentication(String loginOrMail, String password) {
-        String message = "";
+        String message = "success";
 
         if(loginOrMail.contains("@")) {
             UserModel user = getUserByMail(loginOrMail);

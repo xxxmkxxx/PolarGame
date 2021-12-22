@@ -102,4 +102,14 @@ public class UserModel implements Serializable {
     public void setPartyMember(PartyMemberModel partyMember) {
         this.partyMember = partyMember;
     }
+
+    public UserModel() {}
+
+    public UserModel(String login, String password, String mail) {
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.description = "";
+        this.urlUserIcon = "/images/profile_icon.png";
+    }
 }

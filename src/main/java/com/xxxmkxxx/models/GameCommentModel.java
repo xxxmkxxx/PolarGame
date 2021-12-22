@@ -68,4 +68,12 @@ public class GameCommentModel implements Serializable {
     public void setUser(UserModel userModel) {
         this.user = userModel;
     }
+
+    public GameCommentModel() {}
+
+    public GameCommentModel(int gameId, String text, UserModel user) {
+        this.gameId = gameId;
+        this.text = text;
+        this.user = user;
+    }
 }
