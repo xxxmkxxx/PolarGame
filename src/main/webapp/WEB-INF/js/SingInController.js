@@ -33,6 +33,18 @@ function checkSingInData() {
 }
 
 function displayErrorMessage(message) {
+    if($("#icon").length && message === "") {
+        $("#icon").remove();
+    } else if($("#icon").length) {
+
+    } else {
+        var errorImg = $('<img>', {
+            'id' : 'icon',
+            'src' : '/PolarGame/images/images/error.png'
+        });
+        $("#error_icon").append(errorImg);
+    }
+
     $("#Error_message").text(message);
 }
 

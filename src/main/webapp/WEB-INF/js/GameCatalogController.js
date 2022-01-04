@@ -49,14 +49,14 @@ function displayFoundGames(gamesList) {
     $('#games_block').remove();
     $('#popular_games_row').remove();
 
-    var gamesBlock = $('<div>', {
+    let gamesBlock = $('<div>', {
         'class': 'games_block',
         'id': 'games_block'
     });
 
     $('#game_catalog').append(gamesBlock);
 
-    var gamesRow = $('#games_row');
+    let gamesRow = $('#games_row');
 
     for (let i = 0; i < gamesList.length; i++) {
         if((i) % 6 != 0) {
@@ -70,23 +70,24 @@ function displayFoundGames(gamesList) {
 }
 
 function createGamesRow(id) {
-    var gamesRowDiv = $('<div>', {
+    let gamesRowDiv = $('<div>', {
         'class': 'games_row',
         'id': 'games_row' + id
     });
 
     $('#games_block').append(gamesRowDiv);
+
     return $('#games_row' + id);
 }
 
 function viewGame(game, gamesRow) {
-    var gameSpan = $('<span>', {
+    let gameSpan = $('<span>', {
         'class': 'game',
         'data-tooltip': game.name,
         'id': game.gameId
     });
 
-    var gameIconImg = $('<img>', {
+    let gameIconImg = $('<img>', {
         'src': '/PolarGame/images/' + game.urlGameIcon
     });
 

@@ -35,7 +35,7 @@
 
 
             <div class = "Error_form">
-                <div class = "error_icon"> <img id="error_icon" src="" > </div>
+                <div class = "error_icon" id="error_icon"> </div>
                 <div class = "Error_message" id="Error_message"></div>
             </div>
 

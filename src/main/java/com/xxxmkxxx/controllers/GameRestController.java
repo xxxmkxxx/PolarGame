@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,10 @@ public class GameRestController {
 
     @PostMapping("/party/search")
     public List<List<PartyModel>> searchParty(String searchPattern, int gameId) {
-        return partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, partyService.getPartiesByPattern(searchPattern, gameId));
+        List<PartyModel> foundedParties = partyService.getPartiesByPattern(searchPattern, gameId);
+        List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
+
+        return groupedParties;
     }
 
     @PostMapping("/comments/more")

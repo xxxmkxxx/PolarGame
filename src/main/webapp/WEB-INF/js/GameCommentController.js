@@ -98,6 +98,9 @@ function pushData() {
             text : $("#write_commment_area").val()
         }
 
+        if($("#write_commment_area").val() === "")
+            return;
+
         $.ajax({
             type : 'POST',
             url : '/PolarGame/ajax/game/comments/create',

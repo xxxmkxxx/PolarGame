@@ -31,7 +31,7 @@ public class PartyModel implements Serializable {
     @Column(name = "party_icon")
     private String urlPartyIcon;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
     private List<PartyMemberModel> members;
 

@@ -36,9 +36,9 @@ function validateEqualsPasswords(password, passwordConfirm) {
 function checkLogin() {
     $("#reg_form_login").on('input', function () {
         if(!validateLogin($("#reg_form_login").val()))
-            viewErrorMessage("You entered an incorrect login!");
+            displayErrorMessage("You entered an incorrect login!");
         else
-            viewErrorMessage("");
+            displayErrorMessage("");
     });
 }
 
@@ -98,6 +98,18 @@ function sendData() {
 }
 
 function displayErrorMessage(message) {
+    if($("#icon").length && message === "") {
+        $("#icon").remove();
+    } else if($("#icon").length) {
+
+    } else {
+        var errorImg = $('<img>', {
+            'id' : 'icon',
+            'src' : '/PolarGame/images/images/error.png'
+        });
+        $("#error_icon").append(errorImg);
+    }
+
     $("#Error_message").text(message);
 }
 

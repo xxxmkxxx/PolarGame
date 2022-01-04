@@ -154,7 +154,7 @@
 
 			</span>
 
-        <span class = "section2">
+        <span class = "section2" id="section2">
 				<div class = "choice_of_action">
 					<span class = "find_party"> НАЙТИ ПАТИ </span>
 					<span class = "find_command"> НАЙТИ КОМАНДУ </span>

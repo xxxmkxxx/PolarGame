@@ -19,7 +19,7 @@ public class PartyMemberModel implements Serializable {
     @JoinColumn(name = "user_id")
     private UserModel user;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "party_id")
     private PartyModel party;

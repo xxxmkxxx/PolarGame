@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
 @RequestMapping("/user")
 public class UsersController {
@@ -19,7 +17,7 @@ public class UsersController {
 
     @GetMapping("/new/{mail}")
     public String viewRegistrationPage(@PathVariable("mail") String mail, Model model) {
-        String resultMail = "";
+        String resultMail;
 
         if(mail == null || mail.equals("none"))
             resultMail = "";

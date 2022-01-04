@@ -19,6 +19,9 @@ public class PartyService {
 
     @Transactional
     public List<List<PartyModel>> groupParties(int count, List<PartyModel> parties) {
+        if(parties.size() == 0)
+            return new ArrayList();
+
         List<List<PartyModel>> partyGroups = new ArrayList();
         List<PartyModel> group = new ArrayList();
         int indexPartyInRow = 0;
@@ -54,8 +57,6 @@ public class PartyService {
 
             if(flag) {
                 resultPartiesList.add(party);
-                System.out.println(temp);
-                System.out.println("Подходит!");
             }
         }
 
