@@ -67,30 +67,33 @@
         </div>
     </form>
 
-    <div class = "party_filters" id = "party_filters">
-        <div class = "party_filt_categ">
-            <div class = "filter_data">
-                <div class = "filter_name"> ПРИВАТНОСТЬ </div>
 
-                <div class = "categ_box">
-                    <input type="checkbox" id = "privacy_filter1" class = "privacy_filter"> приватные
+    <form id = "apply_party_filt" th:method="GET" th:action="@{'/game/' + ${game.gameId}}">
+        <div class = "party_filters" id = "party_filters">
+
+            <div class = "party_filt_categ">
+                <div class = "filter_data">
+                    <div class = "filter_name"> ПРИВАТНОСТЬ </div>
+
+                    <div class = "categ_box">
+                        <input type="checkbox" id = "privacy_filter1" class = "privacy_filter"> приватные
+                    </div>
+
+                    <div class = "categ_box">
+                        <input type="checkbox" id = "privacy_filter2" class = "privacy_filter"> публичные
+                    </div>
                 </div>
 
-                <div class = "categ_box">
-                    <input type="checkbox" id = "privacy_filter2" class = "privacy_filter"> публичные
+                <div class = "filter_data">
+                    <div class = "filter_name" style = "margin-left: 2.5vw;"> КОЛИЧЕСТВО УЧАСТНИКОВ </div>
+                    <input type="range" min="2" max="15" step="1" value="2" id = "filter_range" name = "filter_range" class = "input_range">
+                    <output type = "text" id = "ouput_range" class = "ouput_range"> 2 </output>
                 </div>
             </div>
 
-            <div class = "filter_data">
-                <div class = "filter_name" style = "margin-left: 2.5vw;"> КОЛИЧЕСТВО УЧАСТНИКОВ </div>
-                <input type="range" min="2" max="15" step="1" value="2" id = "filter_range" name = "filter_range" onchange="" class = "input_range">
-                <output type = "text" id = "ouput_range" class = "ouput_range"> 2 </output>
-            </div>
+            <input type="submit" class = "apply_party_filt" value="ПРИМЕНИТЬ">
         </div>
-
-        <button id = "apply_party_filt" class = "apply_party_filt" onclick = ""> ПРИМЕНИТЬ </button>
-    </div>
-    <!--</form>-->
+    </form>
 
 
     <div class = "menu">
@@ -165,8 +168,8 @@
 						<input type="text" id="find_party" class = "find_game_inp" placeholder="ник создателя пати">
 					</form>
 					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/images/find_icon.png}"></span>
-					<span class = "filter_icon" > <img th:src="@{/images/images/filter_icon.png}" onclick = "" ></span>
-					<span class = "create_party" onclick = ""> СОЗДАТЬ ПАТИ </span>
+					<span class = "filter_icon" > <img th:src="@{/images/images/filter_icon.png}"></span>
+					<span class = "create_party"> СОЗДАТЬ ПАТИ </span>
 					<span class = "create_com"> СОЗДАТЬ КОМАНДУ </span>
 				</div>
 
@@ -197,7 +200,7 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/js/Game.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/js/PartyController.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/js/GameCommentController.js}"></script>
 
 </body>

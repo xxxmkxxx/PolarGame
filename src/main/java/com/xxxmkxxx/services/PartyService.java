@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PartyService {
@@ -57,6 +58,37 @@ public class PartyService {
 
             if(flag) {
                 resultPartiesList.add(party);
+            }
+        }
+
+        return resultPartiesList;
+    }
+
+    @Transactional
+    public List<PartyModel> getPartiesByFilters(String filterStatus, int amountPlayers, int gameId) {
+        List<PartyModel> resultPartiesList = new ArrayList();
+        final int amount = amountPlayers;
+
+        switch(filterStatus) {
+            case "all" :
+                resultPartiesList = getParties(gameId)
+                        .stream()
+                        .filter(party -> party.getUsersAmount() == amount)
+                        .collect(Collectors.toList());;
+                break;
+            case "public" : {
+                resultPartiesList = getParties(gameId)
+                        .stream()
+                        .filter(party -> party.getClosed().equals("открытая") && party.getUsersAmount() == amount)
+                        .collect(Collectors.toList());
+                break;
+            }
+            case "private" : {
+                resultPartiesList = getParties(gameId)
+                        .stream()
+                        .filter(party -> party.getClosed().equals("закрытая") && party.getUsersAmount() == amount)
+                        .collect(Collectors.toList());
+                break;
             }
         }
 

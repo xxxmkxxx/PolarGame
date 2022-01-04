@@ -1,11 +1,13 @@
 $(document).ready(mainFunction());
 
 function mainFunction() {
-    searchParty();
+    searchParty("#find_party");
+    displayFilters();
+    useFilters();
 }
 
-function searchParty() {
-    $("#find_party").on('input', function () {
+function searchParty(element) {
+    $(element).on('input', function () {
         let pattern = {
             searchPattern : $("#find_party").val(),
             gameId : gameId
@@ -128,4 +130,55 @@ function getPartyOwner(members) {
     }
 
     return owner;
+}
+
+function displayFilters(){
+    $(document).on('click', '.filter_icon', function (event) {
+        event.preventDefault();
+
+        if($(".party_filters").css("display") == "none")
+            $(".party_filters").slideDown(200);
+        else
+            $('.party_filters').slideUp(200);
+
+        onFilterRangeChange();
+    })
+}
+
+function onFilterRangeChange() {
+    $("#filter_range").change(function() {
+        $("#ouput_range").text($("#filter_range").val());
+    });
+}
+
+function useFilters() {
+    $("#apply_party_filt").submit(function (event) {
+        event.preventDefault();
+
+        let privateStatus = $('#privacy_filter1').prop('checked');
+        let publicStatus = $('#privacy_filter2').prop('checked');
+
+        let filterStatus;
+
+        if(privateStatus == publicStatus)
+            filterStatus = "all";
+        else if(privateStatus)
+            filterStatus = "private";
+        else if(publicStatus)
+            filterStatus = "public"
+
+        $.ajax({
+            type : 'GET',
+            url : '/PolarGame/ajax/game/party/filters',
+            data: {filterStatus: filterStatus, amountPlayers: $("#ouput_range").val(), gameId: gameId},
+            success: function (partyList) {
+                displayFoundParties(partyList);
+
+                $('.party_filters').slideUp(200);
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+    });
 }

@@ -83,7 +83,14 @@ function createComment() {
     $(document).on('click', ".write", function (obj) {
         obj.preventDefault();
 
-        $("#write_commment").show();
+        if($(".write_commment").css("display") == "none"){
+            $(".write_commment").slideDown(200);
+            $(".review_block2").animate({"margin-top": "13vw"}, 500);
+        }
+        else {
+            $('.write_commment').slideUp(200);
+            $(".review_block2").animate({"margin-top": "0vw"}, 500);
+        }
 
         pushData();
     });

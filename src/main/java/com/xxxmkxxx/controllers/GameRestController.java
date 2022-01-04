@@ -7,6 +7,7 @@ import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.GameCommentsService;
 import com.xxxmkxxx.services.PartyService;
 import com.xxxmkxxx.services.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,14 @@ public class GameRestController {
     @PostMapping("/party/search")
     public List<List<PartyModel>> searchParty(String searchPattern, int gameId) {
         List<PartyModel> foundedParties = partyService.getPartiesByPattern(searchPattern, gameId);
+        List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
+
+        return groupedParties;
+    }
+
+    @GetMapping("/party/filters")
+    public List<List<PartyModel>> useFilters(String filterStatus, int amountPlayers, int gameId) {
+        List<PartyModel> foundedParties = partyService.getPartiesByFilters(filterStatus, amountPlayers, gameId);
         List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
 
         return groupedParties;
