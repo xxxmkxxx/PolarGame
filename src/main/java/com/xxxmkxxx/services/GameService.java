@@ -3,14 +3,13 @@ package com.xxxmkxxx.services;
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
 import com.xxxmkxxx.dao.GameDAO;
 import com.xxxmkxxx.models.GameModel;
-import com.xxxmkxxx.models.PartyModel;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class GameService {
@@ -77,6 +76,27 @@ public class GameService {
         }
 
         return resultGamesList;
+    }
+
+    @Transactional
+    public List<GameModel> getGamesByFilters(List<String> filters) {
+        List<GameModel> games = getGames();
+        List<GameModel> result = new ArrayList();
+
+        for(String filter : filters) {
+            result.addAll(games.stream().filter(game -> {
+                return game.getGenres()
+                        .stream()
+                        .allMatch(gameGenres -> {
+                            String temp[] = filter.split("_");
+                            boolean tempB = gameGenres.getGenre().getGenreId() == Integer.parseInt(temp[temp.length - 1]);
+
+                            return tempB;
+                        });
+            }).collect(Collectors.toList()));
+        }
+
+        return result;
     }
 
     public GameService(GameDAO gameDAO) {

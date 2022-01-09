@@ -1,18 +1,21 @@
 package com.xxxmkxxx.controllers;
 
-import com.xxxmkxxx.dao.GameDAO;
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.GenresModel;
 import com.xxxmkxxx.services.GameService;
-import org.hibernate.Hibernate;
-import org.springframework.web.bind.annotation.*;
+import com.xxxmkxxx.services.GenresService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/catalog/game")
 public class GameCatalogRestController {
     private GameService gameService;
+    private GenresService genresService;
 
     @PostMapping("/redirect")
     public String transitionToGame(int gameId) {
@@ -29,7 +32,23 @@ public class GameCatalogRestController {
         return gameService.getGamesByPattern(searchPattern);
     }
 
-    public GameCatalogRestController(GameService gameService) {
+    @PostMapping("/get/genres")
+    public List<GenresModel> getGenres() {
+        return genresService.getGenres();
+    }
+
+    @PostMapping("/filters")
+    public List<GameModel> useFilters(@RequestParam(value="genresId[]") List<String> genresId) {
+        List<GameModel> filteredGames = gameService.getGamesByFilters(genresId);
+        List<GameModel> sortedGamesByPopularity = gameService.getSortedGamesByPopularity(filteredGames);
+
+        System.err.println(sortedGamesByPopularity.size());
+
+        return sortedGamesByPopularity;
+    }
+
+    public GameCatalogRestController(GameService gameService, GenresService genresService) {
         this.gameService = gameService;
+        this.genresService = genresService;
     }
 }

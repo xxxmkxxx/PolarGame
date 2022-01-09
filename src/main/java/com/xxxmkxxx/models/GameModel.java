@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,6 +25,10 @@ public class GameModel implements Serializable {
 
     @Column(name = "popularity")
     private int popularity;
+
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private List<GameGenresModel> genres;
 
     public int getGameId() {
         return gameId;
@@ -65,5 +68,13 @@ public class GameModel implements Serializable {
 
     public void setPopularity(int popularity) {
         this.popularity = popularity;
+    }
+
+    public List<GameGenresModel> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<GameGenresModel> genres) {
+        this.genres = genres;
     }
 }

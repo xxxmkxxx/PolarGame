@@ -39,22 +39,22 @@
         <span class = "filter_icon"> <img th:src="@{/images/images/filter_icon.png}"></span>
     </div>
 
-    <div class = "filters" id="filters">
+    <form id="choose_filters" th:method="POST" th:action="@{/catalog}">
+        <div class = "filters" id="filters">
 
-        <div class = "filters_block">
-            <span class = "filter_categories" > жанр  </span>
-            <span class = "filter_categories">   </span>
-            <!-- <span class = "filter_categories">  популярность </span> -->
+            <div class = "filters_block">
+                <span class = "filter_categories" > жанр  </span>
+                <span class = "filter_categories">   </span>
+                <!-- <span class = "filter_categories">  популярность </span> -->
+            </div>
+
+            <div class = "take_categ" id="take_categ"></div>
+
+            <input type="submit" class ="send_filters" id="send_filters" value="применить"/>
         </div>
+    </form>
 
-        <div class = "take_categ" id="take_categ">
 
-
-        </div>
-        <form>
-            <button class ="send_filters" id="send_filters"> применить </button>
-        </form>
-    </div>
 
     <div id="game_catalog">
         <div class = "popular_games_row" id="popular_games_row">
