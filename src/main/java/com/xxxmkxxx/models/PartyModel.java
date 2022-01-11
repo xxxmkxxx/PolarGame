@@ -102,6 +102,17 @@ public class PartyModel implements Serializable {
 
     public PartyModel() {}
 
+    public PartyModel(int partyId, int gameId, int usersAmount, String closed, String password, String description, String urlPartyIcon, List<PartyMemberModel> members) {
+        this.partyId = partyId;
+        this.gameId = gameId;
+        this.usersAmount = usersAmount;
+        this.closed = closed;
+        this.password = password;
+        this.description = description;
+        this.urlPartyIcon = urlPartyIcon;
+        this.members = members;
+    }
+
     public PartyModel(int gameId, int usersAmount, String closed, String password, String description) {
         this.gameId = gameId;
         this.usersAmount = usersAmount;

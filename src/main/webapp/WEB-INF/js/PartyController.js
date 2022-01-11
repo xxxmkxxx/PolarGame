@@ -1,6 +1,11 @@
+let stompClient;
+let partyRow;
+
 $(document).ready(mainFunction());
 
 function mainFunction() {
+    connectWebSocket("/PolarGame/party-websocket");
+
     searchParty("#find_party");
 
     openFiltersFormEvent(".filter_icon", ".party_filters");
@@ -114,8 +119,6 @@ function displayFoundParties(partiesGroup) {
 
     $("#section2").append(com_party_place);
 
-    let partyRow;
-
     for(let i = 0; i < partiesGroup.length; i++) {
         partyRow = createNewRow(i + 1);
 
@@ -226,10 +229,12 @@ function partyCreateEvent(privacyElement, passwordFieldElement, countPlayerEleme
             type : 'POST',
             url : '/PolarGame/ajax/game/party/create',
             data: data,
-            success: function (party) {
-                console.log("success!");
+            success: (party) => {
+                stompClient.send("/app/parties", {}, JSON.stringify({gameId : gameId}));
+
+                $(formElement).slideUp(200);
             },
-            error : function () {
+            error: function () {
                 console.log("error");
             }
         });
@@ -251,4 +256,14 @@ function checkDescription(description) {
 
 function checkPassword(description) {
     let isPasswordNotEmpty = description !== "";
+}
+
+function connectWebSocket(endPoint) {
+    const socket = new SockJS(endPoint);
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+        stompClient.subscribe('/topic/new/party', (gropedParties) => {
+            displayFoundParties(JSON.parse(gropedParties.body));
+        });
+    });
 }

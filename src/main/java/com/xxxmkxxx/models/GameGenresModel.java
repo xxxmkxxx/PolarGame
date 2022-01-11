@@ -47,4 +47,12 @@ public class GameGenresModel implements Serializable {
     public void setGenre(GenresModel genre) {
         this.genre = genre;
     }
+
+    public GameGenresModel() {}
+
+    public GameGenresModel(int numberId, GameModel game, GenresModel genre) {
+        this.numberId = numberId;
+        this.game = game;
+        this.genre = genre;
+    }
 }

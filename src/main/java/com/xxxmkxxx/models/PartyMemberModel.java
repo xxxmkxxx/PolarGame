@@ -72,6 +72,14 @@ public class PartyMemberModel implements Serializable {
 
     public PartyMemberModel() {}
 
+    public PartyMemberModel(int partyMemberId, UserModel user, PartyModel party, String nick, String role) {
+        this.partyMemberId = partyMemberId;
+        this.user = user;
+        this.party = party;
+        this.nick = nick;
+        this.role = role;
+    }
+
     public PartyMemberModel(UserModel user, PartyModel party, String nick, String role) {
         this.user = user;
         this.party = party;

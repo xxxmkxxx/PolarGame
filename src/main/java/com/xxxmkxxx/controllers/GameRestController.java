@@ -31,7 +31,7 @@ public class GameRestController {
     }
 
     @PostMapping("/party/create")
-    public PartyModel createParty(
+    public void createParty(
             @RequestParam("privacy") boolean privacy,
             @RequestParam("password") String password,
             @RequestParam("countPlayers") int countPlayers,
@@ -40,18 +40,14 @@ public class GameRestController {
             HttpSession session) {
 
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
-        PartyModel party = new PartyModel();
 
         if(user.getPartyMember() == null) {
-            party = partyService.createParty(privacy, password, countPlayers, description, gameId);
+            PartyModel party = partyService.createParty(privacy, password, countPlayers, description, gameId);
             partyMembersService.addPartyMember("создатель", user, party);
         }
         else {
             System.err.println("Невозможно быть владельцем нескольких пати!");
         }
-
-
-        return party;
     }
 
     @GetMapping("/party/filters")

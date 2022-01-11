@@ -105,6 +105,17 @@ public class UserModel implements Serializable {
 
     public UserModel() {}
 
+    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, List<GameCommentModel> gameComments, PartyMemberModel partyMember) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.description = description;
+        this.urlUserIcon = urlUserIcon;
+        this.gameComments = gameComments;
+        this.partyMember = partyMember;
+    }
+
     public UserModel(String login, String password, String mail) {
         this.login = login;
         this.password = password;
