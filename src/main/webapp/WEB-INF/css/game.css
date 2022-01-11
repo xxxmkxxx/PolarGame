@@ -581,7 +581,7 @@ main{
 	width: 46.5vw;
 	height: 36vw;
 	position: absolute;
-	background-image: url("../static/images/background1.png");
+	background-image: url("/PolarGame/images/images/background1.png");
 	background-size: 120%;
 	z-index: 1;
 	border-style: solid;

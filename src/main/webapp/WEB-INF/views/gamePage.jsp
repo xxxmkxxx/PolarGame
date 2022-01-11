@@ -4,14 +4,16 @@
     <meta charset="utf-8">
     <title> СТРАНИЦА ИГРЫ </title>
     <link th:href="@{/styles/css/game.css}" rel="stylesheet" type="text/css">
-    <script th:src="@{/scripts/js/jquery.js}"></script>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/sockjs-client/1.0.0/sockjs.min.js}"></script>
+    <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>
 </head>
 
 <body>
 
 <script type="application/javascript" th:inline="javascript">
-    var gameId = [[${game.gameId}]];
-    var countAllComments = [[${countAllComments}]];
+    let gameId = [[${game.gameId}]];
+    let countAllComments = [[${countAllComments}]];
 </script>
 
 <header>
@@ -32,7 +34,7 @@
     <form id="create_party_form"> <!-- форма создания пати -->
 
         <div class = "create_party_form">
-            <div class = "close_party_creator" onclick = ""> <img th:src="@{/images/images/close_icon.png}"> </div>
+            <div class = "close_party_creator"> <img th:src="@{/images/images/close_icon.png}"> </div>
 
             <div class = "cre_row">
                 <span class = "privacy_name" style = "margin-top: 0vw"> Приватность: </span>
@@ -197,9 +199,9 @@
 				</div>
 			</span>
     </div>
-
 </main>
 
+<script type="application/javascript" th:src="@{/scripts/js/CommonModuls.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/js/PartyController.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/js/GameCommentController.js}"></script>
 

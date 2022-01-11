@@ -82,6 +82,47 @@
       <version>5.2.12.RELEASE</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+      <version>5.2.12.RELEASE</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>5.2.12.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>sockjs-client</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>stomp-websocket</artifactId>
+      <version>2.3.4</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator</artifactId>
+      <version>0.42</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.6.0</version>
+    </dependency>
+
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>

@@ -1,12 +1,10 @@
 package com.xxxmkxxx.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "party")
@@ -24,6 +22,9 @@ public class PartyModel implements Serializable {
 
     @Column(name = "privacy")
     private String closed;
+
+    @Column(name = "party_password")
+    private String password;
 
     @Column(name = "party_description")
     private String description;
@@ -67,6 +68,14 @@ public class PartyModel implements Serializable {
         this.closed = closed;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -89,5 +98,16 @@ public class PartyModel implements Serializable {
 
     public void setMembers(List<PartyMemberModel> members) {
         this.members = members;
+    }
+
+    public PartyModel() {}
+
+    public PartyModel(int gameId, int usersAmount, String closed, String password, String description) {
+        this.gameId = gameId;
+        this.usersAmount = usersAmount;
+        this.closed = closed;
+        this.password = password;
+        this.description = description;
+        this.urlPartyIcon = "/images/filter_icon.png";
     }
 }

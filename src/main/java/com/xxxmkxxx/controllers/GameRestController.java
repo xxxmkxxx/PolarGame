@@ -5,12 +5,10 @@ import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.PartyModel;
 import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.GameCommentsService;
+import com.xxxmkxxx.services.PartyMembersService;
 import com.xxxmkxxx.services.PartyService;
 import com.xxxmkxxx.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ public class GameRestController {
     private PartyService partyService;
     private GameCommentsService gameCommentsService;
     private UserService userService;
+    private PartyMembersService partyMembersService;
 
     @PostMapping("/party/search")
     public List<List<PartyModel>> searchParty(String searchPattern, int gameId) {
@@ -29,6 +28,30 @@ public class GameRestController {
         List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
 
         return groupedParties;
+    }
+
+    @PostMapping("/party/create")
+    public PartyModel createParty(
+            @RequestParam("privacy") boolean privacy,
+            @RequestParam("password") String password,
+            @RequestParam("countPlayers") int countPlayers,
+            @RequestParam("description") String description,
+            @RequestParam("gameId") int gameId,
+            HttpSession session) {
+
+        UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+        PartyModel party = new PartyModel();
+
+        if(user.getPartyMember() == null) {
+            party = partyService.createParty(privacy, password, countPlayers, description, gameId);
+            partyMembersService.addPartyMember("создатель", user, party);
+        }
+        else {
+            System.err.println("Невозможно быть владельцем нескольких пати!");
+        }
+
+
+        return party;
     }
 
     @GetMapping("/party/filters")
@@ -55,9 +78,11 @@ public class GameRestController {
         return message;
     }
 
-    public GameRestController(PartyService partyService, GameCommentsService gameCommentsService, UserService userService) {
+
+    public GameRestController(PartyService partyService, GameCommentsService gameCommentsService, UserService userService, PartyMembersService partyMembersService) {
         this.partyService = partyService;
         this.gameCommentsService = gameCommentsService;
         this.userService = userService;
+        this.partyMembersService = partyMembersService;
     }
 }

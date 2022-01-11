@@ -14,12 +14,16 @@ import java.util.Set;
 public class PartyDAO {
     private SessionFactory sessionFactory;
 
-    @Transactional
     public Set<PartyModel> getAllParties(int gameId) {
         Session session = sessionFactory.getCurrentSession();
         String query = "from PartyModel as p right join fetch p.members as m where p.gameId = " + gameId;
 
         return new HashSet(session.createQuery(query).getResultList());
+    }
+
+    public void safeParty(PartyModel party) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(party);
     }
 
     public PartyDAO(SessionFactory sessionFactory) {

@@ -27,6 +27,13 @@ public class PartyMembersService {
         return user;
     }
 
+    @Transactional
+    public void addPartyMember(String role, UserModel user, PartyModel party) {
+        PartyMemberModel partyMember = new PartyMemberModel(user, party, "temp", role);
+
+        partyMemberDAO.savePartyMember(partyMember);
+    }
+
     public PartyMembersService(PartyMemberDAO partyMemberDAO) {
         this.partyMemberDAO = partyMemberDAO;
     }

@@ -4,6 +4,7 @@ import com.xxxmkxxx.dao.PartyDAO;
 import com.xxxmkxxx.models.PartyModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,20 @@ public class PartyService {
         }
 
         return resultPartiesList;
+    }
+
+    @Transactional
+    public PartyModel createParty(boolean privacy, String password, int countPlayers, String description, int gameId) {
+        PartyModel party = new PartyModel(
+                gameId,
+                countPlayers,
+                privacy ? "закрытая" : "открытая",
+                password,
+                description);
+
+        partyDAO.safeParty(party);
+
+        return party;
     }
 
     public PartyService(PartyDAO partyDAO) {

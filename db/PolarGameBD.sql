@@ -61,6 +61,7 @@ create table party(
 );
 
 create table party_members(
+	id_member integer primary key AUTO_INCREMENT, 
 	party_id integer not null,
 	members_party_id integer not null,
 	foreign key (party_id) references party(id_party) on delete cascade,

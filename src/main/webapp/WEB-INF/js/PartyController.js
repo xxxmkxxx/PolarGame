@@ -2,8 +2,16 @@ $(document).ready(mainFunction());
 
 function mainFunction() {
     searchParty("#find_party");
-    displayFilters();
+
+    openFiltersFormEvent(".filter_icon", ".party_filters");
+    closeFiltersFormEvent(".filter_icon", "party_filters");
+
     useFilters();
+
+    openPartyCreationFormEvent(".create_party", ".create_party_form");
+    closePartyCreationFormEvent(".close_party_creator", ".create_party_form")
+
+    partyCreateEvent("#privacy", "#passwordForm", "#player_num", "#party_descr", "#create_party_form");
 }
 
 function searchParty(element) {
@@ -132,17 +140,20 @@ function getPartyOwner(members) {
     return owner;
 }
 
-function displayFilters(){
-    $(document).on('click', '.filter_icon', function (event) {
-        event.preventDefault();
-
-        if($(".party_filters").css("display") == "none")
-            $(".party_filters").slideDown(200);
-        else
-            $('.party_filters').slideUp(200);
+function openFiltersFormEvent(openTriggerElement, formElement){
+    $(openTriggerElement).click(() => {
+        $(formElement).slideDown(200);
 
         onFilterRangeChange();
     })
+}
+
+function closeFiltersFormEvent(closeTriggerElement, formElement){
+    $(closeTriggerElement).click(() => {
+        $(formElement).slideUp(200);
+    })
+
+    closeOutZoneElement(".party_filters");
 }
 
 function onFilterRangeChange() {
@@ -181,4 +192,63 @@ function useFilters() {
             }
         });
     });
+}
+
+function openPartyCreationFormEvent(openTriggerElement, formElement) {
+    $(openTriggerElement).click(() => {
+        $(formElement).slideDown(200);
+    });
+}
+
+function closePartyCreationFormEvent(closeTriggerElement, formElement) {
+    $(closeTriggerElement).click(() => {
+        $(formElement).slideUp(200);
+    });
+
+    closeOutZoneElement(formElement);
+}
+
+function partyCreateEvent(privacyElement, passwordFieldElement, countPlayerElement, textAreaElement, formElement) {
+    displayPasswordFieldEvent(privacyElement, passwordFieldElement);
+
+    $(formElement).submit((event) => {
+        event.preventDefault();
+
+        let data = {
+            privacy : $(privacyElement).prop("checked"),
+            password : $(passwordFieldElement).val(),
+            countPlayers : $(countPlayerElement).val(),
+            description : $(textAreaElement).val(),
+            gameId : gameId
+        };
+
+        $.ajax({
+            type : 'POST',
+            url : '/PolarGame/ajax/game/party/create',
+            data: data,
+            success: function (party) {
+                console.log("success!");
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+    });
+}
+
+function displayPasswordFieldEvent(displayTriggerElement, passwordFieldElement) {
+    $(displayTriggerElement).change(() => {
+        if($(displayTriggerElement).prop("checked"))
+            $(passwordFieldElement).slideDown(200);
+        else
+            $(passwordFieldElement).slideUp(200);
+    });
+}
+
+function checkDescription(description) {
+    let isDescriptionNotEmpty = description !== "";
+}
+
+function checkPassword(description) {
+    let isPasswordNotEmpty = description !== "";
 }

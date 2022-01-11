@@ -69,4 +69,13 @@ public class PartyMemberModel implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public PartyMemberModel() {}
+
+    public PartyMemberModel(UserModel user, PartyModel party, String nick, String role) {
+        this.user = user;
+        this.party = party;
+        this.nick = nick;
+        this.role = role;
+    }
 }
