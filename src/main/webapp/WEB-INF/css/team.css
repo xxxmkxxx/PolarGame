@@ -19,7 +19,7 @@
 }
 
 @font-face {
-  font-family: 'othertext';
+  font-family: 'othertexttext';
   src: url(../fonts/19676.ttf);
 }
 
@@ -188,7 +188,7 @@ main {
 .team_description {
   margin-left: 2vw;
   margin-top: 2vw;
-  font-family: othertext;
+  font-family: othertexttext;
   color: white;
   font-size: 1.2vw;
   width: 35vw;
@@ -236,7 +236,7 @@ main {
   width: 9.5vw;
   margin-left: 1vw;
   margin-top: 0.3vw;
-  font-family: othertext;
+  font-family: othertexttext;
   color: white;
   font-size: 1.3vw;
   overflow: hidden;
@@ -272,14 +272,14 @@ main {
 
 .message_sender_name {
   color: #2f439e;
-  font-family: other;
+  font-family: othertext;
   font-size: 1.5vw;
   margin-right: 1vw;
 }
 
 .message_time {
   color: #23337c;
-  font-family: other;
+  font-family: othertext;
   font-size: 1.3vw;
   margin-top: 0.3vw;
   margin-right: 1vw;
@@ -287,7 +287,7 @@ main {
 
 .message_text {
   color: white;
-  font-family: other;
+  font-family: othertext;
   font-size: 1.4vw;
   margin-top: 0.5vw;
   margin-right: 1vw;
@@ -325,7 +325,7 @@ main {
   border-radius: 0.5vw;
   padding: 0 1vw 0 1vw;
   margin-top: 2vw;
-  font-family: other;
+  font-family: othertext;
   color: black;
   font-size: 1.3vw;
 }
