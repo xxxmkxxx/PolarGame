@@ -359,8 +359,8 @@ A {
 .friend_nick {
   width: 41.3vw;
   margin-left: 1vw;
-  font-family: other;
-  font-size: 1.65vw;
+  font-family: othertext;
+  font-size: 1.3vw;
   color: white;
   cursor: pointer;
 }
@@ -417,6 +417,16 @@ A {
   font-family: othertext;
   opacity: 45%;
   margin-bottom: 0.8vw;
+}
+
+.setting_confirm_email {
+  color: #af7bff;
+  font-size: 1.2vw;
+  font-family: othertext;
+  opacity: 45%;
+  margin: 1.2vw 0 0.8vw 0;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .input_form {
@@ -516,7 +526,7 @@ A {
   font-family: othertext;
   color: white;
   margin-left: 0.2vw;
-  font-size: 1.1vw;
+  font-size: 1.2vw;
   word-break: break-all;
 }
 
@@ -560,7 +570,7 @@ A {
 }
 
 .confirmationText {
-  font-family: other;
+  font-family: othertext;
   font-size: 1.4vw;
   color: white;
 }
@@ -573,7 +583,7 @@ A {
 }
 
 .confirmationButton {
-  font-family: other;
+  font-family: othertext;
   font-size: 1.3vw;
   background-color: #384975;
   border: none;
