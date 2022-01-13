@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/catalog/game")
+@RequestMapping("/ajax/catalog/games")
 public class GameCatalogRestController {
     private GameService gameService;
     private GenresService genresService;
@@ -28,7 +28,7 @@ public class GameCatalogRestController {
     }
 
     @PostMapping("/search")
-    public List<GameModel> searchGame(String searchPattern) {
+    public List<GameModel> searchGame(@RequestParam("searchPattern") String searchPattern) {
         return gameService.getGamesByPattern(searchPattern);
     }
 
@@ -41,8 +41,6 @@ public class GameCatalogRestController {
     public List<GameModel> useFilters(@RequestParam(value="genresId[]") List<String> genresId) {
         List<GameModel> filteredGames = gameService.getGamesByFilters(genresId);
         List<GameModel> sortedGamesByPopularity = gameService.getSortedGamesByPopularity(filteredGames);
-
-        System.err.println(sortedGamesByPopularity.size());
 
         return sortedGamesByPopularity;
     }

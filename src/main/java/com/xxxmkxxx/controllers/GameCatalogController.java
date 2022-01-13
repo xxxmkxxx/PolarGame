@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/catalog")
@@ -20,17 +21,19 @@ public class GameCatalogController {
     @GetMapping("")
     public String gameCatalogPage(Model model, HttpSession session) {
         String view = "gameCatalogPage";
+        boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
 
-        List<GameModel> games = gameService.getGames();
-        List<GameModel> sortedGames = gameService.getSortedGamesByPopularity(games);
+        if(isAuthorized) {
+            List<GameModel> games = gameService.getGames();
+            List<GameModel> sortedGames = gameService.getSortedGamesByPopularity(games);
 
-        model.addAttribute("sortedGames", gameService.groupGames(6, sortedGames));
-        model.addAttribute("popularGames", gameService.getPopularGames(5, sortedGames));
-
-        if(session.getAttribute("userLogin") != null) {
+            model.addAttribute("namePage", "каталог игр".toUpperCase(Locale.ROOT));
+            model.addAttribute("authorized", true);
             model.addAttribute("user", userService.getUserByLogin((String) session.getAttribute("userLogin")));
+            model.addAttribute("sortedGames", gameService.groupGames(6, sortedGames));
+            model.addAttribute("popularGames", gameService.getPopularGames(5, sortedGames));
         } else {
-            view = "redirect:/user/login";
+            return "redirect:/user/login";
         }
 
         return view;

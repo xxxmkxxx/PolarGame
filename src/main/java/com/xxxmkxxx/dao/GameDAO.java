@@ -6,7 +6,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class GameDAO {
@@ -21,9 +23,13 @@ public class GameDAO {
 
     public List<GameModel> getAllGames() {
         Session session = sessionFactory.getCurrentSession();
-        String query = "from GameModel game";
+        String query = "from GameModel as game right join fetch game.genres as gameGenres";
+        List<GameModel> result = (List<GameModel>) session.createQuery(query).list()
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
 
-        return session.createQuery(query).list();
+        return result;
     }
 
     public GameDAO(SessionFactory sessionFactory) {

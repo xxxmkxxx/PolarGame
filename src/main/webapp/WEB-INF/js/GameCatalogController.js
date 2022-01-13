@@ -3,23 +3,23 @@ $(document).ready(mainFunction());
 let isDownloadGameFilters = false;
 
 function mainFunction() {
-    isClickedIcon(".pop_game");
-    isClickedIcon(".game");
+    clickOnGameIconEvent(gameCatalogConfig.get("popular_game_block_class"));
+    clickOnGameIconEvent(gameCatalogConfig.get("normal_game_block_class"));
 
-    searchGame();
-    displayGameFilters();
+    searchGame(gameCatalogConfig.get("game_search_field_id"));
+    displayGameFilters(gameCatalogConfig.get("filter_games_block_class"));
     chooseGenresFilters();
-    confirmFilters();
+    confirmFilters(gameCatalogConfig.get("filters_form_id"));
 }
 
-function isClickedIcon(iconClass) {
-    $(document).on('click', iconClass, function (obj) {
-        obj.preventDefault();
-
-        transitionToGame(this.getAttribute('id'));
-    });
+//Обработчик события клика по иконке игры
+function clickOnGameIconEvent(iconElement) {
+    $(iconElement).click(function () {
+        transitionToGame($(this).attr("id"));
+    })
 }
 
+//Функция перехода на страницу игры
 function transitionToGame(id) {
     $.ajax({
         type : 'POST',
@@ -29,18 +29,19 @@ function transitionToGame(id) {
             window.location.href = '/PolarGame/game/' + id;
         },
         error : function () {
-            alert("error")
+            console.log("error")
         }
     });
 }
 
-function searchGame() {
-    $("#find_game").on('input', function () {
+//Функция поиска игр
+function searchGame(searchField) {
+    $(searchField).on("input", function () {
         $.ajax({
-            type : 'POST',
-            url : '/PolarGame/ajax/catalog/game/search',
-            data: {searchPattern : $("#find_game").val()},
-            success: function (gamesList) {
+            type : "POST",
+            url : "/PolarGame/ajax/catalog/games/search",
+            data : {searchPattern : $(searchField).val()},
+            success : function (gamesList) {
                 displayFoundGames(gamesList);
             },
             error : function () {
@@ -50,18 +51,12 @@ function searchGame() {
     });
 }
 
+//Функция отображения списка найденных игр
 function displayFoundGames(gamesList) {
-    $('#games_block').remove();
-    $('#popular_games_row').remove();
+    $(gameCatalogConfig.get("normal_games_section_id")).empty();
+    $(gameCatalogConfig.get("popular_games_row_block_id")).remove();
 
-    let gamesBlock = $('<div>', {
-        'class': 'games_block',
-        'id': 'games_block'
-    });
-
-    $('#game_catalog').append(gamesBlock);
-
-    let gamesRow = $('#games_row');
+    let gamesRow = $(gameCatalogConfig.get("normal_games_row_block_id"));
 
     for (let i = 0; i < gamesList.length; i++) {
         if((i) % 6 != 0) {
@@ -74,74 +69,77 @@ function displayFoundGames(gamesList) {
     }
 }
 
+//Функция создания строки обычных игр
 function createGamesRow(id) {
-    let gamesRowDiv = $('<div>', {
-        'class': 'games_row',
-        'id': 'games_row' + id
+    let gamesRowDiv = $("<div>", {
+        "class" : gameCatalogConfig.get("normal_games_row_block_class").replace('.', ''),
+        "id" : gameCatalogConfig.get("normal_games_row_block_id").replace('#', '') + id
     });
 
-    $('#games_block').append(gamesRowDiv);
+    $(gameCatalogConfig.get("normal_games_section_id")).append(gamesRowDiv);
 
-    return $('#games_row' + id);
+    return gamesRowDiv;
 }
 
+//Функция отображения одной обычной игры
 function viewGame(game, gamesRow) {
-    let gameSpan = $('<span>', {
-        'class': 'game',
-        'data-tooltip': game.name,
-        'id': game.gameId
+    let gameSpan = $("<span>", {
+        "class" : gameCatalogConfig.get("normal_game_block_class").replace('.', ''),
+        "data-tooltip" : game.name,
+        "id" : game.gameId
     });
 
-    let gameIconImg = $('<img>', {
-        'src': '/PolarGame/images/' + game.urlGameIcon
+    let gameIconImg = $("<img>", {
+        "src": "/PolarGame/images/" + game.urlGameIcon
     });
 
     gameSpan.append(gameIconImg)
     gamesRow.append(gameSpan);
 }
 
-function displayGameFilters() {
-    $(document).on('click','.filter_icon', function (obj) {
-        obj.preventDefault();
-
+//Обработчик события нажатия на иконку с фильтрами
+function displayGameFilters(gameFiltersElement) {
+    $(gameFiltersElement).click(() => {
         if(!isDownloadGameFilters) {
             getGenres();
             isDownloadGameFilters = true;
         }
 
-        if($(".filters").css("display") == "none"){
-            $(".filters").slideDown(200);
+        let filtersSection = $(gameCatalogConfig.get("filters_section_class"));
+
+        if(filtersSection.css("display") == "none"){
+            filtersSection.slideDown(200);
 
         } else
-            $('.filters').slideUp(200);
+            filtersSection.slideUp(200);
     });
 }
 
+//Функция отображения полученых из бд жанров игр
 function displayGenres(genres) {
-    var categGenresDiv = $('<div>', {
-        'class': 'categ',
-        'id': 'genres'
+    let gameGenresBlock = $("<div>", {
+        "class": gameCatalogConfig.get("games_genres_block_class").replace('.', ''),
+        "id": gameCatalogConfig.get("games_genres_block_id").replace('#', '')
     });
 
-    $('#genres').remove();
-
-    for (let i = 0; i < genres.length; i++) {
-        categGenresDiv.append(createGenreFilter(genres[i]));
+    for(let i = 0; i < genres.length; i++) {
+        gameGenresBlock.append(createGenreFilter(genres[i]));
     }
 
-    $('#take_categ').append(categGenresDiv);
+    $(gameCatalogConfig.get("games_genres_input_block_id")).append(gameGenresBlock);
 }
 
+//Функция создания блока жанра игры
 function createGenreFilter(genre) {
-    var categ_itemDiv = $('<div>', {
-        'class': 'categ_item'
+    let categ_itemDiv = $("<div>", {
+        "class": gameCatalogConfig.get("game_genre_block_class").replace('.', '')
     });
 
-    var inputCheckbox = $('<input>', {
-        'type' : 'checkbox',
-        "class" : "genre",
+    var inputCheckbox = $("<input>", {
+        "type" : "checkbox",
+        "class" : gameCatalogConfig.get("game_genre_checkbox_class").replace('.', ''),
         "id" : "genre_" + genre.genreId,
-        'value': genre.genreName
+        "value": genre.genreName
     });
 
     categ_itemDiv.append(inputCheckbox);
@@ -150,21 +148,23 @@ function createGenreFilter(genre) {
     return categ_itemDiv;
 }
 
+//Функция получения жанров игр из бд
 function getGenres() {
     $.ajax({
-        type : 'POST',
-        url : '/PolarGame/ajax/catalog/game/get/genres',
-        success: function (genresList) {
+        type : "POST",
+        url : "/PolarGame/ajax/catalog/games/get/genres",
+        success: function(genresList) {
             displayGenres(genresList);
         },
-        error : function () {
+        error : function() {
             console.log("error");
         }
     });
 }
 
-function confirmFilters() {
-    $("#choose_filters").submit(function(event) {
+//Обработчик события подтверждения выбранных жанров
+function confirmFilters(filtersForm) {
+    $(filtersForm).submit((event) => {
         event.preventDefault();
 
         let data = {
@@ -172,27 +172,28 @@ function confirmFilters() {
         };
 
         $.ajax({
-            type : 'POST',
-            url : '/PolarGame/ajax/catalog/game/filters',
+            type : "POST",
+            url : "/PolarGame/ajax/catalog/games/filters",
             data: data,
-            success: function (gamesList) {
+            success: function(gamesList) {
                 displayFoundGames(gamesList);
             },
-            error : function () {
+            error : function() {
                 console.log("error");
             }
         });
 
-        $('.filters').slideUp(200);
+        $(gameCatalogConfig.get("filters_section_class")).slideUp(200);
     });
 }
 
+//Функция получения списка id выбранных жанров
 function chooseGenresFilters() {
-    let selectedGenres = $("#genres").children(".categ_item");
+    let selectedGenres = $(gameCatalogConfig.get("games_genres_block_id")).children(gameCatalogConfig.get("game_genre_block_class"));
     let genresId = [];
 
     for (let i = 0; i < selectedGenres.length; i++) {
-        let genreCheckbox = $(selectedGenres[i]).children(".genre")[0];
+        let genreCheckbox = $(selectedGenres[i]).children(gameCatalogConfig.get("game_genre_checkbox_class"))[0];
 
         if($(genreCheckbox).prop("checked")) {
             genresId.push($(genreCheckbox).attr("id"));

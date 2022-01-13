@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Locale;
+
 @Controller
 @RequestMapping("/user")
 public class UsersController {
     @GetMapping("/login")
-    public String viewAuthorizationPage() {
+    public String viewAuthorizationPage(Model model) {
+        model.addAttribute("pageName", "авторизация".toUpperCase(Locale.ROOT));
+
         return "/users/singInPage";
     }
 
