@@ -10,18 +10,18 @@ import java.io.Serializable;
 @Table(name = "games_genres")
 public class GameGenresModel implements Serializable {
     @Id
-    @Column(name = "number_id")
+    @Column(name = "id_games_genres")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int numberId;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "id_game")
     private GameModel game;
 
     @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "id_genre")
     private GenresModel genre;
 
     public int getNumberId() {

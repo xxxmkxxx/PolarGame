@@ -10,18 +10,18 @@ import java.io.Serializable;
 @Table(name = "party_members")
 public class PartyMemberModel implements Serializable {
     @Id
-    @Column(name = "id_member")
+    @Column(name = "id_party_members")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partyMemberId;
 
     @JsonManagedReference
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_user")
     private UserModel user;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "party_id")
+    @JoinColumn(name = "id_party")
     private PartyModel party;
 
     @Column(name = "nickname")

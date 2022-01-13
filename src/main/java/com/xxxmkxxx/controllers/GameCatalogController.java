@@ -40,7 +40,6 @@ public class GameCatalogController {
     }
 
     @PostMapping("/openGamePage")
-    @ResponseBody
     public String openGamePage(@RequestBody String id) {
         return "redirect:/game/" + id;
     }

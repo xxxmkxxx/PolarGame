@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Controller
@@ -46,5 +47,17 @@ public class UsersController {
     @PostMapping("/successfulAuthentication")
     public String successfulAuthentication() {
         return "redirect:/catalog";
+    }
+
+    @GetMapping("/profile")
+    public String viewProfilePage(Model model, HttpSession session) {
+        boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
+
+        if(isAuthorized) {
+            model.addAttribute("authorized", true);
+            model.addAttribute("pageName", "профиль".toUpperCase(Locale.ROOT));
+        }
+
+        return "/users/profile";
     }
 }

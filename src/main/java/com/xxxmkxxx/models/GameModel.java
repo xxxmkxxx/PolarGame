@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "game")
 public class GameModel implements Serializable {
     @Id
-    @Column(name = "game_id")
+    @Column(name = "id_game")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameId;
 

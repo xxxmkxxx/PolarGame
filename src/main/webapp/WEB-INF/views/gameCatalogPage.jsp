@@ -5,10 +5,12 @@
         <link th:href="@{/styles/game_catalog.css}" rel="stylesheet" type="text/css">
         <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
         <script th:src="@{/scripts/configs/GameCatalogNameElementsConfig.js}"></script>
+        <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>
+        <script th:src="@{/scripts/CommonModuls.js}"></script>
     </head>
 
     <body>
-        <header th:insert="~{/templates/BasicTemplates :: header}"></header>
+        <header th:insert="~{/templates/BasicTemplates :: difficultHeader}"></header>
 
         <main>
             <div th:insert="~{/templates/BasicTemplates :: menu}"></div>

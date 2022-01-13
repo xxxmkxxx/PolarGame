@@ -14,7 +14,7 @@ public class PartyModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partyId;
 
-    @Column(name = "game_id")
+    @Column(name = "id_game")
     private int gameId;
 
     @Column(name = "gamers_amount")

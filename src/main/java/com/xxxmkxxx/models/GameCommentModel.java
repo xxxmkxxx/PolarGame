@@ -15,7 +15,7 @@ public class GameCommentModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentId;
 
-    @Column(name = "game_id")
+    @Column(name = "id_game")
     private int gameId;
 
     @Column(name = "comment_text")

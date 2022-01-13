@@ -8,7 +8,6 @@
 <div th:fragment="userInfoBlock" class = "profile_data">
     <span class = "profile" id="profile" th:text="${user.login}"></span>
     <div class = "profile_icon"> <img th:src="@{'/images/' + ${user.urlUserIcon}}"></div>
-    <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
 </div>
 
 <div th:fragment="logoInfoBlock" class = "click_logo">
@@ -16,10 +15,12 @@
     <span class = "header_minilogo"> POLARGAME </span>
 </div>
 
-<header th:fragment="header">
+<header th:fragment="difficultHeader">
     <div th:replace="~{/templates/BasicTemplates :: logoInfoBlock}"></div>
 
     <div th:replace="~{/templates/BasicTemplates :: (${authorized} ? userInfoBlock : authentificationInfoBlock)}" ></div>
+
+    <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
 </header>
 
 <header th:fragment="simpleHeader">
@@ -28,7 +29,7 @@
 
 <div th:fragment="menu" class = "menu">
     <a th:href="@{/}"> <span class = "menu_categories"> ДРУЗЬЯ </span> </a>
-    <a th:href="@{/}">  <span class = "menu_categories"> ДИАЛОГИ </span> </a>
+    <a th:href="@{/}"> <span class = "menu_categories"> ДИАЛОГИ </span> </a>
     <span class = "menu_categories"> ИГРЫ </span>
     <span class = "menu_categories"> ВЫЙТИ </span>
 </div>

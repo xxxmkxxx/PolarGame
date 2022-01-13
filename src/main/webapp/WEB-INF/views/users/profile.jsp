@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-
-<html lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
   <head>
     <meta charset="utf-8" />
-    <title>Профиль</title>
-    <link href="../Css/profile.css" rel="stylesheet" />
-    <script type="text/javascript" src="../js/jquery.js"></script>
+    <title th:text="${pageName}"></title>
+    <link th:href="@{/styles/profile.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/scripts/configs/ptrofileNameElementsConfig.js}"></script>
+
   </head>
 
   <body>
-    <header>
-      <div class="click_logo">
-        <span class="header_minilogo"> <img src="../images/minilogo.png" /> </span>
-        <span class="header_minilogo"> POLARGAME </span>
-      </div>
-
-      <div class="profile_data">
-        <span class="profile" id="profile"> TESTTT </span>
-        <div class="profile_icon"><img src="../images/profile_icon.png" /></div>
-        <span class="menu_icon"> <img id="menu_icon" src="../images/menu_icon.png" /></span>
-      </div>
-    </header>
+    <header th:replace="~{/templates/BasicTemplates :: simpleHeader}"></header>
 
      <!-- ФОРМА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ ДРУГА -->
      <div class = "whiteBack" id = "whiteBack"> </div>
@@ -35,33 +24,23 @@
 
     <main id="main" name="main">
 
-      <div class = "notification_icon"><img src = "../images/notify_icon.png"></div>
+      <div class = "notification_icon"><img th:src="@{/images/notify_icon.png}"></div>
       <div class = "notificatation_form">
 
         <!-- ФОРМА УВЕДОМЛЕНИЙ -->
         <div class = "notification_one"> 
           <span class = "notification_text">хочет добавить вас в друзья </span>
           <span class = "notify_choice_of_action">
-            <span class = "notification_icons"><img src = "../images/apply_icon.png"></span>
-            <span class = "notification_icons"><img src = "../images/cancel_icon.png"></span>
+            <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>
+            <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
           </span>
         </div>
-        <!--  -->
-        
-       
-      </div>
-      <div class="menu">
-        <a href="../html/friends.html"> <span class="menu_categories"> ДРУЗЬЯ </span> </a>
-        <a href="../html/messages.html"> <span class="menu_categories"> ДИАЛОГИ </span> </a>
-        <span class="menu_categories"> ИГРЫ </span>
-        <span class="menu_categories"> ВЫЙТИ </span>
-      </div>
 
       <div class="sections">
         <span class="section1">
           <div class="usersection">
             <div class="user_data">
-              <div class="user_icon"><img id="user_icon" src="../images/example_pic.png" /></div>
+              <div class="user_icon"><img id="user_icon" th:src="@{/images/example_pic.png}" /></div>
 
               <div class="user_name_and_rating">
                 <div class="user_name" id="user_name">НИК ИГРОКА</div>
@@ -72,7 +51,7 @@
             <div class="user_description" id="user_description">
               <textarea id="user_description_area" maxlength = "500" wrap="soft" class="user_description_area"></textarea>
                 <span class="edit_icon">
-                  <img id="edit_description" src="../images/edit_icon.png" />
+                  <img id="edit_description" th:src="@{/images/edit_icon.png}" />
                 </span>
               </span>
             </div>
@@ -96,21 +75,21 @@
                 placeholder="найти по имени"
               />
             </form>
-            <span class="find_icon"> <img id="find_icon" src="../images/find_icon.png" /></span>
+            <span class="find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}" /></span>
           </div>
 
           <div class="friends_form">
             <div class="friend_line">
-              <span class="friend_icon"
-                ><img id="friend_icon" src="../images/example_pic.png" />
+              <span class="friend_icon">
+                <img id="friend_icon" th:src="@{/images/example_pic.png}" />
               </span>
               <span class="friend_nick">user's nick</span>
               <span class="friend_line_icons">
-                <span class="friend_func_icon"
-                  ><img id="message_to_friend" src="../images/message_icon.png" />
+                <span class="friend_func_icon">
+                  <img id="message_to_friend" th:src="@{/images/message_icon.png}" />
                 </span>
-                <span class="friend_func_icon"
-                  ><img id="delete_friend" src="../images/delete_icon.png" />
+                <span class="friend_func_icon">
+                  <img id="delete_friend" th:src="@{/images/delete_icon.png}" />
                 </span>
               </span>
             </div>
@@ -165,19 +144,15 @@
                 </div>
 
               </div>
-          </div>
-          
-          <button id="save_settings" class="button_save_settings">СОХРАНИТЬ</button>
+            </div>
+
+            <button id="save_settings" class="button_save_settings">СОХРАНИТЬ</button>
         </div> 
 
         </span>
       </div>
     </main>
-    <script src = "../js/ProfileSection.js"></script>
 
-    <script src="../JavaScript/GetInfoModul.js"></script>
-    <script src="../JavaScript/GameController.js"></script> 
-
-   
+    <script type="application/javascript" th:src="@{/scripts/ProfileSection.js}"></script>
   </body>
 </html>

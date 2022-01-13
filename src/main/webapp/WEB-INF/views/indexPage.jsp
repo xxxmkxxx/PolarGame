@@ -6,9 +6,11 @@
     <link th:href="@{/styles/Start.css}" rel="stylesheet" type="text/css">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/IndexNameElementsConfig.js}"></script>
+    <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>
+    <script th:src="@{/scripts/CommonModuls.js}"></script>
 </head>
     <body>
-        <header th:replace="~{/templates/BasicTemplates :: header}" ></header>
+        <header th:replace="~{/templates/BasicTemplates :: difficultHeader}"></header>
 
         <img th:src="@{/images/SliceOfBG.svg}" class ="main_background_circle" >
 
