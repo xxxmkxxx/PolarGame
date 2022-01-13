@@ -20,7 +20,7 @@
 
     <div th:replace="~{/templates/BasicTemplates :: (${authorized} ? userInfoBlock : authentificationInfoBlock)}" ></div>
 
-    <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
+    <span th:if="${authorized}" class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
 </header>
 
 <header th:fragment="simpleHeader">
