@@ -14,7 +14,7 @@ function mainFunction() {
 
 //Обработчик события клика по иконке игры
 function clickOnGameIconEvent(iconElement) {
-    $(iconElement).click(function () {
+    $(document).on("click", iconElement, function () {
         transitionToGame($(this).attr("id"));
     })
 }

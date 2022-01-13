@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title> СТРАНИЦА ИГРЫ </title>
-    <link th:href="@{/styles/css/game.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/game.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/sockjs-client/1.0.0/sockjs.min.js}"></script>
     <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>
@@ -18,14 +19,14 @@
 
 <header>
     <div class = "click_logo">
-        <span class = "header_minilogo"> <img th:src="@{/images/images/minilogo.png}"> </span>
+        <span class = "header_minilogo"> <img th:src="@{/images/minilogo.png}"> </span>
         <span class = "header_minilogo"> POLARGAME </span>
     </div>
 
     <div class = "profile_data">
         <span class = "profile" id="profile" th:text="${user.login}"></span>
         <div class = "profile_icon"> <img th:src="@{'/images/' + ${user.urlUserIcon}}"></div>
-        <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/images/menu_icon.png}"></span>
+        <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
     </div>
 </header>
 
@@ -34,7 +35,7 @@
     <form id="create_party_form"> <!-- форма создания пати -->
 
         <div class = "create_party_form">
-            <div class = "close_party_creator"> <img th:src="@{/images/images/close_icon.png}"> </div>
+            <div class = "close_party_creator"> <img th:src="@{/images/close_icon.png}"> </div>
 
             <div class = "cre_row">
                 <span class = "privacy_name" style = "margin-top: 0vw"> Приватность: </span>
@@ -129,7 +130,7 @@
 				<div class = "reviews">
 					<div class = "review_block1">
 						<span class = "rev"> отзывы </span>
-						<span class = "write"> <img th:src="@{/images/images/write_comment.png}">  </span>
+						<span class = "write"> <img th:src="@{/images/write_comment.png}">  </span>
 					</div>
 
                     <form id="write_commment_form" th:method="GET" th:action="@{'/game/' + ${game.gameId}}"> <!-- Форма создания отзыва -->
@@ -169,8 +170,8 @@
 					<form id="party_search" action="/PolarGame/ajax/game/party/search" method="post">
 						<input type="text" id="find_party" class = "find_game_inp" placeholder="ник создателя пати">
 					</form>
-					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/images/find_icon.png}"></span>
-					<span class = "filter_icon" > <img th:src="@{/images/images/filter_icon.png}"></span>
+					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}"></span>
+					<span class = "filter_icon" > <img th:src="@{/images/filter_icon.png}"></span>
 					<span class = "create_party"> СОЗДАТЬ ПАТИ </span>
 					<span class = "create_com"> СОЗДАТЬ КОМАНДУ </span>
 				</div>
@@ -191,7 +192,7 @@
                                 <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
 
                                 <span class="come_in" th:id="${party.partyId}">
-                                    <img th:src="@{/images/images/come_in_icon.png}">
+                                    <img th:src="@{/images/come_in_icon.png}">
                                 </span>
                             </div>
                         </span>
@@ -202,9 +203,9 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/js/CommonModuls.js}"></script>
-<script type="application/javascript" th:src="@{/scripts/js/PartyController.js}"></script>
-<script type="application/javascript" th:src="@{/scripts/js/GameCommentController.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/CommonModuls.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/PartyController.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/GameCommentController.js}"></script>
 
 </body>
 </html>

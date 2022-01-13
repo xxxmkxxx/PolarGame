@@ -1,3 +1,5 @@
 .idea
 test
 target
+
+src/main/resources/database.properties

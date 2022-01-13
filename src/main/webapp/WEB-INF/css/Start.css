@@ -110,6 +110,7 @@ main{
 
 .main_column_1_in_fields{
 	display: inline-flex;
+	justify-content: center;
 }
 
 
@@ -131,7 +132,7 @@ outline: none;
 
 #registration_inputtype{
 	width: 30vw;
-	height: 1vw;
+	height: 3.1vw;
 	border-radius: 6px;
 	padding: 1vw;
 	margin-right: 0.5vw;
@@ -208,7 +209,7 @@ a{
 
 	#registration_inputtype{
 	width: 45vw;
-	height: 2.4vw;
+	height: 4.2vw;
 	border-radius: 6px;
 	font-size: 2vw;
 	}
