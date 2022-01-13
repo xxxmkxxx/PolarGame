@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title th:text="${pageName}"></title>
     <link th:href="@{/styles/Start.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/IndexNameElementsConfig.js}"></script>
 </head>
