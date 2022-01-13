@@ -78,7 +78,7 @@ function createPartyBlock(numberPartyOnRow, party) {
     });
 
     let img_come_in = $('<img>', {
-        'src': '/PolarGame/images/images/come_in_icon.png'
+        'src': '/PolarGame/images/come_in_icon.png'
     });
 
     let div_formsdata = $('<div>', {
