@@ -419,6 +419,16 @@ A {
   margin-bottom: 0.8vw;
 }
 
+.setting_confirm_email {
+  color: #af7bff;
+  font-size: 1.2vw;
+  font-family: othertext;
+  opacity: 45%;
+  margin: 1.2vw 0 0.8vw 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .input_form {
   width: 30vw;
   height: 2vw;
