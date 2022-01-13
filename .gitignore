@@ -1,4 +1,5 @@
 .idea
 test
 target
-src/main/webapp/WEB-INF/css/Start.css
+
+src/main/resources/database.properties
