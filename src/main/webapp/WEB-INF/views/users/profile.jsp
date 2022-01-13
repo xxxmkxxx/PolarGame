@@ -35,7 +35,7 @@
             <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
           </span>
         </div>
-
+      </div>
       <div class="sections">
         <span class="section1">
           <div class="usersection">
