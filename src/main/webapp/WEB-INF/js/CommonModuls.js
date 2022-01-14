@@ -21,9 +21,12 @@ let openMenuEvent = () => {
         let menu = $(common.get("menu_block_class"));
 
         if(menu.css("display") == "none")
-            $(common.get("menu_block_class")).slideDown(200);
+            // $(common.get("menu_block_class")).slideDown(200);
+            $(common.get("menu_block_class")).css("display","inline-flex");
         else
-            $(common.get("menu_block_class")).slideUp(200);
+            // $(common.get("menu_block_class")).slideUp(200);
+            $(common.get("menu_block_class")).css("display","none");
+
     });
 }
 
