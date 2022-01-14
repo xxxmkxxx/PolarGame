@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title> РЕГИСТРАЦИЯ </title>
-    <link th:href="@{/styles/css/registration.css}" rel="stylesheet" type="text/css">
-    <script th:src="@{/scripts/js/jquery.js}"></script>
+    <link th:href="@{/styles/registration.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/scripts/jquery.js}"></script>
 </head>
 
 <body>
 
 <header>
     <div class = "click_logo">
-        <span class = "header_minilogo"> <img th:src="@{/images/images/minilogo.png}"> </span>
+        <span class = "header_minilogo"> <img th:src="@{/images/minilogo.png}"> </span>
         <span class = "header_minilogo"> POLARGAME </span>
     </div>
 </header>
