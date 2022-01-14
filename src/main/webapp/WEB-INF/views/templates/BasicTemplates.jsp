@@ -32,4 +32,5 @@
     <a th:href="@{/}"> <span class = "menu_categories"> ДИАЛОГИ </span> </a>
     <span class = "menu_categories"> ИГРЫ </span>
     <span class = "menu_categories"> ВЫЙТИ </span>
+
 </div>
