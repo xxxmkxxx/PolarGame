@@ -30,8 +30,6 @@
 
                     <div class = "filters_block">
                         <span class = "filter_categories" > жанр  </span>
-                        <span class = "filter_categories">   </span>
-                        <!-- <span class = "filter_categories">  популярность </span> -->
                     </div>
 
                     <div class = "take_categ" id="take_categ"></div>

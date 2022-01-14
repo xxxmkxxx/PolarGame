@@ -39,77 +39,6 @@ textarea:focus, input:focus{
 outline: none;
 }
 
-header{
-	height: 5.8vw;
-	width: 100vw;
-	background-color: #142142;
-	display: inline-flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	z-index: 2;
-	overflow: hidden;
-}
-
-.click_logo{
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	padding-left: 3.5vw;
-
-}
-.header_minilogo{
-	color: white;
-	font-family: logofont;
-	padding: 0.7vw;
-	font-size: 3.5vw;
-	cursor: pointer;
-}
-
-.header_minilogo > img{
-	width: 3vw;
-	cursor: pointer;
-}
-
-
-.profile_data{
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: center;
-	/*background-color: red;*/
-	width: 77.5vw;
-}
-
-.menu_icon > img{
-	height: 2.5vw;
-	cursor: pointer;
-}
-
-.menu_icon{
-	margin-right: 1vw;
-	margin-left: 2vw;
-}
-
-.profile{
-	font-size: 1.4vw;
-	font-family: ButtonsFont;
-	color: #b8d9ff;
-	margin-left: 1vw;
-	cursor: pointer;
-}
-
-.profile_icon > img{
-	height: 2vw;
-	border-radius: 10vw;
-}
-
-.profile_icon{
-	margin-left: 0.7vw;
-}
-
-
-
 main{
 	background-color: #111b33;
 	display: flex;
@@ -134,12 +63,13 @@ main{
 }
 
 .find_game_inp{
-	border-radius: 10px;
-	height: 2vw;
+	border-radius: 0.7vw;
+	height: 1.8vw;
 	width: 20vw;
 	margin-left: 1.5vw;
 	padding-left: 9px;
 	font-size: 1.4vw;
+	border:none;
 }
 
 .find_icon > img{
@@ -157,16 +87,16 @@ main{
 .filters{
 	position: absolute;
 	width: 29vw;
-	/*height: 35vw;*/
 	background-color: #5A74F9;
 	margin-left: 54vw;
-	margin-top: 5vh;
+	margin-top: -5vw;
 	z-index: 2;
 	border-radius: 10px;
 	opacity: 85%;
 	display: none;
 	flex-direction: column;
-	padding-bottom: 1vw;
+	/*padding-bottom: 1vw;*/
+
 }
 
 .filters_block{   
@@ -177,6 +107,7 @@ main{
 	justify-content: flex-start;
 	align-items: center;
 	z-index: 3;
+
 }
 
 .filter_categories{
@@ -190,11 +121,26 @@ main{
 .take_categ{
 	display: flex;
 	flex-direction: row;
+	height: 20vw;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	margin-top:1vw;
+}
+
+.take_categ::-webkit-scrollbar {
+	width: 1.5vw;
+	background-color: #455A96;
+	border-radius: 2.5vw;
+}
+
+.take_categ::-webkit-scrollbar-thumb {
+	background-color: white;
+	border-radius: 2.5vw;
 }
 
 .categ{
 	width: 14vw;
-	margin-top: 2vh;
+	margin-bottom: 2vh;
 	margin-left: 0.5vw;
 	display: flex;
 	flex-direction: column;
@@ -212,7 +158,6 @@ main{
 	
 }
 
-
 .send_filters{
 	height: 2vw;
 	width: 27vw;
@@ -224,7 +169,8 @@ main{
 	border: none;
 	cursor: pointer;
 	margin-left: 1vw;
-	margin-top: 2.5vw;
+	margin-top: 2vw;
+	margin-bottom: 1vw;
 }
 
 
@@ -271,31 +217,11 @@ input[type=checkbox] {
 	margin-right: 2.4vw;
 }
 
-.menu{   		/* менять значение display на none */
-	/*display: inline-flex;*/
-	display: none;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	background-color: #42348C;
-	min-height: 3vw;
-	width: 100vw;
-}
-
 
  A{
     text-decoration: none;
  }
 
-
-.menu_categories{
-	font-family: ButtonsFont;
-	font-size: 1.3vw;
-	color: white;
-	padding-left: 10vw;
-	margin-right: 10vw;
-	cursor: pointer;
-}
 
 .games_block{
 	display: flex;
@@ -383,7 +309,7 @@ input[type=checkbox] {
 	.menu_icon{
 		margin-left: 48vw;
 	}
-	
+
 	.menu_icon > img{
 		height: 4vw;
 	}
@@ -429,30 +355,6 @@ input[type=checkbox] {
 		height: 3vh;
 		width: 30vw;
 	}
-
-	.filter_categories{
-		font-size: 2vw;
-		margin-right: 1.5vw;
-		margin-left: 1.5vw;	
-	}
-
-	.categ{
-		width: 16vw;
-	}
-
-	.categ_item{
-		font-size: 1.5vw;
-		margin-bottom: 1vw;
-	}
-
-	.send_filters{
-	width: 13.5vw; 
-	font-size: 1.3vw;
-	margin-left: 1vw;
-	padding: 0.2vw;
-	font-family: MainBoldFont;
-	}
-
 	.filter_icon > img{
 	width: 2.3vw;
 	margin-left: 1.5vw;
