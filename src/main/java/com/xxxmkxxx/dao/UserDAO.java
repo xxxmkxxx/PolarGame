@@ -1,6 +1,8 @@
 package com.xxxmkxxx.dao;
 
 import com.xxxmkxxx.models.UserModel;
+import org.hibernate.Hibernate;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
@@ -50,6 +52,15 @@ public class UserDAO {
     public void saveUser(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
+    }
+
+    public UserModel initializeFriends(UserModel user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(user, LockMode.NONE);
+
+        Hibernate.initialize(user.getFriends());
+
+        return user;
     }
 
     public UserDAO(SessionFactory sessionFactory) {

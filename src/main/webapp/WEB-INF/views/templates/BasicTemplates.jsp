@@ -25,6 +25,8 @@
 
 <header th:fragment="simpleHeader">
     <div th:replace="~{/templates/BasicTemplates :: logoInfoBlock}"></div>
+
+    <span th:if="${authorized}" class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
 </header>
 
 <div th:fragment="menu" class = "menu">

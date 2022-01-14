@@ -13,8 +13,9 @@
     <body>
         <header th:insert="~{/templates/BasicTemplates :: difficultHeader}"></header>
 
+        <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
+
         <main>
-            <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
             <div class = "filters_row">
                 <span class = "LargeText"> ВЫБОР ИГРЫ </span>

@@ -1,10 +1,10 @@
 package com.xxxmkxxx.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +30,14 @@ public class UserModel implements Serializable {
 
     @Column(name = "user_icon")
     private String urlUserIcon;
+
+    @ManyToMany
+    @JoinTable(
+            name = "friends",
+            joinColumns = {@JoinColumn(name = "friend_1")},
+            inverseJoinColumns = {@JoinColumn(name = "friend_2")}
+    )
+    private Set<UserModel> friends = new HashSet();
 
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -87,6 +95,14 @@ public class UserModel implements Serializable {
         this.urlUserIcon = urlUserIcon;
     }
 
+    public Set<UserModel> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<UserModel> friends) {
+        this.friends = friends;
+    }
+
     public List<GameCommentModel> getGameComments() {
         return gameComments;
     }
@@ -105,13 +121,14 @@ public class UserModel implements Serializable {
 
     public UserModel() {}
 
-    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, List<GameCommentModel> gameComments, PartyMemberModel partyMember) {
+    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, Set<UserModel> friends, List<GameCommentModel> gameComments, PartyMemberModel partyMember) {
         this.userId = userId;
         this.login = login;
         this.password = password;
         this.mail = mail;
         this.description = description;
         this.urlUserIcon = urlUserIcon;
+        this.friends = friends;
         this.gameComments = gameComments;
         this.partyMember = partyMember;
     }

@@ -1,5 +1,7 @@
 package com.xxxmkxxx.controllers;
 
+import com.xxxmkxxx.models.UserModel;
+import com.xxxmkxxx.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/user")
 public class UsersController {
+    private UserService userService;
+
     @GetMapping("/login")
     public String viewAuthorizationPage(Model model) {
         model.addAttribute("pageName", "авторизация".toUpperCase(Locale.ROOT));
@@ -50,14 +54,42 @@ public class UsersController {
     }
 
     @GetMapping("/profile")
-    public String viewProfilePage(Model model, HttpSession session) {
+    public String viewMineProfilePage(Model model, HttpSession session) {
         boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
 
         if(isAuthorized) {
+            UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+
             model.addAttribute("authorized", true);
             model.addAttribute("pageName", "профиль".toUpperCase(Locale.ROOT));
+            model.addAttribute("user", user);
+            model.addAttribute("friends", userService.getFriends(user));
+        } else {
+            return "redirect:/user/login";
         }
 
         return "/users/profile";
+    }
+
+    @GetMapping("/profile/{nick}")
+    public String viewAlienProfilePage(@PathVariable("nick") String login, Model model, HttpSession session) {
+        boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
+
+        if(isAuthorized) {
+            UserModel user = userService.getUserByLogin(login);
+
+            model.addAttribute("authorized", true);
+            model.addAttribute("pageName", "профиль".toUpperCase(Locale.ROOT));
+            model.addAttribute("user", user);
+            model.addAttribute("friends", userService.getFriends(user));
+        } else {
+            return "redirect:/user/login";
+        }
+
+        return "/users/profile";
+    }
+
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 }

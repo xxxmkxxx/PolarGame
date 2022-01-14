@@ -1,3 +1,8 @@
+$(document).ready(() => {
+    displayRemoveFriendFormEvent("#delete_friend");
+    closeRemoveFriendFormEvent("#confirmationCancel");
+});
+
 const chooseSection = () => {
   $(document).on('click', '#settings_button', function () {
     $('#friends_section').css('display', 'none');
@@ -29,6 +34,20 @@ const descriptionEvent = () => {
     }
   });
 };
+
+const displayRemoveFriendFormEvent = (element) => {
+    $(element).click(() => {
+        displayElement(element);
+    });
+}
+
+const closeRemoveFriendFormEvent = (element) => {
+    $(element).click(() => {
+        hideElement(element);
+    });
+
+    closeOutZoneElement(element, hideElement(element));
+}
 
 const deleteConfirmation = () => {
   $(document).on('click', '#delete_friend', function () {

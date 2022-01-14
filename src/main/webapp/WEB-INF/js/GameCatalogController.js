@@ -1,16 +1,15 @@
-$(document).ready(mainFunction());
-
-let isDownloadGameFilters = false;
-
-function mainFunction() {
+$(document).ready(() => {
     clickOnGameIconEvent(gameCatalogConfig.get("popular_game_block_class"));
     clickOnGameIconEvent(gameCatalogConfig.get("normal_game_block_class"));
 
     searchGame(gameCatalogConfig.get("game_search_field_id"));
     displayGameFilters(gameCatalogConfig.get("filter_games_block_class"));
+    hideGameFilters(gameCatalogConfig.get("filters_section_class"));
     chooseGenresFilters();
     confirmFilters(gameCatalogConfig.get("filters_form_id"));
-}
+});
+
+let isDownloadGameFilters = false;
 
 //Обработчик события клика по иконке игры
 function clickOnGameIconEvent(iconElement) {
@@ -22,9 +21,8 @@ function clickOnGameIconEvent(iconElement) {
 //Функция перехода на страницу игры
 function transitionToGame(id) {
     $.ajax({
-        type : 'POST',
-        url : '/PolarGame/catalog/openGamePage',
-        data: {id : id},
+        type : 'GET',
+        url : '/PolarGame/game/' + id,
         success: function () {
             window.location.href = '/PolarGame/game/' + id;
         },
@@ -113,6 +111,10 @@ function displayGameFilters(gameFiltersElement) {
         } else
             filtersSection.slideUp(200);
     });
+}
+
+function hideGameFilters(gameFiltersElement) {
+    closeOutZoneElement(gameFiltersElement, "old");
 }
 
 //Функция отображения полученых из бд жанров игр

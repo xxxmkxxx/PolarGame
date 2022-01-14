@@ -8,6 +8,8 @@
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/sockjs-client/1.0.0/sockjs.min.js}"></script>
     <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>
+    <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>
+    <script th:src="@{/scripts/CommonModuls.js}"></script>
 </head>
 
 <body>

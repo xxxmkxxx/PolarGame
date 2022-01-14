@@ -5,11 +5,15 @@
     <link th:href="@{/styles/profile.css}" rel="stylesheet" />
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/ptrofileNameElementsConfig.js}"></script>
+    <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>
+    <script th:src="@{/scripts/CommonModuls.js}"></script>
 
   </head>
 
   <body>
     <header th:replace="~{/templates/BasicTemplates :: simpleHeader}"></header>
+
+    <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
      <!-- ФОРМА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ ДРУГА -->
      <div class = "whiteBack" id = "whiteBack"> </div>
@@ -40,16 +44,17 @@
         <span class="section1">
           <div class="usersection">
             <div class="user_data">
-              <div class="user_icon"><img id="user_icon" th:src="@{/images/example_pic.png}" /></div>
+              <div class="user_icon">
+              <img id="user_icon" th:src="@{'/images/' + ${user.urlUserIcon}}" /></div>
 
               <div class="user_name_and_rating">
-                <div class="user_name" id="user_name">НИК ИГРОКА</div>
+                <div class="user_name" id="user_name" th:text="${user.login}"></div>
                 <div class="user_rating"></div>
               </div>
             </div>
 
             <div class="user_description" id="user_description">
-              <textarea id="user_description_area" maxlength = "500" wrap="soft" class="user_description_area"></textarea>
+              <textarea id="user_description_area" maxlength = "500" wrap="soft" class="user_description_area" th:text="${user.description}"></textarea>
                 <span class="edit_icon">
                   <img id="edit_description" th:src="@{/images/edit_icon.png}" />
                 </span>
@@ -79,11 +84,11 @@
           </div>
 
           <div class="friends_form">
-            <div class="friend_line">
+            <div th:each="friend : ${friends}" class="friend_line">
               <span class="friend_icon">
-                <img id="friend_icon" th:src="@{/images/example_pic.png}" />
+                <img id="friend_icon" th:src="@{'/images/' + ${friend.urlUserIcon}}" />
               </span>
-              <span class="friend_nick">user's nick</span>
+              <span class="friend_nick" th:text="${friend.login}"></span>
               <span class="friend_line_icons">
                 <span class="friend_func_icon">
                   <img id="message_to_friend" th:src="@{/images/message_icon.png}" />
@@ -153,6 +158,6 @@
       </div>
     </main>
 
-    <script type="application/javascript" th:src="@{/scripts/ProfileSection.js}"></script>
+    <script type="application/javascript" th:src="@{/scripts/ProfileController.js}"></script>
   </body>
 </html>

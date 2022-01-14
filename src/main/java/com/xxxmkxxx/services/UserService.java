@@ -2,10 +2,14 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.dao.UserDAO;
 import com.xxxmkxxx.models.UserModel;
+import org.hibernate.Hibernate;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
@@ -88,6 +92,11 @@ public class UserService {
         }
 
         return message;
+    }
+
+    @Transactional
+    public List<UserModel> getFriends(UserModel user) {
+        return new ArrayList(userDAO.initializeFriends(user).getFriends());
     }
 
     public UserService(Environment environment, UserDAO userDAO) {
