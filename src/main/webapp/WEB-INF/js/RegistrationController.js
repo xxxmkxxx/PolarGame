@@ -105,7 +105,7 @@ function displayErrorMessage(message) {
     } else {
         var errorImg = $('<img>', {
             'id' : 'icon',
-            'src' : '/PolarGame/images/images/error.png'
+            'src' : '/PolarGame/images/error.png'
         });
         $("#error_icon").append(errorImg);
     }
