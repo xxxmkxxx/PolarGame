@@ -90,11 +90,11 @@
               </span>
               <span class="friend_nick" th:text="${friend.login}"></span>
               <span class="friend_line_icons">
-                <span class="friend_func_icon">
-                  <img id="message_to_friend" th:src="@{/images/message_icon.png}" />
+                <span class="friend_func_icon message_icon">
+                  <img th:id="${friend.login}" th:src="@{/images/message_icon.png}" />
                 </span>
-                <span class="friend_func_icon">
-                  <img id="delete_friend" th:src="@{/images/delete_icon.png}" />
+                <span class="friend_func_icon delete_icon">
+                  <img th:id="${friend.login}" th:src="@{/images/delete_icon.png}" />
                 </span>
               </span>
             </div>

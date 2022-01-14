@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class UserDAO {
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
     public UserModel getUserById(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -61,6 +61,21 @@ public class UserDAO {
         Hibernate.initialize(user.getFriends());
 
         return user;
+    }
+
+    public void removeFriend(UserModel user, UserModel friend) {
+        Session session = sessionFactory.getCurrentSession();
+
+        session.lock(user, LockMode.NONE);
+        session.lock(friend, LockMode.NONE);
+
+        Hibernate.initialize(user.getFriends());
+        Hibernate.initialize(friend.getFriends());
+
+        user.getFriends().remove(friend);
+        friend.getFriends().remove(user);
+
+        session.update(user);
     }
 
     public UserDAO(SessionFactory sessionFactory) {

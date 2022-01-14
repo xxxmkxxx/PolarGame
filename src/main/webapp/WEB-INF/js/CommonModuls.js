@@ -13,10 +13,9 @@ let closeOutZoneElement = (element, method) => {
     } else {
         $(document).mouseup(function (event) {
             if(!$(element).is(event.target) && $(element).has(event.target).length === 0)
-                hideElement();
+                hideElement(element);
         });
     }
-
 }
 
 let openProfileEvent = (login) => {

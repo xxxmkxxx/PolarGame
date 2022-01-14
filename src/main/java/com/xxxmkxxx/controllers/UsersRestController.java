@@ -1,11 +1,15 @@
 package com.xxxmkxxx.controllers;
 
+import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/user")
@@ -35,6 +39,23 @@ public class UsersRestController {
         }
 
         return message;
+    }
+
+    @PostMapping("/friends/remove")
+    public String removeFriend(@RequestParam("friendLogin") String friendLogin, HttpSession session) {
+        UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+        UserModel friend = userService.getUserByLogin(friendLogin);
+
+        userService.removeFriend(user, friend);
+
+        return "success";
+    }
+
+    @PostMapping("/friends/get")
+    public List<UserModelWrapper> getFriends(HttpSession session) {
+        UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+
+        return userService.getFriendsWrappers(user);
     }
 
     public UsersRestController(UserService userService, HttpSession session) {

@@ -1,5 +1,7 @@
 package com.xxxmkxxx.services;
 
+import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.UserDAO;
 import com.xxxmkxxx.models.UserModel;
 import org.hibernate.Hibernate;
@@ -96,8 +98,26 @@ public class UserService {
 
     @Transactional
     public List<UserModel> getFriends(UserModel user) {
-        return new ArrayList(userDAO.initializeFriends(user).getFriends());
+        return userDAO.initializeFriends(user).getFriends();
     }
+
+    @Transactional
+    public List<UserModelWrapper> getFriendsWrappers(UserModel user) {
+        List<UserModel> friends = userDAO.initializeFriends(user).getFriends();
+        List<UserModelWrapper> result = new ArrayList();
+
+        for (int i = 0; i < friends.size(); i++) {
+            result.add(WrapperManager.convertUserModel(friends.get(i)));
+        }
+
+        return result;
+    }
+
+    @Transactional
+    public void removeFriend(UserModel user, UserModel friend) {
+        userDAO.removeFriend(user, friend);
+    }
+
 
     public UserService(Environment environment, UserDAO userDAO) {
         this.environment = environment;

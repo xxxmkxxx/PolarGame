@@ -1,6 +1,13 @@
+let friendLogin;
+
 $(document).ready(() => {
-    displayRemoveFriendFormEvent("#delete_friend");
+    displayRemoveFriendFormEvent(".delete_icon");
     closeRemoveFriendFormEvent("#confirmationCancel");
+    removeFriendEvent(friendLogin);
+
+
+    chooseSection();
+    descriptionEvent();
 });
 
 const chooseSection = () => {
@@ -36,36 +43,116 @@ const descriptionEvent = () => {
 };
 
 const displayRemoveFriendFormEvent = (element) => {
-    $(element).click(() => {
-        displayElement(element);
+    $(element).click(function () {
+        displayElement("#confirmationBlock");
+
+        friendLogin = $(this).children().attr("id");
     });
 }
 
 const closeRemoveFriendFormEvent = (element) => {
     $(element).click(() => {
-        hideElement(element);
+        hideElement("#confirmationBlock");
     });
 
-    closeOutZoneElement(element, hideElement(element));
+    closeOutZoneElement("#confirmationBlock", hideElement("#confirmationBlock"));
 }
 
-const deleteConfirmation = () => {
-  $(document).on('click', '#delete_friend', function () {
-    $('#whiteBack').css('display', 'flex');
-    $('#confirmationBlock').css('display', 'flex');
-  });
+const removeFriendEvent = () => {
+    $("#confirmationToDelete").click(() => {
+        let data = {
+            friendLogin : friendLogin
+        };
 
-  $(document).on('click', '#confirmationToDelete', function () {
-    $('#whiteBack').css('display', 'none');
-    $('#confirmationBlock').css('display', 'none');
-  });
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/user/friends/remove",
+            data : data,
+            success: function(message) {
+                if(message === "success") {
+                    updateFriendsList();
+                    hideElement("#confirmationBlock");
+                }
+            },
+            error : function() {
+                console.log("error");
+            }
+        });
+    });
+}
 
-  $(document).on('click', '#confirmationCancel', function () {
-    $('#whiteBack').css('display', 'none');
-    $('#confirmationBlock').css('display', 'none');
-  });
-};
+const displayFriendsList = (friendsList) => {
+    $(".friends_form").empty();
 
-chooseSection();
-descriptionEvent();
-deleteConfirmation();
+    for (let i = 0; i < friendsList.length; i++) {
+        createFriendLine(friendsList[i]);
+    }
+}
+
+const createFriendLine = (friend) => {
+    let friendLineDiv = $("<div>", {
+        "class" : "friend_line"
+    });
+
+    let friendIconSpan = $("<span>", {
+        "class" : "friend_icon"
+    });
+
+    let friendIconImg = $("<img>", {
+        "id" : "friend_icon",
+        "src" : "/PolarGame/images/" + friend.urlUserIcon
+    });
+
+    let friendNickSpan = $("<span>", {
+        "class" : "friend_nick"
+    }).text(friend.login);
+
+    let friendLineIconsSpan = $("<span>", {
+        "class" : "friend_line_icons"
+    });
+
+    let messageIconSpan = $("<span>", {
+        "class" : "friend_func_icon message_icon"
+    });
+
+    let messageImg = $("<img>", {
+        "id" : "AUF",
+        "src" : "/PolarGame/images/message_icon.png"
+    });
+
+    let deleteIconSpan = $("<span>", {
+        "class" : "friend_func_icon delete_icon"
+    });
+
+    let deleteImg = $("<img>", {
+        "id" : "AUF",
+        "src" : "/PolarGame/images/delete_icon.png"
+    });
+
+    deleteIconSpan.append(deleteImg);
+    messageIconSpan.append(messageImg);
+
+    friendLineIconsSpan.append(messageIconSpan);
+    friendLineIconsSpan.append(deleteIconSpan);
+
+    friendIconSpan.append(friendIconImg);
+
+    friendLineDiv.append(friendIconSpan);
+    friendLineDiv.append(friendNickSpan);
+    friendLineDiv.append(friendLineIconsSpan);
+
+    $(".friends_form").append(friendLineDiv);
+}
+
+const updateFriendsList = () => {
+    $.ajax({
+        type : "POST",
+        url : "/PolarGame/ajax/user/friends/get",
+        success: function(friendsList) {
+            displayFriendsList(friendsList);
+        },
+        error : function() {
+            console.log("error");
+        }
+    });
+}
