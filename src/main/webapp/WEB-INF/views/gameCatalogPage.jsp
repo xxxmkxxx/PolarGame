@@ -4,6 +4,7 @@
         <title th:text="${namePage}"></title>
         <link th:href="@{/styles/game_catalog.css}" rel="stylesheet" type="text/css">
         <link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
+        <link rel="icon" th:href="@{/images/logotest2.png}">
         <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
         <script th:src="@{/scripts/configs/GameCatalogNameElementsConfig.js}"></script>
         <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>

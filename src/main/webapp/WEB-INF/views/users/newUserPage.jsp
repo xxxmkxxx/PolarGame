@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> РЕГИСТРАЦИЯ </title>
     <link th:href="@{/styles/registration.css}" rel="stylesheet" type="text/css">
+    <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/scripts/jquery.js}"></script>
 </head>
 

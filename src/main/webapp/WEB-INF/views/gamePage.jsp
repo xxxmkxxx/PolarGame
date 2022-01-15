@@ -5,6 +5,7 @@
     <title> СТРАНИЦА ИГРЫ </title>
     <link th:href="@{/styles/game.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
+    <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/sockjs-client/1.0.0/sockjs.min.js}"></script>
     <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>

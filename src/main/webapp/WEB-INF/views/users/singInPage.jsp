@@ -3,6 +3,7 @@
         <meta charset="utf-8">
         <title th:text="${pageName}"></title>
         <link th:href="@{/styles/sign_in.css}" rel="stylesheet" type="text/css">
+        <link rel="icon" th:href="@{/images/logotest2.png}">
         <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     </head>
 

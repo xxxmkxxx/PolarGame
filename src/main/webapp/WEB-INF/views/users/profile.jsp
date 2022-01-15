@@ -3,6 +3,7 @@
     <meta charset="utf-8" />
     <title th:text="${pageName}"></title>
     <link th:href="@{/styles/profile.css}" rel="stylesheet" />
+    <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/ptrofileNameElementsConfig.js}"></script>
     <script th:src="@{/scripts/configs/commonNameElementsConfig.js}"></script>
