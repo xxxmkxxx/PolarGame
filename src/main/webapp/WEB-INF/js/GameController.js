@@ -25,8 +25,8 @@ function partyEvents() {
     openFiltersFormEvent(".filter_icon", ".party_filters");
     closeFiltersFormEvent(".filter_icon", ".party_filters");
 
-    openPartyCreationFormEvent(".create_party", ".create_party_form");
-    closePartyCreationFormEvent(".close_party_creator", ".create_party_form")
+    openPartyCreationFormEvent(".create_party", "#create_party_block");
+    closePartyCreationFormEvent(".close_party_creator", "#create_party_block")
 
     searchPartyEvent("#find_party");
 
