@@ -13,14 +13,14 @@ $(document).ready(() => {
 const chooseSection = () => {
   $(document).on('click', '#settings_button', function () {
     $('#friends_section').css('display', 'none');
-    $('#settings_section').css('display', 'flex');
+    $('#settings_section').css('display', 'block');
     $('#settings_button').css('opacity', '100%');
     $('#friends_button').css('opacity', '50%');
   });
 
   $(document).on('click', '#friends_button', function () {
     $('#settings_section').css('display', 'none');
-    $('#friends_section').css('display', 'flex');
+    $('#friends_section').css('display', 'block');
     $('#friends_button').css('opacity', '100%');
     $('#settings_button').css('opacity', '50%');
   });
