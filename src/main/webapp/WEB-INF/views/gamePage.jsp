@@ -164,43 +164,77 @@
 
         <span class = "section2" id="section2">
 				<div class = "choice_of_action">
-					<span class = "find_party"> НАЙТИ ПАТИ </span>
-					<span class = "find_command"> НАЙТИ КОМАНДУ </span>
+					<span class = "find_party" id = "find_party_button"> НАЙТИ ПАТИ </span>
+					<span class = "find_command" id = "find_team_button"> НАЙТИ КОМАНДУ </span>
 				</div>
 
-				<div class = "filter_row">
+                <div class = "partyORteam_block" id = "party_block">
+                    <div class = "filter_row">
 					<form id="party_search" action="/PolarGame/ajax/game/party/search" method="post">
-						<input type="text" id="find_party" class = "find_game_inp" placeholder="ник создателя пати">
+						<input type="text" id="find_party" class = "inputFinder" placeholder="ник создателя пати">
 					</form>
 					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}"></span>
 					<span class = "filter_icon" > <img th:src="@{/images/filter_icon.png}"></span>
 					<span class = "create_party"> СОЗДАТЬ ПАТИ </span>
-					<span class = "create_com"> СОЗДАТЬ КОМАНДУ </span>
-				</div>
+				    </div>
 
-				<div class = "search_message" id="search_message"> </div>
-				<div class = "com_party_place" id="com_party_place">
-                    <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
-                        <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
-                            <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
-                                <span class="form_img">
-                                    <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
-                                </span>
+                    <div class = "search_message" id="search_message"> </div>
+                    <div class = "com_party_place" id="com_party_place">
+                        <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
+                            <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
+                                <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
+                                    <span class="form_img">
+                                        <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
+                                    </span>
 
-                                <span class="party_creator" th:text="${owner.login}"></span>
-                            </div>
+                                    <span class="party_creator" th:text="${owner.login}"></span>
+                                </div>
 
-                            <div class="row2">
-                                <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
+                                <div class="row2">
+                                    <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
 
-                                <span class="come_in" th:id="${party.partyId}">
-                                    <img th:src="@{/images/come_in_icon.png}">
-                                </span>
-                            </div>
-                        </span>
+                                    <span class="come_in" th:id="${party.partyId}">
+                                        <img th:src="@{/images/come_in_icon.png}">
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
                     </div>
-				</div>
-			</span>
+                </div>
+
+                <div class = "partyORteam_block" id = "team_block" style = "display:none">
+                    <div class = "filter_row">
+                        <input type="text" id="find_team" class = "inputFinder" placeholder="название команды">
+                        <span class = "find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}"></span>
+                        <span class = "filter_icon" > <img th:src="@{/images/filter_icon.png}"></span>
+                        <span class = "create_team"> СОЗДАТЬ КОМАНДУ </span>
+				    </div>
+
+                    <div class = "com_party_place" id="com_party_place">
+                        <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
+                            <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
+                                <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
+                                    <span class="form_img">
+                                        <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
+                                    </span>
+
+                                    <span class="party_creator" th:text="${owner.login}"></span>
+                                </div>
+
+                                <div class="row2">
+                                    <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
+
+                                    <span class="come_in" th:id="${party.partyId}">
+                                        <img th:src="@{/images/come_in_icon.png}">
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+        </span>
     </div>
 
 </main>
@@ -208,6 +242,7 @@
 <script type="application/javascript" th:src="@{/scripts/CommonModuls.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/PartyController.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/GameCommentController.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/GameController.js}"></script>
 
 </body>
 </html>

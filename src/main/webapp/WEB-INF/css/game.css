@@ -345,6 +345,7 @@ main{
 	margin-top: 1.5vw;
 	margin-left: 1.3vw;
 	opacity: 100%;
+	cursor: pointer;
 }
 
 .find_command{
@@ -360,6 +361,7 @@ main{
 	margin-top: 1.5vw;
 	margin-left: 1vw;
 	opacity: 50%;
+	cursor: pointer;
 }
 
 .filter_row{
@@ -367,9 +369,11 @@ main{
 	flex-direction: row;
 	height: 5vw;
 }
+.partyORteam_block {
+	display: block;
+}
 
-
-.find_game_inp{
+.inputFinder{
 	border-radius: 10px;
 	height: 2vw;
 	width: 20vw;
@@ -379,7 +383,7 @@ main{
 	border: none;
 }
 
-.find_game_inp::placeholder{
+.inputFinder::placeholder{
 	font-size: 1.2vw;
 	font-style: italic;
 }
@@ -396,15 +400,6 @@ main{
 	cursor: pointer;
 }
 
-.create_com{
-	font-family: ButtonsFont;
-	font-size: 1.2vw;
-	color: white;
-	margin-top: 0.5vw;
-	margin-left: 12vw;
-	display: none;
-}
-
 .create_party{
 	font-family: ButtonsFont;
 	font-size: 1.2vw;
@@ -413,6 +408,16 @@ main{
 	color: white;
 	cursor: pointer;
 }
+
+.create_team {
+	font-family: ButtonsFont;
+	font-size: 1.2vw;
+	margin-top: 0.5vw;
+	margin-left: 13vw;
+	color: white;
+	cursor: pointer;
+}
+
 
 .com_party_place{
 	display: flex;
@@ -581,7 +586,7 @@ main{
 	width: 46.5vw;
 	height: 36vw;
 	position: absolute;
-	background-image: url("/PolarGame/images/images/background1.png");
+	background-image: url("/PolarGame/images/background1.png");
 	background-size: 120%;
 	z-index: 1;
 	border-style: solid;
