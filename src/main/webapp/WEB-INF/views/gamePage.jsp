@@ -240,7 +240,6 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/CommonModuls.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/PartyController.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/GameCommentController.js}"></script>
 <script type="application/javascript" th:src="@{/scripts/GameController.js}"></script>

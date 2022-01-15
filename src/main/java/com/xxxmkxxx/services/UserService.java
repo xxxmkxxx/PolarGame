@@ -9,6 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +35,12 @@ public class UserService {
         return userDAO.getUserByMail(userMail);
     }
 
-    @Transactional
     public boolean validateLogin(String login) {
         boolean isSmallLength = login.length() > 5;
 
         return isSmallLength;
     }
 
-    @Transactional
     public boolean validateMail(String mail) {
         boolean isSmallLength = mail.length() > 9;
 
@@ -116,6 +115,43 @@ public class UserService {
     @Transactional
     public void removeFriend(UserModel user, UserModel friend) {
         userDAO.removeFriend(user, friend);
+    }
+
+    @Transactional
+    public void updateDescription(UserModel user, String description) {
+        user.setDescription(description);
+
+        userDAO.updateUser(user);
+    }
+
+    @Transactional
+    public String updateData(
+            UserModel user,
+            String newLogin,
+            String lostPassword,
+            String newPassword,
+            String repeatPassword
+    ) {
+        String message = "success";
+
+        if(!validateLogin(newLogin))
+            message = environment.getRequiredProperty("error.profilePage.incorrectLogin");
+        else if(!newPassword.equals(repeatPassword))
+            message = environment.getRequiredProperty("error.profilePage.passwordMismatch");
+        else if(getUserByLogin(newLogin).getLogin() != null)
+            message = environment.getRequiredProperty("error.profilePage.loginAlreadyExists");
+        else if(!user.getPassword().equals(lostPassword)){
+            message = environment.getRequiredProperty("error.profilePage.incorrectLostPassword");
+        }
+
+        if(message.equals("success")) {
+            user.setLogin(newLogin);
+            user.setPassword(newPassword);
+
+            userDAO.updateUser(user);
+        }
+
+        return message;
     }
 
 

@@ -11,8 +11,7 @@ public class CreateNewPartyMessage {
         this.gameId = gameId;
     }
 
-    public CreateNewPartyMessage() {
-    }
+    public CreateNewPartyMessage() {}
 
     public CreateNewPartyMessage(int gameId) {
         this.gameId = gameId;

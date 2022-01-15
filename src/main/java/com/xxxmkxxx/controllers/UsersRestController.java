@@ -1,6 +1,8 @@
 package com.xxxmkxxx.controllers;
 
+import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,12 @@ public class UsersRestController {
     private HttpSession session;
 
     @PostMapping("/validateRegistrationData")
-    public String validateRegistrationData(String login, String reg_form_mail, String reg_form_password, String reg_form_password2) {
+    public String validateRegistrationData(
+            String login,
+            String reg_form_mail,
+            String reg_form_password,
+            String reg_form_password2
+    ) {
         String message = userService.validateRegistrationData(login, reg_form_mail, reg_form_password, reg_form_password2);
 
         if(message.equals("success")) {
@@ -56,6 +63,37 @@ public class UsersRestController {
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
 
         return userService.getFriendsWrappers(user);
+    }
+
+    @PostMapping("/update/description")
+    public String updateDescription(@RequestParam("description") String description, HttpSession session) {
+        UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+
+        userService.updateDescription(user, description);
+
+        return "success";
+    }
+
+    @PostMapping("/update/data")
+    public Message<UserModelWrapper> updateData(
+            @RequestParam("newLogin") String newLogin,
+            @RequestParam("lostPassword") String lostPassword,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("repeatPassword") String repeatPassword,
+            HttpSession session
+    ) {
+        UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+
+        String message = userService.updateData(user, newLogin, lostPassword, newPassword, repeatPassword);
+        Message<UserModelWrapper> mess;
+
+        if(message.equals("success")) {
+            session.setAttribute("userLogin", newLogin);
+            mess = new Message(message, WrapperManager.convertUserModel(user));
+        } else
+            mess = new Message(message, null);
+
+        return mess;
     }
 
     public UsersRestController(UserService userService, HttpSession session) {

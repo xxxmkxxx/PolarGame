@@ -3,14 +3,13 @@ let friendLogin;
 $(document).ready(() => {
     displayRemoveFriendFormEvent(".delete_icon");
     closeRemoveFriendFormEvent("#confirmationCancel");
-    removeFriendEvent(friendLogin);
-
-
-    chooseSection();
-    descriptionEvent();
+    removeFriendEvent();
+    descriptionEditEvent();
+    userDataEditEvent();
+    chooseSectionEvent();
 });
 
-const chooseSection = () => {
+const chooseSectionEvent = () => {
   $(document).on('click', '#settings_button', function () {
     $('#friends_section').css('display', 'none');
     $('#settings_section').css('display', 'block');
@@ -26,21 +25,40 @@ const chooseSection = () => {
   });
 };
 
-const descriptionEvent = () => {
-  let doesInEditMode = false;
+const descriptionEditEvent = () => {
+    $("#edit_description").click(() => {
+        let iconSrc = $("#edit_description").attr("src");
 
-  $(document).on('click', '#edit_description', function () {
-    if (doesInEditMode === false) {
-      document.getElementById('edit_description').src = '../images/apply.png';
-      $('#user_description_area').css('pointer-events', 'auto');
-      doesInEditMode = true;
-    } else {
-      document.getElementById('edit_description').src = '../images/edit_icon.png';
-      $('#user_description_area').css('pointer-events', 'none');
-      doesInEditMode = false;
+        if(iconSrc === "/PolarGame/images/apply.png") {
+            document.getElementById('edit_description').src = '/PolarGame/images/edit_icon.png';
+            $('#user_description_area').css('pointer-events', 'none');
+
+            updateUserDescription();
+        } else if(iconSrc === "/PolarGame/images/edit_icon.png") {
+            document.getElementById('edit_description').src = '/PolarGame/images/apply.png';
+            $('#user_description_area').css('pointer-events', 'auto');
+        }
+    });
+}
+
+const updateUserDescription = () => {
+    let description = $("#user_description_area").val();
+    let data = {
+        description : description
     }
-  });
-};
+
+    $.ajax({
+        type : "POST",
+        url : "/PolarGame/ajax/user/update/description",
+        data : data,
+        success: function(message) {
+            console.log(message);
+        },
+        error : function() {
+            console.log("error");
+        }
+    });
+}
 
 const displayRemoveFriendFormEvent = (element) => {
     $(element).click(function () {
@@ -155,4 +173,43 @@ const updateFriendsList = () => {
             console.log("error");
         }
     });
+}
+
+const userDataEditEvent = () => {
+    $("#settings_form").submit((event) => {
+        event.preventDefault();
+
+        let data = {
+            newLogin : $("#new_login_field").val(),
+            lostPassword : $("#lost_password_field").val(),
+            newPassword : $("#new_password_field").val(),
+            repeatPassword : $("#repeat_password_field").val()
+        };
+
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/user/update/data",
+            data : data,
+            success: function(message) {
+                if(message.text === "success")
+                    updateUserDataView(message.model);
+
+                console.log(message);
+            },
+            error : function() {
+                console.log("error");
+            }
+        });
+    })
+}
+
+const updateUserDataView = (user) => {
+    $("#user_name").text(user.login);
+    $("#user_icon").attr("src", "/PolarGame/images/" + user.urlUserIcon);
+    $("#user_description_area").val(user.description);
+
+    $("#new_login_field").val("");
+    $("#lost_password_field").val("");
+    $("#new_password_field").val("");
+    $("#repeat_password_field").val("");
 }

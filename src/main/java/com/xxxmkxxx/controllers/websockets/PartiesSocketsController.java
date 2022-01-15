@@ -1,4 +1,4 @@
-package com.xxxmkxxx.controllers;
+package com.xxxmkxxx.controllers.websockets;
 
 import com.xxxmkxxx.common.messages.CreateNewPartyMessage;
 import com.xxxmkxxx.models.PartyModel;

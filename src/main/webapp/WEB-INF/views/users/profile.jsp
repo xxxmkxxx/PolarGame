@@ -104,56 +104,58 @@
        
           <div class = "settings_section" id = "settings_section">
 
-          <div class="settings_form">
-            <div class="type_of_setting">АККАУНТ</div>
-              <div class="active_section_of_settings">
-                
-                  <div class="setting_name">Изменить ник</div>
-                  <div class="line_to_check">
-                    <input type="text" class="input_form" placeholder="Введите новый ник" />
-                    <div class="checking_circle"></div>
+            <form id="settings_form" th:method="POST">
+              <div class="settings_form">
+                <div class="type_of_setting">АККАУНТ</div>
+                  <div class="active_section_of_settings">
+
+                      <div class="setting_name">Изменить ник</div>
+                      <div class="line_to_check">
+                        <input type="text" id="new_login_field" class="input_form" placeholder="Введите новый ник" />
+                        <div class="checking_circle"></div>
+                      </div>
+
+                      <div class="setting_name">Изменить изображение</div>
+                      <input
+                        type="file"
+                        name="new_profile_pic_input"
+                        accept="image/*"
+                        class="new_pic_input"
+                      />
+
+                      <div class="setting_confirm_email">Отправить письмо для подтверждения email</div>
+
                   </div>
-                
-                  <div class="setting_name">Изменить изображение</div>
-                  <input
-                    type="file"
-                    name="new_profile_pic_input"
-                    accept="image/*"
-                    class="new_pic_input"
-                  />
-
-                  <div class="setting_confirm_email">Отправить письмо для подтверждения email</div>
-                
               </div>
+
+              <div class="settings_form">
+                <div class="type_of_setting">ПАРОЛЬ</div>
+                  <div class="active_section_of_settings">
+
+                    <div class="setting_name">Изменить пароль</div>
+
+                    <div class="line_to_check">
+                      <input type="password" id="lost_password_field" class="input_form" placeholder="Введите старый пароль" />
+                      <div class="checking_circle"></div>
+                    </div>
+
+                    <div class="line_to_check">
+                      <input type="password" id="new_password_field" class="input_form" placeholder="Введите новый пароль" />
+                      <div class="checking_circle"></div>
+                    </div>
+
+                    <div class="line_to_check">
+                      <input type="password" id="repeat_password_field" class="input_form" placeholder="Повторите новый пароль" />
+                      <div class="checking_circle"></div>
+                    </div>
+
+                  </div>
+                </div>
+
+              <input type="submit" id="save_settings" class="button_save_settings" value="СОХРАНИТЬ">
+            </form>
           </div>
-          
-          <div class="settings_form">
 
-            <div class="type_of_setting">ПАРОЛЬ</div>
-              <div class="active_section_of_settings">
-                
-                <div class="setting_name">Изменить пароль</div>
-
-                <div class="line_to_check">
-                  <input type="password" class="input_form" placeholder="Введите старый пароль" />
-                  <div class="checking_circle"></div>
-                </div>
-
-                <div class="line_to_check">
-                  <input type="password" class="input_form" placeholder="Введите новый пароль" />
-                  <div class="checking_circle"></div>
-                </div>
-
-                <div class="line_to_check">
-                  <input type="password" class="input_form" placeholder="Повторите новый пароль" />
-                  <div class="checking_circle"></div>
-                </div>
-
-              </div>
-            </div>
-
-            <button id="save_settings" class="button_save_settings">СОХРАНИТЬ</button>
-        </div> 
 
         </span>
       </div>

@@ -8,7 +8,6 @@ import javax.persistence.Id;
 public class UserModelWrapper {
     private int userId;
     private String login;
-    private String password;
     private String mail;
     private String description;
     private String urlUserIcon;
@@ -27,14 +26,6 @@ public class UserModelWrapper {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getMail() {
@@ -61,10 +52,9 @@ public class UserModelWrapper {
         this.urlUserIcon = urlUserIcon;
     }
 
-    public UserModelWrapper(int userId, String login, String password, String mail, String description, String urlUserIcon) {
+    public UserModelWrapper(int userId, String login, String mail, String description, String urlUserIcon) {
         this.userId = userId;
         this.login = login;
-        this.password = password;
         this.mail = mail;
         this.description = description;
         this.urlUserIcon = urlUserIcon;

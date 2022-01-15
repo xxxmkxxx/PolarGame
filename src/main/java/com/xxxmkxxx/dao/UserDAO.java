@@ -54,6 +54,11 @@ public class UserDAO {
         session.save(user);
     }
 
+    public void updateUser(UserModel user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+    }
+
     public UserModel initializeFriends(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(user, LockMode.NONE);
