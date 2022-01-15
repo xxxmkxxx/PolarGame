@@ -39,8 +39,11 @@ function searchGame(searchField) {
             type : "POST",
             url : "/PolarGame/ajax/catalog/games/search",
             data : {searchPattern : $(searchField).val()},
-            success : function (gamesList) {
-                displayFoundGames(gamesList);
+            success : function (message) {
+                if(message.text === "success")
+                    displayFoundGames(message.object);
+                else
+                    console.log(message.text);
             },
             error : function () {
                 console.log("error");
@@ -155,8 +158,11 @@ function getGenres() {
     $.ajax({
         type : "POST",
         url : "/PolarGame/ajax/catalog/games/get/genres",
-        success: function(genresList) {
-            displayGenres(genresList);
+        success: function(message) {
+            if(message.text === "success")
+                displayGenres(message.object);
+            else
+                console.log(message.text);
         },
         error : function() {
             console.log("error");
@@ -177,8 +183,11 @@ function confirmFilters(filtersForm) {
             type : "POST",
             url : "/PolarGame/ajax/catalog/games/filters",
             data: data,
-            success: function(gamesList) {
-                displayFoundGames(gamesList);
+            success: function(message) {
+                if(message.text === "success")
+                    displayFoundGames(message.object);
+                else
+                    console.log(message.text);
             },
             error : function() {
                 console.log("error");

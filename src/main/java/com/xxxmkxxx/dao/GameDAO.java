@@ -1,6 +1,8 @@
 package com.xxxmkxxx.dao;
 
 import com.xxxmkxxx.models.GameModel;
+import org.hibernate.Hibernate;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,6 @@ import java.util.stream.Collectors;
 public class GameDAO {
     private SessionFactory sessionFactory;
 
-    @Transactional
     public GameModel getGameById(int id) {
         Session session = sessionFactory.getCurrentSession();
 
@@ -30,6 +31,15 @@ public class GameDAO {
                 .collect(Collectors.toList());
 
         return result;
+    }
+
+    public GameModel initializeComments(GameModel game) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(game, LockMode.NONE);
+
+        Hibernate.initialize(game.getComments());
+
+        return game;
     }
 
     public GameDAO(SessionFactory sessionFactory) {

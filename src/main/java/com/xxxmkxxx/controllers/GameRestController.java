@@ -1,13 +1,13 @@
 package com.xxxmkxxx.controllers;
 
+import com.xxxmkxxx.common.messages.Message;
+import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
+import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.PartyModel;
 import com.xxxmkxxx.models.UserModel;
-import com.xxxmkxxx.services.GameCommentsService;
-import com.xxxmkxxx.services.PartyMembersService;
-import com.xxxmkxxx.services.PartyService;
-import com.xxxmkxxx.services.UserService;
+import com.xxxmkxxx.services.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +21,7 @@ public class GameRestController {
     private GameCommentsService gameCommentsService;
     private UserService userService;
     private PartyMembersService partyMembersService;
+    private GameService gameService;
 
     @PostMapping("/party/search")
     public List<List<PartyModel>> searchParty(String searchPattern, int gameId) {
@@ -59,8 +60,11 @@ public class GameRestController {
     }
 
     @PostMapping("/comments/more")
-    public List<GameCommentModel> getMoreGameComments(int lastCommentId, int gameId) {
-        return gameCommentsService.getMoreComments(lastCommentId, gameId);
+    public Message getMoreGameComments(int lastCommentId, int gameId) {
+        GameModel game = gameService.getGame(gameId);
+        Message<GameCommentModelWrapper> message = new Message("success", gameCommentsService.getMoreCommentsWrapper(lastCommentId, game));
+
+        return message;
     }
 
     @PostMapping("/comments/create")
@@ -75,10 +79,11 @@ public class GameRestController {
     }
 
 
-    public GameRestController(PartyService partyService, GameCommentsService gameCommentsService, UserService userService, PartyMembersService partyMembersService) {
+    public GameRestController(PartyService partyService, GameCommentsService gameCommentsService, UserService userService, PartyMembersService partyMembersService, GameService gameService) {
         this.partyService = partyService;
         this.gameCommentsService = gameCommentsService;
         this.userService = userService;
         this.partyMembersService = partyMembersService;
+        this.gameService = gameService;
     }
 }

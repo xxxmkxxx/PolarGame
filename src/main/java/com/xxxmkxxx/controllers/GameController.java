@@ -26,11 +26,11 @@ public class GameController {
 
     @GetMapping("/{id}")
     public String gamePage(@PathVariable("id") int id, Model model, HttpSession session) {
-        String view = "gamePage";
+        String view = "/games/gamePage";
 
         GameModel game = gameService.getGame(id);
         int gameId = game.getGameId();
-        List<GameCommentModel> comments = gameCommentsService.getComments(gameId);
+        List<GameCommentModel> comments = gameCommentsService.getComments(game);
 
         model.addAttribute("game", game);
         model.addAttribute("gameComments", gameCommentsService.getPartComments(0, comments));

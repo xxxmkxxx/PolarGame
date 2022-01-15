@@ -20,7 +20,7 @@ public class GameCatalogController {
 
     @GetMapping("")
     public String gameCatalogPage(Model model, HttpSession session) {
-        String view = "gameCatalogPage";
+        String view = "/games/gameCatalogPage";
         boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
 
         if(isAuthorized) {

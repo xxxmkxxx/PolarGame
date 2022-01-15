@@ -17,9 +17,8 @@ public class GenresModel implements Serializable {
     @Column(name = "genre")
     private String genreName;
 
-    @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
-    private List<GameGenresModel> gameGenres;
+    @ManyToMany
+    private List<GameModel> games;
 
     public int getGenreId() {
         return genreId;
@@ -37,19 +36,19 @@ public class GenresModel implements Serializable {
         this.genreName = genreName;
     }
 
-    public List<GameGenresModel> getGameGenres() {
-        return gameGenres;
+    public List<GameModel> getGames() {
+        return games;
     }
 
-    public void setGameGenres(List<GameGenresModel> gameGenres) {
-        this.gameGenres = gameGenres;
+    public void setGames(List<GameModel> games) {
+        this.games = games;
     }
 
     public GenresModel() {}
 
-    public GenresModel(int genreId, String genreName, List<GameGenresModel> gameGenres) {
+    public GenresModel(int genreId, String genreName, List<GameModel> games) {
         this.genreId = genreId;
         this.genreName = genreName;
-        this.gameGenres = gameGenres;
+        this.games = games;
     }
 }

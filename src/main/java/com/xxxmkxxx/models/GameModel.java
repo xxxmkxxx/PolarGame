@@ -27,9 +27,16 @@ public class GameModel implements Serializable {
     @Column(name = "popularity")
     private int popularity;
 
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    private List<GameGenresModel> genres;
+    private List<GameCommentModel> comments;
+
+    @ManyToMany
+    @JoinTable(
+            name = "games_genres",
+            joinColumns = @JoinColumn(name = "id_game"),
+            inverseJoinColumns = @JoinColumn(name = "id_genre")
+    )
+    private List<GenresModel> genres;
 
     public int getGameId() {
         return gameId;
@@ -71,11 +78,19 @@ public class GameModel implements Serializable {
         this.popularity = popularity;
     }
 
-    public List<GameGenresModel> getGenres() {
+    public List<GameCommentModel> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<GameCommentModel> comments) {
+        this.comments = comments;
+    }
+
+    public List<GenresModel> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<GameGenresModel> genres) {
+    public void setGenres(List<GenresModel> genres) {
         this.genres = genres;
     }
 
@@ -94,12 +109,13 @@ public class GameModel implements Serializable {
 
     public GameModel() {}
 
-    public GameModel(int gameId, String name, String description, String urlGameIcon, int popularity, List<GameGenresModel> genres) {
+    public GameModel(int gameId, String name, String description, String urlGameIcon, int popularity, List<GameCommentModel> comments, List<GenresModel> genres) {
         this.gameId = gameId;
         this.name = name;
         this.description = description;
         this.urlGameIcon = urlGameIcon;
         this.popularity = popularity;
+        this.comments = comments;
         this.genres = genres;
     }
 }

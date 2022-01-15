@@ -2,7 +2,7 @@ package com.xxxmkxxx.common.messages;
 
 public class Message<T> {
     private String text;
-    private T model;
+    private T object;
 
     public String getText() {
         return text;
@@ -12,16 +12,16 @@ public class Message<T> {
         this.text = text;
     }
 
-    public T getModel() {
-        return model;
+    public T getObject() {
+        return object;
     }
 
-    public void setModel(T model) {
-        this.model = model;
+    public void setObject(T object) {
+        this.object = object;
     }
 
-    public Message(String text, T model) {
+    public Message(String text, T object) {
         this.text = text;
-        this.model = model;
+        this.object = object;
     }
 }

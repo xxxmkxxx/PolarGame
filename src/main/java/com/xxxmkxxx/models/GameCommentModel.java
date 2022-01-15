@@ -15,16 +15,16 @@ public class GameCommentModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentId;
 
-    @Column(name = "id_game")
-    private int gameId;
-
     @Column(name = "comment_text")
     private String text;
 
     @Column(name = "date_time")
     private Date date;
 
-    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "id_game")
+    private GameModel game;
+
     @ManyToOne
     @JoinColumn(name="id_user")
     private UserModel user;
@@ -35,14 +35,6 @@ public class GameCommentModel implements Serializable {
 
     public void setCommentId(int commentId) {
         this.commentId = commentId;
-    }
-
-    public int getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
     }
 
     public String getText() {
@@ -61,27 +53,29 @@ public class GameCommentModel implements Serializable {
         this.date = date;
     }
 
+    public GameModel getGame() {
+        return game;
+    }
+
+    public void setGame(GameModel game) {
+        this.game = game;
+    }
+
     public UserModel getUser() {
         return user;
     }
 
-    public void setUser(UserModel userModel) {
-        this.user = userModel;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 
     public GameCommentModel() {}
 
-    public GameCommentModel(int commentId, int gameId, String text, Date date, UserModel user) {
+    public GameCommentModel(int commentId, String text, Date date, GameModel game, UserModel user) {
         this.commentId = commentId;
-        this.gameId = gameId;
         this.text = text;
         this.date = date;
-        this.user = user;
-    }
-
-    public GameCommentModel(int gameId, String text, UserModel user) {
-        this.gameId = gameId;
-        this.text = text;
+        this.game = game;
         this.user = user;
     }
 }

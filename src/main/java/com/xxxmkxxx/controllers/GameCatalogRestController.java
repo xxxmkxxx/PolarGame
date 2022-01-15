@@ -1,5 +1,8 @@
 package com.xxxmkxxx.controllers;
 
+import com.xxxmkxxx.common.messages.Message;
+import com.xxxmkxxx.common.wrappers.GameModelWrapper;
+import com.xxxmkxxx.common.wrappers.GenresModelWrapper;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.GenresModel;
 import com.xxxmkxxx.services.GameService;
@@ -28,21 +31,33 @@ public class GameCatalogRestController {
     }
 
     @PostMapping("/search")
-    public List<GameModel> searchGame(@RequestParam("searchPattern") String searchPattern) {
-        return gameService.getGamesByPattern(searchPattern);
+    public Message searchGame(@RequestParam("searchPattern") String searchPattern) {
+        Message<GameModelWrapper> message = new Message(
+                "success",
+                gameService.getGamesByPatternWrapper(searchPattern)
+        );
+
+        return message;
     }
 
     @PostMapping("/get/genres")
-    public List<GenresModel> getGenres() {
-        return genresService.getGenres();
+    public Message getGenres() {
+        Message<GenresModelWrapper> message = new Message("success", genresService.getGenresWrapper());
+
+        return message;
     }
 
     @PostMapping("/filters")
-    public List<GameModel> useFilters(@RequestParam(value="genresId[]") List<String> genresId) {
+    public Message useFilters(@RequestParam(value="genresId[]") List<String> genresId) {
         List<GameModel> filteredGames = gameService.getGamesByFilters(genresId);
-        List<GameModel> sortedGamesByPopularity = gameService.getSortedGamesByPopularity(filteredGames);
 
-        return sortedGamesByPopularity;
+        Message<GameModelWrapper> message = new Message(
+                "success",
+                gameService.getSortedGamesByPopularityWrapper(filteredGames)
+        );
+
+
+        return message;
     }
 
     public GameCatalogRestController(GameService gameService, GenresService genresService) {

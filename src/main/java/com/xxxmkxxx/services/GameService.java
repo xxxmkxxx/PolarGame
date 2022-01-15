@@ -1,7 +1,11 @@
 package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
+import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
+import com.xxxmkxxx.common.wrappers.GameModelWrapper;
+import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameDAO;
+import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +37,23 @@ public class GameService {
         Collections.sort(sortedGames, comparator);
 
         return sortedGames;
+    }
+
+    @Transactional
+    public List<GameModelWrapper> getSortedGamesByPopularityWrapper(List<GameModel> games) {
+        List<GameModel> sortedGames = games;
+        SortingGamesByPopularityComparator comparator = new SortingGamesByPopularityComparator();
+
+        Collections.sort(sortedGames, comparator);
+
+        List<GameModelWrapper> result = new ArrayList();
+
+        for (int i = 0; i < sortedGames.size(); i++) {
+            result.add(WrapperManager.convertGameModel(sortedGames.get(i)));
+        }
+
+
+        return result;
     }
 
     @Transactional
@@ -79,6 +100,18 @@ public class GameService {
     }
 
     @Transactional
+    public List<GameModelWrapper> getGamesByPatternWrapper(String pattern) {
+        List<GameModel> foundGames = getGamesByPattern(pattern);
+        List<GameModelWrapper> result = new ArrayList();
+
+        for (int i = 0; i < foundGames.size(); i++) {
+            result.add(WrapperManager.convertGameModel(foundGames.get(i)));
+        }
+
+        return result;
+    }
+
+    @Transactional
     public List<GameModel> getGamesByFilters(List<String> filters) {
         List<GameModel> games = getGames();
         List<GameModel> result = new ArrayList();
@@ -87,9 +120,9 @@ public class GameService {
             result.addAll(games.stream().filter(game -> {
                 return game.getGenres()
                         .stream()
-                        .allMatch(gameGenres -> {
+                        .allMatch(genre -> {
                             String temp[] = filter.split("_");
-                            boolean tempB = gameGenres.getGenre().getGenreId() == Integer.parseInt(temp[temp.length - 1]);
+                            boolean tempB = genre.getGenreId() == Integer.parseInt(temp[temp.length - 1]);
 
                             return tempB;
                         });
@@ -98,6 +131,7 @@ public class GameService {
 
         return result;
     }
+
 
     public GameService(GameDAO gameDAO) {
         this.gameDAO = gameDAO;
