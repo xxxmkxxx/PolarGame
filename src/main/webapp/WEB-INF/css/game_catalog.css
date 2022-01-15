@@ -215,6 +215,7 @@ input[type=checkbox] {
 	height: 14.7vw;
 	border-radius: 2.7vw;
 	margin-right: 2.4vw;
+	cursor: pointer;
 }
 
 
@@ -245,7 +246,7 @@ input[type=checkbox] {
 	width: 11.5vw;
 	height: 11.5vw;
 	border-radius: 2.3vw;
-	cursor: poiner
+	cursor: pointer;
 }
 
 .game{
