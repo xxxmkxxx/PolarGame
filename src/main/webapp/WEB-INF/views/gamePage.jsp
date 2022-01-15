@@ -37,7 +37,7 @@
 
     <form id="create_party_form"> <!-- форма создания пати -->
 
-        <div class = "create_party_form">
+        <div class = "create_party_form" id="create_party_block">
             <div class = "close_party_creator"> <img th:src="@{/images/close_icon.png}"> </div>
 
             <div class = "cre_row">
