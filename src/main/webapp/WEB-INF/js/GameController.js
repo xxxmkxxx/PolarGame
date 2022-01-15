@@ -1,5 +1,6 @@
 $(document).ready(() => {
     partyEvents();
+    gameCommentsEvents();
 
     chooseSection();
 });
@@ -21,20 +22,25 @@ const chooseSection = () => {
 };
 
 function partyEvents() {
-    searchPartyEvent("#find_party");
-
     openFiltersFormEvent(".filter_icon", ".party_filters");
     closeFiltersFormEvent(".filter_icon", ".party_filters");
-
-    confirmPartyFiltersEvent();
 
     openPartyCreationFormEvent(".create_party", ".create_party_form");
     closePartyCreationFormEvent(".close_party_creator", ".create_party_form")
 
+    searchPartyEvent("#find_party");
+
+    confirmPartyFiltersEvent();
+
     partyCreateEvent("#privacy", "#passwordForm", "#player_num", "#party_descr", "#create_party_form");
 }
 
-const gameCommentsEvents = () => {
+function gameCommentsEvents() {
+    openCreationGameCommentFormEvent();
+    closeCreationGameCommentFormEvent();
 
+    moreGameCommentsEvent();
+
+    createCommentEvent();
 }
 
