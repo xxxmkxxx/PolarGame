@@ -1,7 +1,11 @@
+
+let starRangSelected = false;
 $(document).ready(() => {
     openMenuEvent();
     openMainPageEvent();
     openProfileEvent("");
+    foo();
+
 });
 
 let closeOutZoneElement = (element, method) => {
@@ -50,5 +54,36 @@ const displayElement = (form) => {
 const hideElement = (form) => {
     $('#whiteBack').css('display', 'none');
     $(form).css('display', 'none');
+}
+
+function foo() {
+    $(document).on("click", ".test", function () {
+        console.log($(this).val())
+    })
+
+    let starRang = 4;
+    let children = $(".rating-area").children("label");
+    for (let i = starRang; i > 0; i--) {
+        $(children[i]).css("color","gold");
+        console.log(children[i]);
+    }
+
+    $(".rating-area").on("mouseover", function (event) {
+
+        let starTypes = $(event.target).attr("for").split("_")[1];
+        let children = $(".rating-area").children("label");
+        console.log('starTypes', starTypes);
+
+        for (let i = 0; i <= 5 ; i++) {
+            console.log(children[i])
+            if (i <= starTypes) {
+                $(children[5-i]).css("color", "gold");
+            } else {
+                $(children[5-i]).css("color", "grey");
+            }
+
+        }
+    });
+
 }
 

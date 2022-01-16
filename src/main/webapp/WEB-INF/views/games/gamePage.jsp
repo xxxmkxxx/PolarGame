@@ -119,7 +119,18 @@
                         <div class = "game_data_right">
                             <div class = "game_name" id="game_name" th:text="${game.name}"></div>
                             <div class = "game_rating">
-
+                                <div class="rating-area">
+                                    <input type="radio" class = "test" id="star_5" name="rating" value="5">
+                                    <label for="star_5"></label>
+                                    <input type="radio" class = "test" id="star_4" name="rating" value="4">
+                                    <label for="star_4"></label>
+                                    <input type="radio" class = "test" id="star_3" name="rating" value="3">
+                                    <label for="star_3"></label>
+                                    <input type="radio" class = "test" id="star_2" name="rating" value="2">
+                                    <label for="star_2"></label>
+                                    <input type="radio" class = "test" id="star_1" name="rating" value="1">
+                                    <label for="star_1"></label>
+                                </div>
                             </div>
                         </div>
 

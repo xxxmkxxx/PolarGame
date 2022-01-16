@@ -174,11 +174,10 @@ main{
 	font-size: 2vw;
 	overflow: hidden;
 	height: 2.3vw;
+	width: 25vw;
 }
 
-.game_rating{
 
-}
 
 .game_description{
 	margin-left: 2vw;
@@ -920,3 +919,47 @@ outline: none;
     top: 0;
     z-index: 6;
 }
+
+.game_rating{
+	margin-top:0.7vw;
+	margin-left:1.8vw
+}
+
+.rating-area {
+	overflow: hidden;
+	width: 15vw;
+}
+.rating-area:not(:checked) > input {
+	display: none;
+}
+.rating-area:not(:checked) > label {
+	float: right;
+	width: 3vw;
+	padding: 0;
+	cursor: pointer;
+	font-size: 2.5vw;
+	line-height: 2.5vw;
+	color: lightgrey;
+}
+.rating-area:not(:checked) > label:before {
+	content: '★';
+}
+/*.rating-area > input:checked ~ label {*/
+/*	color: gold;*/
+/*}*/
+/*.rating-area:not(:checked) > label:hover,*/
+/*.rating-area:not(:checked) > label:hover ~ label {*/
+/*	color: gold;*/
+/*}*/
+
+/*.rating-area > input:checked + label:hover,*/
+/*.rating-area > input:checked + label:hover ~ label,*/
+/*.rating-area > input:checked ~ label:hover,*/
+/*.rating-area > input:checked ~ label:hover ~ label,*/
+/*.rating-area > label:hover ~ input:checked ~ label {*/
+/*	color: gold;*/
+/*}*/
+
+/*.rate-area > label:active {*/
+/*	position: relative;*/
+/*}*/
