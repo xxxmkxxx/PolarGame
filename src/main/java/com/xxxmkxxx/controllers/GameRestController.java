@@ -2,6 +2,7 @@ package com.xxxmkxxx.controllers;
 
 import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
+import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
 import com.xxxmkxxx.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
@@ -24,11 +25,15 @@ public class GameRestController {
     private GameService gameService;
 
     @PostMapping("/party/search")
-    public List<List<PartyModel>> searchParty(String searchPattern, int gameId) {
+    public Message searchParty(String searchPattern, int gameId) {
         List<PartyModel> foundedParties = partyService.getPartiesByPattern(searchPattern, gameId);
-        List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
+        List<List<PartyModelWrapper>> groupedParties = partyService.groupPartiesWrapper(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
+        Message<PartyModelWrapper> message = new Message(
+                "success",
+                groupedParties
+        );
 
-        return groupedParties;
+        return message;
     }
 
     @PostMapping("/party/create")
@@ -62,18 +67,20 @@ public class GameRestController {
     @PostMapping("/comments/more")
     public Message getMoreGameComments(int lastCommentId, int gameId) {
         GameModel game = gameService.getGame(gameId);
-        Message<GameCommentModelWrapper> message = new Message("success", gameCommentsService.getMoreCommentsWrapper(lastCommentId, game));
+        List<GameCommentModelWrapper> comments = gameCommentsService.getMoreCommentsWrapper(lastCommentId, game);
+        Message message = new Message("success", comments);
 
         return message;
     }
 
     @PostMapping("/comments/create")
-    public String createGameComment(int gameId, String text, HttpSession session) {
-        String message = gameCommentsService.validateComment(text);
+    public Message createGameComment(int gameId, String text, HttpSession session) {
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
-
-        if(message.equals("success"))
-            gameCommentsService.saveComment(gameId, text, user);
+        GameModel game = gameService.getGame(gameId);
+        Message<Object> message = new Message(
+                gameService.addComment(game, new GameCommentModel(game, text, user)),
+                null
+        );
 
         return message;
     }

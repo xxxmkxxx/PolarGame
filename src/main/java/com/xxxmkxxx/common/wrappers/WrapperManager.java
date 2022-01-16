@@ -4,11 +4,13 @@ import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.GenresModel;
 import com.xxxmkxxx.models.UserModel;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WrapperManager<T> {
+public class WrapperManager<W, M> {
+    private Wrapper<W, M> wrapper;
+
     public static UserModelWrapper convertUserModel(UserModel user) {
         return new UserModelWrapper(
                 user.getUserId(),
@@ -45,5 +47,11 @@ public class WrapperManager<T> {
         );
     }
 
+    public List<W> convertList(List<M> models) {
+        return wrapper.convertList(models);
+    }
 
+    public WrapperManager(Wrapper<W, M> wrapper) {
+        this.wrapper = wrapper;
+    }
 }

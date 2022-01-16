@@ -1,6 +1,7 @@
 package com.xxxmkxxx.dao;
 
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.UserModel;
 import org.hibernate.Hibernate;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
@@ -40,6 +41,11 @@ public class GameDAO {
         Hibernate.initialize(game.getComments());
 
         return game;
+    }
+
+    public void updateGame(GameModel game) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(game);
     }
 
     public GameDAO(SessionFactory sessionFactory) {

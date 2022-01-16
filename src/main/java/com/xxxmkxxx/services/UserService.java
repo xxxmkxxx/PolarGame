@@ -1,5 +1,6 @@
 package com.xxxmkxxx.services;
 
+import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.UserDAO;

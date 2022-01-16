@@ -141,6 +141,6 @@ public class UserModel implements Serializable {
         this.password = password;
         this.mail = mail;
         this.description = "";
-        this.urlUserIcon = "/images/profile_icon.png";
+        this.urlUserIcon = "profile_icon.png";
     }
 }

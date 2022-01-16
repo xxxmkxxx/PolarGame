@@ -171,7 +171,7 @@
 
                 <div class = "partyORteam_block" id = "party_block">
                     <div class = "filter_row">
-					<form id="party_search" action="/PolarGame/ajax/game/party/search" method="post">
+					<form id="party_search" th:method="GET">
 						<input type="text" id="find_party" class = "inputFinder" placeholder="ник создателя пати">
 					</form>
 					<span class = "find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}"></span>

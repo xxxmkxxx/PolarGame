@@ -27,13 +27,9 @@ public class GameCommentsService {
     @Transactional
     public List<GameCommentModelWrapper> getCommentsWrapper(GameModel game) {
         List<GameCommentModel> comments = gameDAO.initializeComments(game).getComments();
-        List<GameCommentModelWrapper> result = new ArrayList();
+        WrapperManager<GameCommentModelWrapper, GameCommentModel> wrapperManager = new WrapperManager(new GameCommentModelWrapper());
 
-        for (int i = 0; i < comments.size(); i++) {
-            result.add(WrapperManager.convertGameCommentModel(comments.get(i)));
-        }
-
-        return result;
+        return wrapperManager.convertList(comments);
     }
 
     @Transactional
@@ -56,14 +52,10 @@ public class GameCommentsService {
 
     @Transactional
     public List<GameCommentModelWrapper> getMoreCommentsWrapper(int lastCommentId, GameModel game) {
-        List<GameCommentModel> partComments = getPartComments(lastCommentId, getComments(game));
-        List<GameCommentModelWrapper> result = new ArrayList();
+        List<GameCommentModel> partComments = getMoreComments(lastCommentId, game);
+        WrapperManager<GameCommentModelWrapper, GameCommentModel> wrapperManager = new WrapperManager(new GameCommentModelWrapper());
 
-        for (int i = 0; i < partComments.size(); i++) {
-            result.add(WrapperManager.convertGameCommentModel(partComments.get(i)));
-        }
-
-        return result;
+        return wrapperManager.convertList(partComments);
     }
 
     public String validateComment(String commentText) {
@@ -75,11 +67,6 @@ public class GameCommentsService {
             message = "null";
 
         return message;
-    }
-
-    @Transactional
-    public void saveComment(int gameId, String text, UserModel user) {
-        //gameCommentDAO.saveComment(new GameCommentModel(gameId, text, user));
     }
 
     public GameCommentsService(GameCommentDAO gameCommentDAO, GameDAO gameDAO) {

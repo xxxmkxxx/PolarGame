@@ -1,5 +1,7 @@
 package com.xxxmkxxx.services;
 
+import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
+import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.PartyDAO;
 import com.xxxmkxxx.models.PartyModel;
 import org.springframework.stereotype.Component;
@@ -45,6 +47,19 @@ public class PartyService {
         }
 
         return partyGroups;
+    }
+
+    @Transactional
+    public List<List<PartyModelWrapper>> groupPartiesWrapper(int count, List<PartyModel> parties) {
+        List<List<PartyModel>> gropedParties = groupParties(count, parties);
+        List<List<PartyModelWrapper>> result = new ArrayList();
+        WrapperManager<PartyModelWrapper, PartyModel> wrapperManager = new WrapperManager(new PartyModelWrapper());
+
+        for (int i = 0; i < gropedParties.size(); i++) {
+            result.add(wrapperManager.convertList(gropedParties.get(i)));
+        }
+
+        return result;
     }
 
     @Transactional

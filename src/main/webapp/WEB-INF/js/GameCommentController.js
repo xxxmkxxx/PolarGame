@@ -3,27 +3,30 @@ $(document).ready(() => {});
 const moreGameCommentsEvent = () => {
     let countComments = $("#review_block2 .comment").length;
 
-    $("#button_show_more").click(() => {
+    $("#button_show_more").click(function (event) {
+        event.preventDefault();
+
         let data = {
             lastCommentId : countComments,
             gameId : gameId
         };
 
-        if(countComments < countAllComments)
-            $.ajax({
-                type : "POST",
-                url : "/PolarGame/ajax/game/comments/more",
-                data : data,
-                success : function (message) {
-                    if(message.text === "success")
-                        displayMoreGameComments(message.object, countComments);
-                    else
-                        console.log(message.text);
-                },
-                error : function () {
-                    console.log("error");
-                }
-            });
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/game/comments/more",
+            data : data,
+            success : function (message) {
+                console.log(countComments)
+                console.log(message)
+                if(message.text === "success")
+                    displayMoreGameComments(message.object, countComments);
+                else
+                    console.log(message.text);
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
     });
 }
 
@@ -104,8 +107,12 @@ const createCommentEvent = () => {
             url : "/PolarGame/ajax/game/comments/create",
             data : data,
             success : function (message) {
-                if(message === "success")
+                console.log(message)
+
+                if(message.text === "success")
                     hideElement(".write_commment");
+                else
+                    console.log(message.text)
             },
             error : function () {
                 console.log("error");

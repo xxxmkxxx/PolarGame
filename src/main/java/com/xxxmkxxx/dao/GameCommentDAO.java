@@ -13,7 +13,6 @@ public class GameCommentDAO {
 
     public void saveComment(GameCommentModel comment) {
         Session session = sessionFactory.getCurrentSession();
-
         session.save(comment);
     }
 

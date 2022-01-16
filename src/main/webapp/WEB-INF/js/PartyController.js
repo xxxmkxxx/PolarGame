@@ -6,7 +6,7 @@ $(document).ready(() => {
 });
 
 const searchPartyEvent = (element) => {
-    $(element).on("input", function () {
+    const ajax = () => {
         let data = {
             searchPattern : $("#find_party").val(),
             gameId : gameId
@@ -16,13 +16,29 @@ const searchPartyEvent = (element) => {
             type : "POST",
             url : "/PolarGame/ajax/game/party/search",
             data : data,
-            success: function (partyList) {
-                displayFoundParties(partyList)
+            success: function (message) {
+                console.log(message);
+                if(message.text === "success")
+                    displayFoundParties(message.object);
+                else
+                    console.log(message.text);
             },
             error : function () {
                 console.log("error");
             }
         });
+    }
+
+    $(element).on("input", function (event) {
+        event.preventDefault();
+
+        ajax();
+    });
+
+    $("#party_search").submit((event) => {
+        event.preventDefault();
+
+        ajax();
     });
 }
 
@@ -97,7 +113,7 @@ const displayFoundParties = (partiesGroup) => {
         "id" : "com_party_place"
     });
 
-    $("#section2").append(com_party_place);
+    $("#party_block").append(com_party_place);
 
     for(let i = 0; i < partiesGroup.length; i++) {
         partyRow = createPartiesRow(i + 1);

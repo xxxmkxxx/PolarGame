@@ -5,17 +5,12 @@
     <title> РЕГИСТРАЦИЯ </title>
     <link th:href="@{/styles/registration.css}" rel="stylesheet" type="text/css">
     <link rel="icon" th:href="@{/images/logotest2.png}">
-    <script th:src="@{/scripts/jquery.js}"></script>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 </head>
 
 <body>
 
-<header>
-    <div class = "click_logo">
-        <span class = "header_minilogo"> <img th:src="@{/images/minilogo.png}"> </span>
-        <span class = "header_minilogo"> POLARGAME </span>
-    </div>
-</header>
+<header th:insert="~{/templates/BasicTemplates :: simpleHeader}"></header>
 
 <main>
     <form id="registration" th:method="POST" th:action="@{/user/new}">
@@ -48,7 +43,7 @@
 
 </main>
 
-<script type="application/javascript" th:src="@{/scripts/js/RegistrationController.js}"></script>
+<script type="application/javascript" th:src="@{/scripts/RegistrationController.js}"></script>
 
 </body>
 

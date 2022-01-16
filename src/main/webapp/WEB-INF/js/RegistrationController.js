@@ -84,11 +84,11 @@ function sendData() {
             type : 'POST',
             data: UserData,
             url : '/PolarGame/ajax/user/validateRegistrationData',
-            success : function(errInfo) {
-                if(errInfo === "success")
+            success : function(message) {
+                if(message.text === "success")
                     isCorrectData();
                 else
-                    displayErrorMessage(errInfo);
+                    displayErrorMessage(message.text);
             },
             error: function (message) {
                 console.log(message);

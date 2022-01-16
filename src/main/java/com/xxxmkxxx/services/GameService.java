@@ -4,6 +4,7 @@ import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.GameModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
+import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.dao.GameDAO;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Component
 public class GameService {
     private GameDAO gameDAO;
+    private GameCommentDAO gameCommentDAO;
 
     @Transactional
     public GameModel getGame(int gameId) {
@@ -132,8 +134,19 @@ public class GameService {
         return result;
     }
 
+    @Transactional
+    public String addComment(GameModel game, GameCommentModel comment) {
+        gameCommentDAO.saveComment(comment);
 
-    public GameService(GameDAO gameDAO) {
+        gameDAO.initializeComments(game).getComments().add(comment);
+        gameDAO.updateGame(game);
+
+        return "success";
+    }
+
+
+    public GameService(GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
         this.gameDAO = gameDAO;
+        this.gameCommentDAO = gameCommentDAO;
     }
 }

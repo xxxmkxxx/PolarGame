@@ -20,15 +20,16 @@ public class UsersRestController {
     private HttpSession session;
 
     @PostMapping("/validateRegistrationData")
-    public String validateRegistrationData(
+    public Message validateRegistrationData(
             String login,
             String reg_form_mail,
             String reg_form_password,
             String reg_form_password2
     ) {
-        String message = userService.validateRegistrationData(login, reg_form_mail, reg_form_password, reg_form_password2);
+        String statusMessage = userService.validateRegistrationData(login, reg_form_mail, reg_form_password, reg_form_password2);
+        Message message = new Message(statusMessage, null);
 
-        if(message.equals("success")) {
+        if(statusMessage.equals("success")) {
             session.setAttribute("userLogin", login);
             session.setMaxInactiveInterval(10 * 60);
         }
@@ -37,10 +38,11 @@ public class UsersRestController {
     }
 
     @PostMapping("/validateSingInData")
-    public String validateSingInData(String login, String password) {
-        String message = userService.authentication(login, password);
+    public Message validateSingInData(String login, String password) {
+        String statusMessage = userService.authentication(login, password);
+        Message message = new Message(statusMessage, null);
 
-        if(message.equals("success")) {
+        if(statusMessage.equals("success")) {
             session.setAttribute("userLogin", login);
             session.setMaxInactiveInterval(10 * 60);
         }
@@ -75,7 +77,7 @@ public class UsersRestController {
     }
 
     @PostMapping("/update/data")
-    public Message<UserModelWrapper> updateData(
+    public Message updateData(
             @RequestParam("newLogin") String newLogin,
             @RequestParam("lostPassword") String lostPassword,
             @RequestParam("newPassword") String newPassword,
