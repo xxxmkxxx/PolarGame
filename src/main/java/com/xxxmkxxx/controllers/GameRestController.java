@@ -73,12 +73,26 @@ public class GameRestController {
         return message;
     }
 
+    @PostMapping("/comments/update")
+    public Message getGameComments(@RequestParam("gameId") int gameId) {
+        GameModel game = gameService.getGame(gameId);
+        List<GameCommentModelWrapper> comments = gameCommentsService.getPartCommentsWrapper(
+                0,
+                gameCommentsService.getComments(game)
+        );
+        Message message = new Message("success", comments);
+
+        return message;
+    }
+
     @PostMapping("/comments/create")
     public Message createGameComment(int gameId, String text, HttpSession session) {
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
         GameModel game = gameService.getGame(gameId);
+        GameCommentModel comment = new GameCommentModel(game, text, user);
+        String statusMessage = gameService.addComment(game, comment);
         Message<Object> message = new Message(
-                gameService.addComment(game, new GameCommentModel(game, text, user)),
+                statusMessage,
                 null
         );
 

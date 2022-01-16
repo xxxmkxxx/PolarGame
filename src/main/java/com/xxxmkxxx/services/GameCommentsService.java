@@ -46,6 +46,14 @@ public class GameCommentsService {
     }
 
     @Transactional
+    public List<GameCommentModelWrapper> getPartCommentsWrapper(int firstIndex, List<GameCommentModel> comments) {
+        List<GameCommentModel> partComments = getPartComments(firstIndex, comments);
+        WrapperManager<GameCommentModelWrapper, GameCommentModel> wrapperManager = new WrapperManager(new GameCommentModelWrapper());
+
+        return wrapperManager.convertList(partComments);
+    }
+
+    @Transactional
     public List<GameCommentModel> getMoreComments(int lastCommentId, GameModel game) {
         return getPartComments(lastCommentId, getComments(game));
     }

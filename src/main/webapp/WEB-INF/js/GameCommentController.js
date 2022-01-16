@@ -1,7 +1,10 @@
+let countComments = $("#review_block2 .comment").length;
+
 $(document).ready(() => {});
 
 const moreGameCommentsEvent = () => {
-    let countComments = $("#review_block2 .comment").length;
+    if(countComments >= countAllComments)
+        hideElement($("#button_show_more"));
 
     $("#button_show_more").click(function (event) {
         event.preventDefault();
@@ -16,10 +19,8 @@ const moreGameCommentsEvent = () => {
             url : "/PolarGame/ajax/game/comments/more",
             data : data,
             success : function (message) {
-                console.log(countComments)
-                console.log(message)
                 if(message.text === "success")
-                    displayMoreGameComments(message.object, countComments);
+                    displayMoreGameComments(message.object);
                 else
                     console.log(message.text);
             },
@@ -30,14 +31,48 @@ const moreGameCommentsEvent = () => {
     });
 }
 
-const displayMoreGameComments = (commentsList, countComments) => {
+const displayMoreGameComments = (commentsList) => {
     for (let i = 0; i < commentsList.length; i++) {
         displayCommentBlock(countComments, commentsList[i]);
         countComments++;
     }
 
-    if(countComments == countAllComments)
-        hideElement("#button_show_more");
+    if(countComments >= countAllComments)
+        hideElement($("#button_show_more"));
+}
+
+const updateViewGameComments = () => {
+    $("#review_block2").empty();
+    countComments = 0;
+
+    let data = {
+        gameId : gameId
+    }
+
+    $.ajax({
+        type : "POST",
+        url : "/PolarGame/ajax/game/comments/update",
+        data : data,
+        success : function (message) {
+            if(message.text === "success") {
+                let commentsList = message.object;
+
+                for (let i = 0; i < commentsList.length; i++) {
+                    displayCommentBlock(countComments, commentsList[i]);
+                    countComments++;
+                }
+
+                if(countComments < countAllComments)
+                    displayElement($("#button_show_more"));
+                else
+                    hideElement($("#button_show_more"));
+            } else
+                console.log(message.text);
+        },
+        error : function () {
+            console.log("error");
+        }
+    });
 }
 
 const displayCommentBlock = (number, comment) => {
@@ -107,11 +142,11 @@ const createCommentEvent = () => {
             url : "/PolarGame/ajax/game/comments/create",
             data : data,
             success : function (message) {
-                console.log(message)
-
-                if(message.text === "success")
+                if(message.text === "success") {
+                    $("#write_commment_area").val("");
                     hideElement(".write_commment");
-                else
+                    updateViewGameComments();
+                } else
                     console.log(message.text)
             },
             error : function () {
