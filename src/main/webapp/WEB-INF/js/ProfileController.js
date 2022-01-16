@@ -10,19 +10,35 @@ $(document).ready(() => {
 });
 
 const chooseSectionEvent = () => {
-  $(document).on('click', '#settings_button', function () {
-    $('#friends_section').css('display', 'none');
-    $('#settings_section').css('display', 'block');
-    $('#settings_button').css('opacity', '100%');
-    $('#friends_button').css('opacity', '50%');
-  });
+    $(document).on('click', '#settings_button', function () {
+        $('#friends_section').css('display', 'none');
+        $('#settings_section').css('display', 'block');
+        $('#settings_button').css('opacity', '100%');
+        $('#friends_button').css('opacity', '50%');
+    });
 
-  $(document).on('click', '#friends_button', function () {
-    $('#settings_section').css('display', 'none');
-    $('#friends_section').css('display', 'block');
-    $('#friends_button').css('opacity', '100%');
-    $('#settings_button').css('opacity', '50%');
-  });
+    $(document).on('click', '#friends_button', function () {
+        $('#settings_section').css('display', 'none');
+        $('#friends_section').css('display', 'block');
+        $('#friends_button').css('opacity', '100%');
+        $('#settings_button').css('opacity', '50%');
+    });
+
+    $(document).on('click', '#userIsIN_button', function () {
+        $('#users_friends').css('display', 'none');
+        $('#userIsIn').css('display', 'block');
+        $('#userIsIN_button').css('opacity', '100%');
+        $('#friends_buttonForUser').css('opacity', '50%');
+        console.log('isIN');
+    });
+
+    $(document).on('click', '#friends_buttonForUser', function () {
+        $('#userIsIn').css('display', 'none');
+        $('#users_friends').css('display', 'block');
+        $('#friends_buttonForUser').css('opacity', '100%');
+        $('#userIsIN_button').css('opacity', '50%');
+        console.log('friends');
+    });
 };
 
 const descriptionEditEvent = () => {

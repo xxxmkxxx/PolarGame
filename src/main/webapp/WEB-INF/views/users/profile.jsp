@@ -3,6 +3,7 @@
     <meta charset="utf-8" />
     <title th:text="${pageName}"></title>
     <link th:href="@{/styles/profile.css}" rel="stylesheet" />
+    <link th:href="@{/styles/team_party_style.css}" rel="stylesheet" type="text/css">
     <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/ptrofileNameElementsConfig.js}"></script>
@@ -43,118 +44,29 @@
       </div>
       <div class="sections">
         <span class="section1">
-          <div class="usersection">
-            <div class="user_data">
-              <div class="user_icon">
-              <img id="user_icon" th:src="@{'/images/' + ${user.urlUserIcon}}" /></div>
+            <div class="usersection">
+                <div class="user_data">
+                    <div class="user_icon">
+                    <img id="user_icon" th:src="@{'/images/' + ${user.urlUserIcon}}" /></div>
 
-              <div class="user_name_and_rating">
-                <div class="user_name" id="user_name" th:text="${user.login}"></div>
-                <div class="user_rating"></div>
-              </div>
-            </div>
+                    <div class="user_name_and_rating">
+                        <div class="user_name" id="user_name" th:text="${user.login}"></div>
+                        <div class="user_rating"></div>
+                    </div>
+                </div>
 
-            <div class="user_description" id="user_description">
-              <textarea id="user_description_area" maxlength = "500" wrap="soft" class="user_description_area" th:text="${user.description}"></textarea>
-                <span class="edit_icon">
-                  <img id="edit_description" th:src="@{/images/edit_icon.png}" />
-                </span>
-              </span>
-            </div>
+                <div th:replace="~{/templates/ProfileTemplates :: user_description}"></div>
 
           </div>
         </span>
 
         <span class="section2">
-          <div class="choice_of_action">
-            <span class="sectionButtons" id = "friends_button" style = "opacity: 100%;"> МОИ ДРУЗЬЯ </span>
-            <span class="sectionButtons" id = "settings_button"> НАСТРОЙКИ </span>
-          </div>
 
-          <div class = "friends_section" id = friends_section> 
-          <div class="filter_row">
-            <form id="friend_search">
-              <input
-                type="text"
-                id="find_friend"
-                class="find_friend_inp"
-                placeholder="найти по имени"
-              />
-            </form>
-            <span class="find_icon"> <img id="find_icon" th:src="@{/images/find_icon.png}" /></span>
-          </div>
+            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? choice_of_action_for_me : choice_of_action_for_user}"></div>
 
-          <div class="friends_form">
-            <div th:each="friend : ${friends}" class="friend_line">
-              <span class="friend_icon">
-                <img id="friend_icon" th:src="@{'/images/' + ${friend.urlUserIcon}}" />
-              </span>
-              <span class="friend_nick" th:text="${friend.login}"></span>
-              <span class="friend_line_icons">
-                <span class="friend_func_icon message_icon">
-                  <img th:id="${friend.login}" th:src="@{/images/message_icon.png}" />
-                </span>
-                <span class="friend_func_icon delete_icon">
-                  <img th:id="${friend.login}" th:src="@{/images/delete_icon.png}" />
-                </span>
-              </span>
-            </div>
-          </div>
-          </div>
-       
-          <div class = "settings_section" id = "settings_section">
+            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? myFreinds : friends_of_user}"></div>
 
-            <form id="settings_form" th:method="POST">
-              <div class="settings_form">
-                <div class="type_of_setting">АККАУНТ</div>
-                  <div class="active_section_of_settings">
-
-                      <div class="setting_name">Изменить ник</div>
-                      <div class="line_to_check">
-                        <input type="text" id="new_login_field" class="input_form" placeholder="Введите новый ник" />
-                        <div class="checking_circle"></div>
-                      </div>
-
-                      <div class="setting_name">Изменить изображение</div>
-                      <input
-                        type="file"
-                        name="new_profile_pic_input"
-                        accept="image/*"
-                        class="new_pic_input"
-                      />
-
-                      <div class="setting_confirm_email">Отправить письмо для подтверждения email</div>
-
-                  </div>
-              </div>
-
-              <div class="settings_form">
-                <div class="type_of_setting">ПАРОЛЬ</div>
-                  <div class="active_section_of_settings">
-
-                    <div class="setting_name">Изменить пароль</div>
-
-                    <div class="line_to_check">
-                      <input type="password" id="lost_password_field" class="input_form" placeholder="Введите старый пароль" />
-                      <div class="checking_circle"></div>
-                    </div>
-
-                    <div class="line_to_check">
-                      <input type="password" id="new_password_field" class="input_form" placeholder="Введите новый пароль" />
-                      <div class="checking_circle"></div>
-                    </div>
-
-                    <div class="line_to_check">
-                      <input type="password" id="repeat_password_field" class="input_form" placeholder="Повторите новый пароль" />
-                      <div class="checking_circle"></div>
-                    </div>
-
-                  </div>
-                </div>
-
-              <input type="submit" id="save_settings" class="button_save_settings" value="СОХРАНИТЬ">
-            </form>
-          </div>
+            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? mySettings : userIsIn}"></div>
 
 
         </span>

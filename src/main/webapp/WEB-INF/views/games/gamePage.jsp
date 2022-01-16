@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> СТРАНИЦА ИГРЫ </title>
     <link th:href="@{/styles/game.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/team_party_style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
     <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>

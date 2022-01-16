@@ -184,7 +184,7 @@ main {
   /* border: solid rgb(41, 48, 83) 3px; */
   border-radius: 10px;
   font-size: 1.3vw;
-  width: 35.5vw;
+  width: 35vw;
   /* overflow-x: auto; */
   word-wrap: break-word;
 }
@@ -291,7 +291,7 @@ A {
 }
 
 .edit_icon {
-  margin-left: -1vw;
+  margin-left: -1.7vw;
   margin-bottom: -1vw;
 }
 
@@ -602,4 +602,18 @@ A {
   position: absolute;
   top: 0;
   z-index: 6;
+}
+
+.users_team_party {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1vw;
+  margin: 0 1.5vw 2vw 1.5vw;
+}
+
+.typeOfIn {
+  color: #af7bff;
+  font-size: 1.2vw;
+  font-family: othertext;
+
 }
