@@ -3,6 +3,7 @@ package com.xxxmkxxx.controllers;
 import com.xxxmkxxx.controllers.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,21 +26,23 @@ public class GameController {
     @GetMapping("/{id}")
     public String gamePage(@PathVariable("id") int id, Model model, HttpSession session) {
         String view = "/games/gamePage";
+        boolean isAuthorized = session.getAttribute("userLogin") == null ? false : true;
 
-        GameModel game = gameService.getGame(id);
-        int gameId = game.getGameId();
-        List<GameCommentModel> comments = gameCommentsService.getComments(game);
+        if(isAuthorized) {
+            UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+            GameModel game = gameService.getGame(id);
+            int gameId = game.getGameId();
+            List<GameCommentModel> comments = gameCommentsService.getComments(game);
 
-        model.addAttribute("game", game);
-        model.addAttribute("gameComments", gameCommentsService.getPartComments(0, comments));
-        model.addAttribute("partyGroups", partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, partyService.getParties(gameId)));
-        model.addAttribute("partyMembersService", partyMembersService);
-        model.addAttribute("countAllComments", comments.size());
-
-        if(session.getAttribute("userLogin") != null) {
-            model.addAttribute("user", userService.getUserByLogin((String) session.getAttribute("userLogin")));
+            model.addAttribute("authorized", true);
+            model.addAttribute("user", user);
+            model.addAttribute("game", game);
+            model.addAttribute("gameComments", gameCommentsService.getPartComments(0, comments));
+            model.addAttribute("partyGroups", partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, partyService.getParties(gameId)));
+            model.addAttribute("partyMembersService", partyMembersService);
+            model.addAttribute("countAllComments", comments.size());
         } else {
-            view = "redirect:/user/login";
+            return "redirect:/user/login";
         }
 
         return view;

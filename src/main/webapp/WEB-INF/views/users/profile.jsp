@@ -61,14 +61,11 @@
         </span>
 
         <span class="section2">
+            <div th:replace = "~{/templates/ProfileTemplates :: (${myPage} ? choice_of_action_for_me : choice_of_action_for_user)}"></div>
 
-            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? choice_of_action_for_me : choice_of_action_for_user}"></div>
+            <div th:replace = "~{/templates/ProfileTemplates :: (${myPage} ? myFreinds : friends_of_user)}"></div>
 
-            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? myFreinds : friends_of_user}"></div>
-
-            <div th:replace = "~{/templates/ProfileTemplates :: ${false} ? mySettings : userIsIn}"></div>
-
-
+            <div th:replace = "~{/templates/ProfileTemplates :: (${myPage} ? mySettings : userIsIn)}"></div>
         </span>
       </div>
     </main>

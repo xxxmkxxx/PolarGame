@@ -3,9 +3,13 @@ let friendLogin;
 $(document).ready(() => {
     displayRemoveFriendFormEvent(".delete_icon");
     closeRemoveFriendFormEvent("#confirmationCancel");
+
     removeFriendEvent();
+
     descriptionEditEvent();
+
     userDataEditEvent();
+
     chooseSectionEvent();
 });
 
@@ -29,7 +33,6 @@ const chooseSectionEvent = () => {
         $('#userIsIn').css('display', 'block');
         $('#userIsIN_button').css('opacity', '100%');
         $('#friends_buttonForUser').css('opacity', '50%');
-        console.log('isIN');
     });
 
     $(document).on('click', '#friends_buttonForUser', function () {
@@ -37,7 +40,6 @@ const chooseSectionEvent = () => {
         $('#users_friends').css('display', 'block');
         $('#friends_buttonForUser').css('opacity', '100%');
         $('#userIsIN_button').css('opacity', '50%');
-        console.log('friends');
     });
 };
 

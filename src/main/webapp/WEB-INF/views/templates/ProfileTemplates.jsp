@@ -1,6 +1,6 @@
 <div th:fragment="user_description" class="user_description" id="user_description">
     <textarea id="user_description_area" maxlength = "500" wrap="soft" class="user_description_area" th:text="${user.description}"></textarea>
-    <span th:if="${false}" class="edit_icon">
+    <span th:if="${myPage}" class="edit_icon">
         <img id="edit_description" th:src="@{/images/edit_icon.png}" />
     </span>
 </div>
@@ -9,7 +9,6 @@
     <span class="sectionButtons" id = "friends_button" style = "opacity: 100%;"> МОИ ДРУЗЬЯ </span>
     <span class="sectionButtons" id = "settings_button"> НАСТРОЙКИ </span>
 </div>
-
 
 <div th:fragment="choice_of_action_for_user" class="choice_of_action">
     <span class="sectionButtons" id = "friends_buttonForUser" style = "opacity: 100%;"> ДРУЗЬЯ </span>
@@ -183,7 +182,7 @@
             <span class="form1">
                 <div  class="formsdata">
                     <span class="form_img">
-                        <img th:src="abc">
+                        <img src="">
                     </span>
 
                     <span class="party_creator" th:text="party_creator"></span>

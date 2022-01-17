@@ -21,18 +21,9 @@
     let countAllComments = [[${countAllComments}]];
 </script>
 
-<header>
-    <div class = "click_logo">
-        <span class = "header_minilogo"> <img th:src="@{/images/minilogo.png}"> </span>
-        <span class = "header_minilogo"> POLARGAME </span>
-    </div>
+<header th:replace="~{/templates/BasicTemplates :: difficultHeader}"></header>
 
-    <div class = "profile_data">
-        <span class = "profile" id="profile" th:text="${user.login}"></span>
-        <div class = "profile_icon"> <img th:src="@{'/images/' + ${user.urlUserIcon}}"></div>
-        <span class = "menu_icon"> <img id="menu_icon" th:src="@{/images/menu_icon.png}"></span>
-    </div>
-</header>
+<div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
 <main id = "main" name = "main">
 
@@ -103,14 +94,6 @@
             <input type="submit" class = "apply_party_filt" value="ПРИМЕНИТЬ">
         </div>
     </form>
-
-
-    <div class = "menu">
-        <a th:href="@{/}"> <span class = "menu_categories"> ДРУЗЬЯ </span> </a>
-        <a th:href="@{/}">  <span class = "menu_categories"> ДИАЛОГИ </span> </a>
-        <span class = "menu_categories">  ИГРЫ </span>
-        <span class = "menu_categories"> ВЫЙТИ </span>
-    </div>
 
     <div class = "sections">
 			<span class = "section1">

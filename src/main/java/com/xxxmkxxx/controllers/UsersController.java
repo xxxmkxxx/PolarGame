@@ -61,6 +61,7 @@ public class UsersController {
             UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
 
             model.addAttribute("authorized", true);
+            model.addAttribute("myPage", true);
             model.addAttribute("pageName", "профиль".toUpperCase(Locale.ROOT));
             model.addAttribute("user", user);
             model.addAttribute("friends", userService.getFriends(user));
@@ -79,6 +80,7 @@ public class UsersController {
             UserModel user = userService.getUserByLogin(login);
 
             model.addAttribute("authorized", true);
+            model.addAttribute("myPage", false);
             model.addAttribute("pageName", "профиль".toUpperCase(Locale.ROOT));
             model.addAttribute("user", user);
             model.addAttribute("friends", userService.getFriends(user));
