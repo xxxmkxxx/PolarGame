@@ -67,7 +67,7 @@
     flex-direction: row;
 }
 
-.participans{
+.participants{
     width: 12vw;
     height: 2vw;
     background-image: -webkit-linear-gradient(left, white, rgba(0, 0, 0, 0));
@@ -137,4 +137,25 @@
     margin-top: 0.9vw;
     margin-left: -1.3vw;
     cursor: pointer;
+}
+
+
+.partyPassword > input{
+    border:none;
+    width: 14vw;
+    border-radius: 10vw;
+    height: 2vw;
+    color: black;
+    padding-left: 1vw;
+    margin-left: 1vw;
+    margin-top: 1vw;
+    line-height: 1.9vw;
+    overflow: hidden;
+    display:none;
+}
+
+.partyPassword > input::placeholder{
+    font-family: othertext;
+    font-style: italic;
+    font-size: 1vw;
 }

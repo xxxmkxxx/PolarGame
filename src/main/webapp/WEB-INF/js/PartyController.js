@@ -278,5 +278,24 @@ const loadPreview = (input) => {
 loadPreview()
 
 
+const openPasswordFieldEvent = () => {
+    $("#closed_icon").click(function() {
+        $('#closed_icon').css("display","none");
+        $("#participants").css("display","none");
+        $("#passwordOfParty").children("input").css("display", "block");
+    });
+}
 
+const closePasswordFieldEvent = () => {
+    $(document).mouseup(function (event) {
+        if(!$(".row2").is(event.target) && $(".row2").has(event.target).length === 0) {
+            $('#closed_icon').css("display","block");
+            $("#participants").css("display","block");
+            $("#passwordOfParty").children("input").css("display", "none");
+        }
+    });
+}
+
+openPasswordFieldEvent();
+closePasswordFieldEvent();
 

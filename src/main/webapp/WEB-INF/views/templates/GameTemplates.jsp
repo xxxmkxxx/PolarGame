@@ -31,15 +31,26 @@
 </div>
 
 <div th:fragment="openOrClosed" class="row2">
-    <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
+    <span id = "participants" class="participants" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
+    <form th:id = "${'checkPassword_' + party.partyId}">
+        <span id = "passwordOfParty" th:fragment = "passwordField" class="partyPassword">
+            <input type = "password" placeholder="введите пароль">
+        </span>
+    </form>
 
     <span th:replace = "~{/templates/GameTemplates :: ${false} ? open : closed}"></span>
 </div>
 
 <span th:fragment = "open" class="come_in" th:id="${party.partyId}">
-    <img th:src="@{/images/come_in_icon.png}">
+    <img th:src="@{/images/come_in_icon.png}" id = "open_icon">
 </span>
 
 <span th:fragment = "closed" class="come_in" th:id="${party.partyId}">
-    <img th:src="@{/images/closed_icon.png}">
+    <img th:src="@{/images/closed_icon.png}" id = "closed_icon">
 </span>
+
+
+
+
+
+

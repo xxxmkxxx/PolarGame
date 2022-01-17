@@ -944,22 +944,3 @@ outline: none;
 .rating-area:not(:checked) > label:before {
 	content: '★';
 }
-/*.rating-area > input:checked ~ label {*/
-/*	color: gold;*/
-/*}*/
-/*.rating-area:not(:checked) > label:hover,*/
-/*.rating-area:not(:checked) > label:hover ~ label {*/
-/*	color: gold;*/
-/*}*/
-
-/*.rating-area > input:checked + label:hover,*/
-/*.rating-area > input:checked + label:hover ~ label,*/
-/*.rating-area > input:checked ~ label:hover,*/
-/*.rating-area > input:checked ~ label:hover ~ label,*/
-/*.rating-area > label:hover ~ input:checked ~ label {*/
-/*	color: gold;*/
-/*}*/
-
-/*.rate-area > label:active {*/
-/*	position: relative;*/
-/*}*/
