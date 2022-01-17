@@ -159,3 +159,209 @@
     font-style: italic;
     font-size: 1vw;
 }
+
+
+.party_form {
+    width: 60vw;
+    height: 32vw;
+    position: absolute;
+    background-color: #3d54c4;
+    z-index: 1;
+    border-style: solid;
+    border-radius: 3vw;
+    border-color: #3a69de;
+    border-width: 0.5vw;
+    opacity: 93%;
+    margin-left: 25vw;
+    margin-top: 4vw;
+    display: none;
+    flex-direction: column;
+    padding: 2vw 2vw 0 2vw
+}
+
+.party_data {
+    display: flex;
+    flex-direction: row;
+    height: 9vw;
+    /*background-color: red;*/
+}
+
+.party_icon {
+}
+
+.party_icon > img {
+    width: 7vw;
+    height: 7vw;
+    border-radius: 1.5vw;
+}
+
+.party_descriprion {
+    height: 7vw;
+    width: 50vw;
+    padding-right: 1vw;
+    font-family: othertext;
+    color: white;
+    font-size: 1.3vw;
+    overflow-x: auto;
+    word-wrap: break-word;
+    margin-left:1.5vw;
+}
+
+.party_descriprion::-webkit-scrollbar {
+    width: 1.5vw;
+    background-color: #4256b7;
+    border-radius: 2.5vw;
+}
+.party_descriprion::-webkit-scrollbar-thumb {
+    background-color: #4f66d7;
+    border-radius: 2.5vw;
+}
+
+.party_сontent {
+    display: flex;
+    flex-direction: row;
+}
+
+.party_members_form {
+    background-color: #3950be;
+    width: 48vw;
+    height: 17.5vw;
+    border-radius: 1.5vw;
+    padding-top: 1.5vw;
+    padding-bottom: 1.5vw;
+    padding-left: 1.5vw;
+    overflow-y: scroll;
+}
+
+.party_members_form::-webkit-scrollbar {
+    width: 1.5vw;
+    background-color: #374db4;
+    border-radius: 2.5vw;
+}
+.party_members_form::-webkit-scrollbar-thumb {
+    background-color: #4f66d7;
+    border-radius: 2.5vw;
+}
+
+.party_member_row {
+    display: flex;
+    flex-direction: row;
+    height: 2.3vw;
+    margin-bottom: 0.5vw;
+    /*background-color: red;*/
+}
+
+.party_member_icon > img {
+    width: 2.3vw;
+    height: 2.3vw;
+    border-radius: 10vw;
+    margin-left: 0.3vw;
+}
+
+.party_member_name {
+    width: 9.5vw;
+    margin-left: 1.5vw;
+    margin-top: 0.3vw;
+    font-family: othertext;
+    color: white;
+    font-size: 1.3vw;
+    overflow: hidden;
+}
+
+.party_creator_name {
+    width: 9.5vw;
+    margin-left: 1.5vw;
+    margin-top: 0.3vw;
+    font-family: othertext;
+    color: #76d874;
+    font-size: 1.3vw;
+    overflow: hidden;
+}
+
+.game_nick {
+    width: 18.5vw;
+    margin-left: 1.5vw;
+    font-family: othertext;
+    color: white;
+    font-size: 1.3vw;
+    background-color: #2b3e8a;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border-radius: 0.7vw;
+    border-style: solid;
+    border-color: #76d874;
+}
+
+.game_nick_input {
+    width: 21vw;
+    margin-left: 1.5vw;
+    font-family: othertext;
+    color: white;
+    font-size: 1.3vw;
+    background-color: #2b3e8a;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border-radius: 0.7vw;
+    border-width: 0.3vw;
+    border-style: solid;
+    border-color: #2b3e8a;
+
+    /*border-color: #76D874;*/
+}
+
+.party_buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15.7vw;
+    margin-left: 3vw;
+}
+
+.ready_button {
+    background-color: #77d976;
+    border: none;
+    width: 10vw;
+    margin-bottom: 1vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+    font-family: MainBoldFont;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
+
+.edit_icon > img {
+    width: 1.4vw;
+    display: none;
+    margin-top: 0.45vw;
+    margin-left: -2.2vw;
+    cursor: pointer;
+}
+
+.exit_button {
+    background-color: #304398;
+    color: white;
+    border: none;
+    width: 10vw;
+    margin-bottom: 1vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+    font-family: MainBoldFont;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
+
+.members_counter {
+    width: 5vw;
+    height: 5vw;
+    margin-left: -6vw;
+    margin-top: -1vw;
+    z-index: 3;
+    color: white;
+    font-family: MainBoldFont;
+    font-size: 2.2vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.members_here {
+    color: #76d874;
+}

@@ -36,6 +36,8 @@
 
 <main id = "main" name = "main">
 
+    <div th:replace = "~{/templates/GameTemplates :: party}"></div>
+
     <form id="create_party_form"> <!-- форма создания пати -->
 
         <div class = "create_party_form" id="create_party_block">

@@ -38,7 +38,7 @@
         </span>
     </form>
 
-    <span th:replace = "~{/templates/GameTemplates :: ${false} ? open : closed}"></span>
+    <span th:replace = "~{/templates/GameTemplates :: ${true} ? open : closed}"></span>
 </div>
 
 <span th:fragment = "open" class="come_in" th:id="${party.partyId}">
@@ -49,8 +49,46 @@
     <img th:src="@{/images/closed_icon.png}" id = "closed_icon">
 </span>
 
+<div th:fragment = "party" class="party_form" id="party_form">
 
+    <div class="party_data">
+        <div class="party_icon">
+            <img th:src="@{'/images/example_pic.png'}">
+        </div>
 
+        <div class="party_descriprion" id="party_descriprion">
+            Описание пати
+        </div>
+    </div>
 
+    <div class="party_сontent">
+        <div class="party_members_form" id="party_members_form">
+            <div th:replace = "~{/templates/GameTemplates :: partyMemberRow}"></div>
+            <div th:replace = "~{/templates/GameTemplates :: partyMemberRow}"></div>
+            <div th:replace = "~{/templates/GameTemplates :: partyMemberRowMe}"></div>
+        </div>
 
+        <div class="members_counter" id="members_counter">
+            <div class="members_here" id="members_here">4/</div>
+            10
+        </div>
 
+        <div class="party_buttons">
+            <button id="ready_button" class="ready_button">Я ГОТОВ(А)</button>
+            <button id="exit_button" class="exit_button">ВЫЙТИ</button>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="partyMemberRow" class="party_member_row">
+    <div class="party_member_icon"> <img th:src="@{'/images/example_pic.png'}"></div>
+    <div class="party_member_name">ник участника</div>
+    <div class="game_nick">ник в игре</div>
+</div>
+
+<div th:fragment="partyMemberRowMe" class="party_member_row">
+    <div class="party_member_icon"> <img th:src="@{'/images/example_pic.png'}"></div>
+    <div class="party_member_name">твой ник</div>
+    <input type="text" id="my_nick" class="game_nick_input" />
+    <div class="edit_icon"> <img th:src="@{'/images/example_pic.png'}"></div>
+</div>
