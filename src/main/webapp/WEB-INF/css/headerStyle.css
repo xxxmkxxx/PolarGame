@@ -96,3 +96,60 @@ header{
     cursor: pointer;
     /*background-color: red;*/
 }
+
+
+.notification_icon {
+    position: fixed;
+    bottom: 4%;
+    right: 1%;
+}
+
+.notification_icon > img {
+    width: 3.2vw;
+}
+
+.notificatation_form {
+    position: fixed;
+    bottom: 5%;
+    right: 5.5%;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    opacity: 80%;
+}
+
+.notification_one {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5vw;
+    background-color: #2b306a;
+    margin-top: 0.7vw;
+    border-radius: 10px;
+    align-items: flex-start;
+    border: solid 0.1vw #49409c;
+}
+
+.notification_text {
+    width: 21vw;
+    font-family: othertext;
+    color: white;
+    margin-left: 0.2vw;
+    font-size: 1.2vw;
+    word-break: break-all;
+}
+
+.notify_choice_of_action {
+    display: flex;
+    flex-direction: row;
+}
+
+.notification_icons {
+    margin-left: 1vw;
+    margin-right: 0.2vw;
+    cursor: pointer;
+}
+
+.notification_icons > img {
+    width: 1.1vw;
+}

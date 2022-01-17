@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
     <title th:text="${pageName}"></title>
     <link th:href="@{/styles/profile.css}" rel="stylesheet" />
-    <link th:href="@{/styles/team_party_style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/styles/team_party_style.css}" rel="stylesheet" type="text/css"><link th:href="@{/styles/headerStyle.css}" rel="stylesheet" type="text/css">
     <link rel="icon" th:href="@{/images/logotest2.png}">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script th:src="@{/scripts/configs/ptrofileNameElementsConfig.js}"></script>
@@ -34,7 +34,7 @@
       <div class = "notificatation_form">
 
         <!-- ФОРМА УВЕДОМЛЕНИЙ -->
-        <div class = "notification_one"> 
+        <div class = "notification_one">
           <span class = "notification_text">хочет добавить вас в друзья </span>
           <span class = "notify_choice_of_action">
             <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>

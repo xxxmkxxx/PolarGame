@@ -40,3 +40,12 @@
         <span class = "menu_categories"> ВЫЙТИ </span>
     </a>
 </div>
+
+<div th:fragment = "notificationsForm" class = "notification_one">
+    <span class = "notification_text"> th:text="${user.login} + хочет добавить вас в друзья"  </span>
+    <span class = "notify_choice_of_action">
+        <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>
+        <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
+    </span>
+</div>
+

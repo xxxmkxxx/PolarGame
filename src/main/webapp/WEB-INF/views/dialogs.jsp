@@ -17,7 +17,7 @@
     <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
 <main id="main" name="main">
-
+    <div th:replace = "~{/templates/BasicTemplates :: notificationsForm}"></div>
 
     <div class="sections">
         <span class="section1">
