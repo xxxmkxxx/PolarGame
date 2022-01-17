@@ -56,6 +56,10 @@ const createDialogBlock = (dialog, dialogType) => {
 }
 
 const createMessageBlock = (message, senderType) => {
+    let messageInfoStyle = senderType ? "flex-direction: row-reverse" : "";
+    let messageTextBlockStyle = senderType ? "align-self: self-end" : "";
+    let messageBlockStyle = senderType ? "flex-direction: row-reverse" : "";
+
     let userIcon = message.user.urlUserIcon;
     let userName = message.user.login;
     let sendTime = message.date;
@@ -63,7 +67,7 @@ const createMessageBlock = (message, senderType) => {
 
     let messageBlock = $("<div>", {
         "class" : "message_block",
-        "style" : senderType
+        "style" : messageBlockStyle
     });
 
     let dialogMemberIcon = $("<div>", {
@@ -79,7 +83,8 @@ const createMessageBlock = (message, senderType) => {
     });
 
     let messageInfo = $("<div>", {
-        "class" : "message_info"
+        "class" : "message_info",
+        "style" : messageInfoStyle
     });
 
     let messageSenderName = $("<span>", {
@@ -91,8 +96,10 @@ const createMessageBlock = (message, senderType) => {
     }).text(sendTime);
 
     let messageTextBlock = $("<span>", {
-        "class" : "message_text"
+        "class" : "message_text",
+        "style" : messageTextBlockStyle
     }).text(messageText);
+
 
     dialogMemberIcon.append(img);
 
@@ -110,8 +117,7 @@ const createMessageBlock = (message, senderType) => {
 
 const displayMessage = (message) => {
     let messageBlock;
-    let senderType = message.user.login === $("#profile").text() ? "flex-direction: row-reverse" : "";
-
+    let senderType = message.user.login === $("#profile").text();
     messageBlock = createMessageBlock(message, senderType);
 
     $(".messages").append(messageBlock);
@@ -178,3 +184,8 @@ const chooseTeamDialogEvent = () => {
     });
 }
 
+const scrollDown = () => {
+    $(".messages").scrollTop($(".messages").prop('scrollHeight'));
+}
+
+scrollDown();

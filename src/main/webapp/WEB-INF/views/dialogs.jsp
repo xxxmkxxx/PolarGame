@@ -28,35 +28,13 @@
                     <span class="last_message_time">fwfwfwdwwa</span>
                 </div>
             </div>
-
-
         </span>
 
         <span class="section2">
-          <div class="messages">
-            <!-- сообщение -->
-            <div th:each="message : ${teamMessages}" class="message_block" th:style="${message.user.login == user.login} ? 'flex-direction: row-reverse' : ''">
-                 <div class="dialog_member_icon">
-                     <img th:src="@{'/images/' + ${message.user.urlUserIcon}}" />
-                 </div>
-
-                  <div class="message">
-                        <div class="message_info">
-                              <span class="message_sender_name" th:text="${message.user.login}"></span>
-                              <span class="message_time" th:text="${message.messageDate}"></span>
-                        </div>
-
-                        <div class="message_text" th:text="${message.messageText}"></div>
-                  </div>
-            </div>
-          </div>
+            <div th:replace = "~{/templates/DialogTemplates :: messagesForm}"></div>
 
             <form id="send_message_form" th:method="POST">
-                <div class="send_message_block">
-                    <input id="message_text" type="text" placeholder="Напишите сообщение..." class="type_message" />
-
-                    <div class="push_icon"><img th:src="@{/images/push_icon.png}" /></div>
-                </div>
+                <div th:replace = "~{/templates/DialogTemplates :: sendMessageBlock}"></div>
             </form>
         </span>
     </div>
