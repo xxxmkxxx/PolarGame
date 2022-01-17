@@ -13,7 +13,7 @@
 
 <div th:fragment="choice_of_action_for_user" class="choice_of_action">
     <span class="sectionButtons" id = "friends_buttonForUser" style = "opacity: 100%;"> ДРУЗЬЯ </span>
-    <span class="sectionButtons" id = "userIsIN_button"> СОСТОИТ </span>
+    <span class="sectionButtons" id = "userIsIN_button"> СОСТОИТ В</span>
 </div>
 
 <div th:fragment="myFreinds" class = "friends_section" id = "friends_section">
@@ -60,18 +60,18 @@
 
     <div class="friends_form">
         <div th:each="friend : ${friends}" class="friend_line">
-                              <span class="friend_icon">
-                                <img id="friend_icon" th:src="@{'/images/' + ${friend.urlUserIcon}}" />
-                              </span>
+            <span class="friend_icon">
+                <img id="friend_icon" th:src="@{'/images/' + ${friend.urlUserIcon}}" />
+            </span>
             <span class="friend_nick" th:text="${friend.login}"></span>
             <span class="friend_line_icons">
-                                <span class="friend_func_icon message_icon">
-                                    <img th:id="${friend.login}" th:src="@{/images/message_icon.png}" />
-                                </span>
-                                <span class="friend_func_icon delete_icon">
-                                   <img th:id="${friend.login}" th:src="@{/images/delete_icon.png}" />
-                                </span>
-                            </span>
+                <span class="friend_func_icon message_icon">
+                    <img th:id="${friend.login}" th:src="@{/images/message_icon.png}" />
+                </span>
+                <span class="friend_func_icon delete_icon">
+                   <img th:id="${friend.login}" th:src="@{/images/delete_icon.png}" />
+                </span>
+            </span>
         </div>
     </div>
 </div>
@@ -149,12 +149,10 @@
             </span>
             <span class="friend_nick" th:text="${friend.login}"></span>
             <span class="friend_line_icons">
-            <span class="friend_func_icon message_icon">
-                <img th:id="${friend.login}" th:src="@{/images/message_icon.png}" />
+            <span class="friend_func_icon message_icon" style = "margin-left:3vw">
+                <img th:id="${friend.login}" th:src="@{/images/add_friend_icon.png}" />
             </span>
-            <span class="friend_func_icon delete_icon">
-               <img th:id="${friend.login}" th:src="@{/images/delete_icon.png}" />
-            </span>
+
             </span>
         </div>
     </div>
