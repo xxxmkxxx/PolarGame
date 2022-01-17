@@ -229,7 +229,7 @@ main {
 .filter_row {
   display: flex;
   flex-direction: row;
-  height: 5vw;
+  height: 4vw;
 }
 
 .find_friend_inp {
@@ -340,6 +340,19 @@ A {
   margin-left: 1.5vw;
   margin-right: 1.5vw;
   margin-bottom: 2vw;
+  padding-top:1vw;
+  height: 40vw;
+  overflow-y: scroll;
+}
+
+.friends_form::-webkit-scrollbar {
+  width: 1.3vw;
+  background-color: #20315E;
+  border-radius: 2.5vw;
+}
+.friends_form::-webkit-scrollbar-thumb {
+  background-color: #243050;
+  border-radius: 2.5vw;
 }
 
 .friend_line {
