@@ -299,3 +299,33 @@ const closePasswordFieldEvent = () => {
 openPasswordFieldEvent();
 closePasswordFieldEvent();
 
+// const openPartyForm = (element) => {
+//     element.click(function() {
+//         $('#party_form').css("display","flex");
+//     });
+// }
+
+const openPartyForm = () => {
+    $('#open_icon').click(function() {
+    displayElement('#party_form')
+    });
+}
+
+const closePartyForm = () => {
+    closeOutZoneElement('#party_form');
+    $('#exit_button').click(function() {
+        hideElement('#party_form')
+    });
+}
+
+openPartyForm();
+closePartyForm();
+
+const iAmReady = () => {
+    $('#ready_button').click(function() {
+        console.log('hh');
+        $('#my_nick').css("border-color", "#76D874");
+    })
+}
+
+iAmReady();
