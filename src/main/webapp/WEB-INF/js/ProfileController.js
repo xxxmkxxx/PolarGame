@@ -208,7 +208,7 @@ const userDataEditEvent = () => {
             data : data,
             success: function(message) {
                 if(message.text === "success")
-                    updateUserDataView(message.model);
+                    updateUserDataView(message.object);
 
                 console.log(message);
             },

@@ -22,43 +22,42 @@
     <div class="sections">
         <span class="section1">
             <div class = "dialogs" id = "dialogs">
-
+                <div th:each="team : ${teams}" th:id="${'team_' + team.teamId}" class="dialog"><span class="about_dialog_member">
+                    <span class="dialog_icon"><img th:src="@{'/images/' + ${team.urlTeamIcon}}"></span>
+                    <span class="dialog_member_nick" th:text="${team.teamName}"></span></span>
+                    <span class="last_message_time">fwfwfwdwwa</span>
+                </div>
             </div>
+
 
         </span>
 
         <span class="section2">
           <div class="messages">
             <!-- сообщение -->
-            <div class="message_block">
-                 <div class="dialog_member_icon"><img th:src="@{/images/example_pic.png}" /></div>
+            <div th:each="message : ${teamMessages}" class="message_block" th:style="${message.user.login == user.login} ? 'flex-direction: row-reverse' : ''">
+                 <div class="dialog_member_icon">
+                     <img th:src="@{'/images/' + ${message.user.urlUserIcon}}" />
+                 </div>
+
                   <div class="message">
                         <div class="message_info">
-                              <span class="message_sender_name">name</span>
-                              <span class="message_time">16:55</span>
+                              <span class="message_sender_name" th:text="${message.user.login}"></span>
+                              <span class="message_time" th:text="${message.messageDate}"></span>
                         </div>
-                        <div class="message_text">Текст сообщения</div>
+
+                        <div class="message_text" th:text="${message.messageText}"></div>
                   </div>
             </div>
-              <!--  -->
-              <!-- МОЕ сообщение -->
-            <div class="message_block" style="flex-direction: row-reverse">
-              <div class="dialog_member_icon"><img th:src="@{/images/example_pic.png}" /></div>
-              <div class="message">
-                <div class="message_info" style="flex-direction: row-reverse">
-                  <span class="message_sender_name">name</span>
-                  <span class="message_time">16:55</span>
-                </div>
-                <div class="message_text">Текст сообщения</div>
-              </div>
-            </div>
-              <!--  -->
           </div>
 
-          <div class="send_message_block">
-            <input type="text" placeholder="Напишите сообщение..." class="type_message" />
-            <div class="push_icon"><img th:src="@{/images/push_icon.png}" /></div>
-          </div>
+            <form id="send_message_form" th:method="POST">
+                <div class="send_message_block">
+                    <input id="message_text" type="text" placeholder="Напишите сообщение..." class="type_message" />
+
+                    <div class="push_icon"><img th:src="@{/images/push_icon.png}" /></div>
+                </div>
+            </form>
         </span>
     </div>
 </main>

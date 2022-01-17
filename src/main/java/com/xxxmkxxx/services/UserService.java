@@ -4,6 +4,7 @@ import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.UserDAO;
+import com.xxxmkxxx.models.TeamMessageModel;
 import com.xxxmkxxx.models.UserModel;
 import org.hibernate.Hibernate;
 import org.springframework.context.annotation.PropertySource;
@@ -123,6 +124,11 @@ public class UserService {
         user.setDescription(description);
 
         userDAO.updateUser(user);
+    }
+
+    @Transactional
+    public List<TeamMessageModel> getTeamMessages(UserModel user) {
+        return userDAO.initializeTeamMessages(user).getTeamMessages();
     }
 
     @Transactional

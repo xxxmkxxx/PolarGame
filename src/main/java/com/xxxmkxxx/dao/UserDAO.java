@@ -68,6 +68,24 @@ public class UserDAO {
         return user;
     }
 
+    public UserModel initializeTeamMessages(UserModel user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(user, LockMode.NONE);
+
+        Hibernate.initialize(user.getTeamMessages());
+
+        return user;
+    }
+
+    public UserModel initializeTeamMembers(UserModel user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(user, LockMode.NONE);
+
+        Hibernate.initialize(user.getTeamMembers());
+
+        return user;
+    }
+
     public void removeFriend(UserModel user, UserModel friend) {
         Session session = sessionFactory.getCurrentSession();
 

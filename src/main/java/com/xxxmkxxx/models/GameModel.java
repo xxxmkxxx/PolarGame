@@ -38,6 +38,9 @@ public class GameModel implements Serializable {
     )
     private List<GenresModel> genres;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private List<TeamModel> teams;
+
     public int getGameId() {
         return gameId;
     }
@@ -94,6 +97,14 @@ public class GameModel implements Serializable {
         this.genres = genres;
     }
 
+    public List<TeamModel> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<TeamModel> teams) {
+        this.teams = teams;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,7 +120,7 @@ public class GameModel implements Serializable {
 
     public GameModel() {}
 
-    public GameModel(int gameId, String name, String description, String urlGameIcon, int popularity, List<GameCommentModel> comments, List<GenresModel> genres) {
+    public GameModel(int gameId, String name, String description, String urlGameIcon, int popularity, List<GameCommentModel> comments, List<GenresModel> genres, List<TeamModel> teams) {
         this.gameId = gameId;
         this.name = name;
         this.description = description;
@@ -117,5 +128,6 @@ public class GameModel implements Serializable {
         this.popularity = popularity;
         this.comments = comments;
         this.genres = genres;
+        this.teams = teams;
     }
 }

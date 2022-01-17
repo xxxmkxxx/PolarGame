@@ -2,12 +2,11 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
-import com.xxxmkxxx.config.GameCommentConfig;
+import com.xxxmkxxx.controllers.config.GameCommentConfig;
 import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.dao.GameDAO;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
-import com.xxxmkxxx.models.UserModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

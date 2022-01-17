@@ -33,7 +33,6 @@ public class UserModel implements Serializable {
     @Column(name = "user_icon")
     private String urlUserIcon;
 
-
     @ManyToMany
     @JoinTable(
             name = "friends",
@@ -42,13 +41,17 @@ public class UserModel implements Serializable {
     )
     private List<UserModel> friends = new ArrayList();
 
-    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<GameCommentModel> gameComments;
 
-    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private PartyMemberModel partyMember;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<TeamMessageModel> teamMessages;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<TeamMemberModel> teamMembers;
 
     public int getUserId() {
         return userId;
@@ -122,9 +125,25 @@ public class UserModel implements Serializable {
         this.partyMember = partyMember;
     }
 
+    public List<TeamMessageModel> getTeamMessages() {
+        return teamMessages;
+    }
+
+    public void setTeamMessages(List<TeamMessageModel> teamMessages) {
+        this.teamMessages = teamMessages;
+    }
+
+    public List<TeamMemberModel> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(List<TeamMemberModel> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
+
     public UserModel() {}
 
-    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, List<UserModel> friends, List<GameCommentModel> gameComments, PartyMemberModel partyMember) {
+    public UserModel(int userId, String login, String password, String mail, String description, String urlUserIcon, List<UserModel> friends, List<GameCommentModel> gameComments, PartyMemberModel partyMember, List<TeamMessageModel> teamMessages, List<TeamMemberModel> teamMembers) {
         this.userId = userId;
         this.login = login;
         this.password = password;
@@ -134,6 +153,8 @@ public class UserModel implements Serializable {
         this.friends = friends;
         this.gameComments = gameComments;
         this.partyMember = partyMember;
+        this.teamMessages = teamMessages;
+        this.teamMembers = teamMembers;
     }
 
     public UserModel(String login, String password, String mail) {
