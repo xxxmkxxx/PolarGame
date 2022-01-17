@@ -79,7 +79,7 @@ header{
     /*display: inline-flex;*/
     display: none;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     /*justify-content: space-around;*/
     align-items: center;
     background-color: #42348C;
