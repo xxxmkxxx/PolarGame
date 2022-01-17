@@ -30,8 +30,13 @@
 </header>
 
 <div th:fragment="menu" class = "menu">
-
-    <span class = "menu_categories"> ИГРЫ </span>
-    <a th:href="@{/dialogs/}"> <span class = "menu_categories"> ДИАЛОГИ </span> </a>
-    <span class = "menu_categories"> ВЫЙТИ </span>
+    <a th:href="@{/catalog/}">
+        <span class = "menu_categories"> ИГРЫ </span>
+    </a>
+    <a th:href="@{/dialogs/}">
+        <span class = "menu_categories"> ДИАЛОГИ </span>
+    </a>
+    <a th:href="@{/user/out}">
+        <span class = "menu_categories"> ВЫЙТИ </span>
+    </a>
 </div>
