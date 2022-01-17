@@ -290,15 +290,6 @@ A {
   text-decoration: none;
 }
 
-.edit_icon {
-  margin-left: -1.7vw;
-  margin-bottom: -1vw;
-}
-
-.edit_icon > img {
-  width: 1.4vw;
-  cursor: pointer;
-}
 
 .user_description_area {
   width: 100%;

@@ -330,9 +330,7 @@
 
 .edit_icon > img {
     width: 1.4vw;
-    display: none;
     margin-top: 0.45vw;
-    margin-left: -2.2vw;
     cursor: pointer;
 }
 
