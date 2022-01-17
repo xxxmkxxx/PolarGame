@@ -440,9 +440,9 @@ main{
 
 
 .create_party_form{
-	width: 46.5vw;
-	height: 36vw;
-	position: absolute;
+	width: 39.5vw;
+	height: 32vw;
+	position: fixed;
 	background-image: url("/PolarGame/images/background1.png");
 	background-size: 120%;
 	z-index: 1;
@@ -450,17 +450,17 @@ main{
 	border-radius: 2.5vw;
 	border-color: #4092F7;
 	border-width: 0.35vw;
-	opacity: 90%;
-	margin-left: 46vw;
+	opacity: 89%;
+	margin-left: 50vw;
 	margin-top: 4vw;
 	display: none;
-	flex-direction: column;	
+	flex-direction: column;
+	padding-left: 3vw;
 }
 
 .cre_row{
 	display: flex;
 	flex-direction: row;
-	margin-left: 4.5vw;
 	margin-bottom: 1.5vw;
 }
 
@@ -468,16 +468,15 @@ main{
 	display: none;
 	height: 1.5vw;
 	width: 11vw;
-	background-color: #4f68d4;
-	margin-left: 4.5vw;
+	background-color: white;
 	margin-bottom: 1.5vw;
 	margin-top: -1vw;
 	font-family: othertext;
 	font-size: 1.4vw;
-	border: solid 0.1vw white;
-	border-radius: 0.5vw;
-	padding-left: 0.5vw;
-	color: white;
+	padding:0.3vw;
+	border:none;
+	border-radius: 0.4vw;
+	color: black;
 }
 
 .password_form::placeholder {
@@ -539,7 +538,7 @@ main{
 	font-family: othertext;
 }
 
-.party_descr{
+.party_description{
 	height: 4vw;
 	width: 36.3vw;
 	line-height: 2vw;
@@ -552,6 +551,16 @@ main{
 	resize: none;
 }
 
+.party_description::-webkit-scrollbar {
+	width: 1.5vw;
+	background-color: #4F66D7;
+	border-radius: 2.5vw;
+}
+.party_description::-webkit-scrollbar-thumb {
+	background-color: #4256B7;
+	border-radius: 2.5vw;
+}
+
 .load{
 	margin-left: 1.9vw;
 	font-size: 1vw;
@@ -559,8 +568,7 @@ main{
 
 .create_button{
 	height: 2.6vw;
-	width: 37.3vw;
-	margin-left: 4.5vw;
+	width: 36.3vw;
 	background-color: #3848A6;
 	color: white;
 	font-family: ButtonsFont;
@@ -571,14 +579,14 @@ main{
 }
 
 .close_party_creator {
-	margin-left: 43vw;
-	margin-top: 0.9vw;
+	margin-left: 36.5vw;
+	margin-top: 0.8vw;
 	margin-bottom: -0.5vw;
 }
 
 .close_party_creator > img{
-	width: 2.5vw;
-	height: 2.5vw;
+	width: 2.3vw;
+	height: 2.3vw;
 	cursor: pointer;
 }
 
@@ -725,27 +733,19 @@ outline: none;
 
 }
 
-.party_descriprion{
-	height: 7vw;
-	width: 45vw;
-	padding-right: 1vw;
-	margin-left: 1.5vw;
-	font-family: othertext;
-	color: white;
-	font-size: 1.3vw;
-	overflow-x: auto;
-	word-wrap: break-word;
-}
+/*.party_description{*/
+/*	height: 7vw;*/
+/*	width: 45vw;*/
+/*	padding-right: 1vw;*/
+/*	margin-left: 1.5vw;*/
+/*	font-family: othertext;*/
+/*	color: white;*/
+/*	font-size: 1.3vw;*/
+/*	overflow-x: auto;*/
+/*	word-wrap: break-word;*/
+/*}*/
 
-.party_descriprion::-webkit-scrollbar {
-    width: 1.5vw;
-    background-color: #4256B7;
-    border-radius: 2.5vw;
-}
-.party_descriprion::-webkit-scrollbar-thumb {
-    background-color: #4F66D7;
-  	border-radius: 2.5vw;
-}
+
 
 .party_сontent{
 	display: flex;
