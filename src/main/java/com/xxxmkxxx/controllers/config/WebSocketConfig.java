@@ -1,4 +1,4 @@
-package com.xxxmkxxx.config;
+package com.xxxmkxxx.controllers.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +25,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/party-websocket").withSockJS();
+        registry.addEndpoint("/dialog-websocket").withSockJS();
     }
 
 }

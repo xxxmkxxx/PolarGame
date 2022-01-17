@@ -182,8 +182,14 @@ const confirmPartyFiltersEvent = () => {
             type : "GET",
             url : "/PolarGame/ajax/game/party/filters",
             data : data,
-            success : function (partyList) {
-                displayFoundParties(partyList);
+            success : function (message) {
+                console.log("-------" + message)
+
+                if(message.text === "success") {
+                    displayFoundParties(message.object);
+                } else {
+                    console.log(message.text);
+                }
 
                 $(".party_filters").slideUp(200);
             },
@@ -253,7 +259,7 @@ const connectWebSocket = (endPoint) => {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, () => {
         stompClient.subscribe("/topic/new/party", (gropedParties) => {
-            displayFoundParties(JSON.parse(gropedParties.body));
+            displayFoundParties(JSON.parse(gropedParties.body).object);
         });
     });
 }

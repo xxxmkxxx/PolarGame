@@ -1,32 +1,28 @@
+let selectedDialogId;
 
-const testDialogs = ()=> {
-   $("#test").click(() => {
-       $("#dialogs").prepend(createDialogBlock(null, 'team'));
-   });
-}
+$(document).ready(() => {
+    selectedDialogId = $($("#dialogs").children("div")[0]).attr("id").split("_")[1];
 
-const createDialogBlock = (message, dialogType) => {
+    sendMessageEvent();
+    chooseTeamDialogEvent();
+})
 
-    let icon = 'awd';
-    let dialogName = 'wfwf';
-    let lastMessageTime = 'fwfwfwdwwa';
+const createDialogBlock = (dialog, dialogType) => {
+    let icon;
+    let dialogName;
+    let lastMessageTime;
 
-    // if (dialogType === "team") {
-    //     icon = message.team.teamIcon;
-    //     dialogName = message.team.teamName;
-    //     lastMessageTime = message.team.dispatchTime;
-    // } else {
-    //     icon = message.user.userIcon;
-    //     dialogName = message.user.userNick;
-    //     lastMessageTime = message.user.dispatchTime;
-    // }
+    if (dialogType === "team") {
+        icon = dialog.urlTeamIcon;
+        dialogName = dialog.teamName;
+        lastMessageTime = "";
+    } else if(dialogType === "friend") {
+        icon = dialog.urlUserIcon;
+        dialogName = dialog.login;
+        lastMessageTime = "";
+    }
 
-
-    let dialogs = $("<div>", {
-        "class" : "dialogs"
-    });
-
-    let dialog = $("<div>", {
+    let dialogBlock = $("<div>", {
         "class" : "dialog"
     });
 
@@ -53,10 +49,132 @@ const createDialogBlock = (message, dialogType) => {
     dialog_icon_span.append(img_dialog);
     about_dialog_member.append(dialog_icon_span);
     about_dialog_member.append(dialog_member_nick);
-    dialog.append(about_dialog_member);
-    dialog.append(last_message_time);
+    dialogBlock.append(about_dialog_member);
+    dialogBlock.append(last_message_time);
 
     return dialog;
 }
 
-testDialogs();
+const createMessageBlock = (message, senderType) => {
+    let userIcon = message.user.urlUserIcon;
+    let userName = message.user.login;
+    let sendTime = message.date;
+    let messageText = message.text;
+
+    let messageBlock = $("<div>", {
+        "class" : "message_block",
+        "style" : senderType
+    });
+
+    let dialogMemberIcon = $("<div>", {
+        "class" : "dialog_member_icon"
+    });
+
+    let img = $("<img>", {
+        "src" : "/PolarGame/images/" + userIcon
+    });
+
+    let mess = $("<div>", {
+        "class" : "message"
+    });
+
+    let messageInfo = $("<div>", {
+        "class" : "message_info"
+    });
+
+    let messageSenderName = $("<span>", {
+        "class" : "message_sender_name"
+    }).text(userName);
+
+    let messageTime = $("<span>", {
+        "class" : "message_time"
+    }).text(sendTime);
+
+    let messageTextBlock = $("<span>", {
+        "class" : "message_text"
+    }).text(messageText);
+
+    dialogMemberIcon.append(img);
+
+    messageInfo.append(messageSenderName);
+    messageInfo.append(messageTime);
+
+    mess.append(messageInfo);
+    mess.append(messageTextBlock);
+
+    messageBlock.append(dialogMemberIcon);
+    messageBlock.append(mess);
+
+    return messageBlock;
+}
+
+const displayMessage = (message) => {
+    let messageBlock;
+    let senderType = message.user.login === $("#profile").text() ? "flex-direction: row-reverse" : "";
+
+    messageBlock = createMessageBlock(message, senderType);
+
+    $(".messages").append(messageBlock);
+}
+
+const updateMessages = (messages) => {
+    $(".messages").empty();
+
+    for (let i = 0; i < messages.length; i++) {
+        displayMessage(messages[i]);
+    }
+}
+
+const sendMessageEvent = () => {
+    $("#send_message_form").submit((event) => {
+        event.preventDefault();
+
+        let data = {
+            text : $("#message_text").val(),
+            teamId : selectedDialogId
+        };
+
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/dialogs/team/message/create",
+            data : data,
+            success : (message) => {
+                if(message.text === "success")
+                    displayMessage(message.object);
+                else
+                    console.log(message.text);
+
+                //stompClient.send("/app/parties", {}, JSON.stringify({gameId : gameId}));
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+
+        $("#message_text").val("");
+    });
+}
+
+const chooseTeamDialogEvent = () => {
+    $(document).on("click", ".dialog", function () {
+        let data = {
+            teamId : $(this).attr("id").split("_")[1]
+        }
+
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/dialogs/team/get",
+            data : data,
+            success : (message) => {
+                if(message.text === "success")
+                    updateMessages(message.object);
+                else
+                    console.log(message.text);
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+    });
+}
+

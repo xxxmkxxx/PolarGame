@@ -89,6 +89,14 @@ public class UsersController {
         return "/users/profile";
     }
 
+    @GetMapping("/out")
+    public String singOutRedirect(HttpSession session) {
+        session.removeAttribute("userLogin");
+        session.invalidate();
+
+        return "redirect:/user/login";
+    }
+
     public UsersController(UserService userService) {
         this.userService = userService;
     }

@@ -3,7 +3,8 @@ package com.xxxmkxxx.controllers;
 import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
-import com.xxxmkxxx.config.PartiesConfig;
+import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.controllers.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.PartyModel;
@@ -12,7 +13,6 @@ import com.xxxmkxxx.services.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,15 +37,18 @@ public class GameRestController {
     }
 
     @PostMapping("/party/create")
-    public void createParty(
+    public Message createParty(
             @RequestParam("privacy") boolean privacy,
             @RequestParam("password") String password,
             @RequestParam("countPlayers") int countPlayers,
             @RequestParam("description") String description,
             @RequestParam("gameId") int gameId,
             HttpSession session) {
-
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
+        Message<List<UserModelWrapper>> message = new Message(
+                "success",
+                null
+        );
 
         if(user.getPartyMember() == null) {
             PartyModel party = partyService.createParty(privacy, password, countPlayers, description, gameId);
@@ -54,14 +57,22 @@ public class GameRestController {
         else {
             System.err.println("Невозможно быть владельцем нескольких пати!");
         }
+
+        return message;
     }
 
     @GetMapping("/party/filters")
-    public List<List<PartyModel>> useFilters(String filterStatus, int amountPlayers, int gameId) {
+    public Message useFilters(String filterStatus, int amountPlayers, int gameId) {
         List<PartyModel> foundedParties = partyService.getPartiesByFilters(filterStatus, amountPlayers, gameId);
-        List<List<PartyModel>> groupedParties = partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
 
-        return groupedParties;
+        System.err.println(foundedParties.size());
+
+        Message<List<PartyModelWrapper>> message = new Message(
+                "success",
+                partyService.groupPartiesWrapper(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties)
+        );
+
+        return message;
     }
 
     @PostMapping("/comments/more")
