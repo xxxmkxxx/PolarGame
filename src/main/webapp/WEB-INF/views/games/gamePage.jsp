@@ -67,7 +67,7 @@
             </div>
 
             <div class = "cre_row">
-                <textarea id="party_descr" wrap = "soft" maxlength="400" class = "party_descr"> </textarea>
+                <textarea id="party_descr" wrap = "soft" maxlength="400" class = "party_description"> </textarea>
             </div>
 
             <button id="create_party_button" class = "create_button"> СОЗДАТЬ ПАТИ</button>

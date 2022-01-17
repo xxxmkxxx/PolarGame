@@ -257,3 +257,26 @@ const connectWebSocket = (endPoint) => {
         });
     });
 }
+
+const readUrl = (input) => {
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+const loadPreview = (input) => {
+    $("#file").change(function() {
+        console.log('load!');
+        readUrl(this);
+    });
+};
+
+loadPreview()
+
+
+
+
