@@ -165,7 +165,7 @@ input {
     font-style: italic;
 }
 
-.push_icon > img {
+.push_icon > input  {
     width: 2.8vw;
     cursor: pointer;
 }

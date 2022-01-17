@@ -19,5 +19,5 @@
 <div th:fragment = "sendMessageBlock" class="send_message_block">
     <input id="message_text" type="text" placeholder="Напишите сообщение..." class="type_message" />
 
-    <div class="push_icon"><img th:src="@{/images/push_icon.png}" /></div>
+    <div class="push_icon"><input type = "image" th:src="@{/images/push_icon.png}" /></div>
 </div>
