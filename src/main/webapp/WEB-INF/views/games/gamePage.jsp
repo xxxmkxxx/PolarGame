@@ -192,27 +192,7 @@
 				    </div>
 
                     <div class = "search_message" id="search_message"> </div>
-                    <div class = "com_party_place" id="com_party_place">
-                        <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
-                            <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
-                                <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
-                                    <span class="form_img">
-                                        <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
-                                    </span>
-
-                                    <span class="party_creator" th:text="${owner.login}"></span>
-                                </div>
-
-                                <div class="row2">
-                                    <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
-
-                                    <span class="come_in" th:id="${party.partyId}">
-                                        <img th:src="@{/images/come_in_icon.png}">
-                                    </span>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
+                    <div th:replace = "~{/templates/GameTemplates :: parties}"></div>
                 </div>
 
                 <div class = "partyORteam_block" id = "team_block" style = "display:none">
@@ -222,29 +202,7 @@
                         <span class = "filter_icon" > <img th:src="@{/images/filter_icon.png}"></span>
                         <span class = "create_team"> СОЗДАТЬ КОМАНДУ </span>
 				    </div>
-
-                    <div class = "com_party_place" id="com_party_place">
-                        <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
-                            <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
-                                <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
-                                    <span class="form_img">
-                                        <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
-                                    </span>
-
-                                    <span class="party_creator" th:text="${owner.login}"></span>
-                                </div>
-
-                                <div class="row2">
-                                    <span class="participans" th:text="${party.members.size()} + ' из ' + ${party.usersAmount}"></span>
-
-                                    <span class="come_in" th:id="${party.partyId}">
-                                        <img th:src="@{/images/come_in_icon.png}">
-                                    </span>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-
+                     <div th:replace = "~{/templates/GameTemplates :: teams}"></div>
                 </div>
 
         </span>
