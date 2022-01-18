@@ -58,13 +58,46 @@ const hideElement = (form) => {
 }
 
 function foo() {
-    $(document).on("click", ".test", function () {})
+    $(document).on("click", ".test", function () {
+        let review = $(this).attr("id").split("_")[1];
+        let data = {
+            review : review
+        };
 
-    let starRang = 4;
-    let children = $(".rating-area").children("label");
-    for (let i = starRang; i > 0; i--) {
-        $(children[i]).css("color","gold");
-    }
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/game/popular/review",
+            data : data,
+            success : (message) => {
+                console.log(message.object)
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+    });
+
+    let data = {
+        gameId : gameId
+    };
+
+    $.ajax({
+        type : "POST",
+        url : "/PolarGame/ajax/game/popular/get",
+        data : data,
+        success : (message) => {
+            let starRang = message.object;
+            let children = $(".rating-area").children("label");
+
+            for (let i = 0; i <= starRang; i++) {
+                $(children[5-i]).css("color","gold");
+            }
+        },
+        error : function () {
+            console.log("error");
+        }
+    });
+
 
     $(".rating-area").on("mouseover", function (event) {
 

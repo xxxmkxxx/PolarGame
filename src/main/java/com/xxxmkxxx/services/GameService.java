@@ -6,8 +6,10 @@ import com.xxxmkxxx.common.wrappers.GameModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.dao.GameDAO;
+import com.xxxmkxxx.dao.TeamDAO;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.TeamModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class GameService {
+    private TeamDAO teamDAO;
     private GameDAO gameDAO;
     private GameCommentDAO gameCommentDAO;
 
@@ -144,8 +147,20 @@ public class GameService {
         return "success";
     }
 
+    @Transactional
+    public List<TeamModel> getTeams(GameModel game) {
+        List<TeamModel> teams = gameDAO.initializeTeams(game).getTeams();
 
-    public GameService(GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
+        for (int i = 0; i < teams.size(); i++) {
+            teamDAO.initializeMembers(teams.get(i));
+        }
+
+        return teams;
+    }
+
+
+    public GameService(TeamDAO teamDAO, GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
+        this.teamDAO = teamDAO;
         this.gameDAO = gameDAO;
         this.gameCommentDAO = gameCommentDAO;
     }

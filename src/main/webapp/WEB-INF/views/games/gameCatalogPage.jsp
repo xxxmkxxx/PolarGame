@@ -16,6 +16,8 @@
 
         <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
+        <div th:replace="~{/templates/BasicTemplates :: notificationsForm}"></div>
+
         <main>
 
             <div class = "filters_row">

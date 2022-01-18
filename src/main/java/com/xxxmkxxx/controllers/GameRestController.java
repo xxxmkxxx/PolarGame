@@ -1,14 +1,9 @@
 package com.xxxmkxxx.controllers;
 
 import com.xxxmkxxx.common.messages.Message;
-import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
-import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
-import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.common.wrappers.*;
 import com.xxxmkxxx.controllers.config.PartiesConfig;
-import com.xxxmkxxx.models.GameCommentModel;
-import com.xxxmkxxx.models.GameModel;
-import com.xxxmkxxx.models.PartyModel;
-import com.xxxmkxxx.models.UserModel;
+import com.xxxmkxxx.models.*;
 import com.xxxmkxxx.services.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +26,19 @@ public class GameRestController {
         Message<PartyModelWrapper> message = new Message(
                 "success",
                 groupedParties
+        );
+
+        return message;
+    }
+
+    @PostMapping("/party/get")
+    public Message getParty(@RequestParam("partyId") int partyId) {
+        WrapperManager<PartyModelWrapper, PartyModel> wrapperManager = new WrapperManager(new PartyModelWrapper());
+        PartyModel party = partyService.getParty(partyId);
+
+        Message<PartyModelWrapper> message = new Message(
+                "success",
+                new PartyModelWrapper(partyMembersService.initializePartyMembers(party))
         );
 
         return message;
@@ -108,6 +116,24 @@ public class GameRestController {
         );
 
         return message;
+    }
+
+    @PostMapping("/popular/review")
+    public Message createReview(int review) {
+        return new Message(
+                "success",
+                "Спасибо за оценку!"
+        );
+    }
+
+    @PostMapping("/popular/get")
+    public Message getPop(int gameId) {
+        int pop = gameService.getGame(gameId).getPopularity();
+
+        return new Message(
+                "success",
+                pop
+        );
     }
 
 

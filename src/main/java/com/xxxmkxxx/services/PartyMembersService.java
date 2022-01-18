@@ -1,5 +1,6 @@
 package com.xxxmkxxx.services;
 
+import com.xxxmkxxx.dao.PartyDAO;
 import com.xxxmkxxx.dao.PartyMemberDAO;
 import com.xxxmkxxx.models.PartyMemberModel;
 import com.xxxmkxxx.models.PartyModel;
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 public class PartyMembersService {
     private PartyMemberDAO partyMemberDAO;
+    private PartyDAO partyDAO;
 
     @Transactional
     public UserModel getOwner(List<PartyMemberModel> members) {
@@ -36,8 +38,14 @@ public class PartyMembersService {
         partyMemberDAO.savePartyMember(partyMember);
     }
 
-    public PartyMembersService(PartyMemberDAO partyMemberDAO) {
+    @Transactional
+    public PartyModel initializePartyMembers(PartyModel party) {
+        return partyMemberDAO.initPartyMembers(party);
+    }
+
+    public PartyMembersService(PartyMemberDAO partyMemberDAO, PartyDAO partyDAO) {
         this.partyMemberDAO = partyMemberDAO;
+        this.partyDAO = partyDAO;
     }
 }
 
