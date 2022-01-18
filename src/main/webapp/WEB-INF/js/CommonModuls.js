@@ -2,8 +2,7 @@ $(document).ready(() => {
     openMenuEvent();
     openMainPageEvent();
     openProfileEvent("");
-    foo();
-
+    notification();
 });
 
 let closeOutZoneElement = (element, method) => {
@@ -113,6 +112,24 @@ function foo() {
 
         }
     });
+
+}
+
+function notification () {
+    $(document).on("click", ".apply_notif" ,function () {
+        $(".notification_form").css("display", "none");
+    });
+
+
+    $(document).on("click", ".cancel_notif" ,function () {
+        console.log($(".notification_form"))
+        $(".notification_form").css("display", "none");
+    });
+
+    $(".notification_icon").click(function () {
+        hideElement(".notification_form");
+    });
+
 
 }
 

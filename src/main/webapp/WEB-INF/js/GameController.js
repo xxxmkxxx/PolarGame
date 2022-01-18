@@ -3,6 +3,10 @@ $(document).ready(() => {
     gameCommentsEvents();
 
     chooseSection();
+
+    foo();
+
+    openTeam();
 });
 
 const chooseSection = () => {
@@ -42,5 +46,11 @@ function gameCommentsEvents() {
     moreGameCommentsEvent();
 
     createCommentEvent();
+}
+
+function openTeam() {
+    $(".openTeam").click(function () {
+        window.location.href = '/PolarGame/team/' + $(this).attr("id");
+    })
 }
 

@@ -28,7 +28,7 @@
             <div class="row2">
                 <span id = "participants" class="participants" th:text="${team.members.size()} + ' из ' + ${team.teamGamersAmount}"></span>
 
-                <span class="come_in open" th:id="${team.teamId}">
+                <span class="come_in openTeam" th:id="${team.teamId}">
                     <img th:src="@{/images/come_in_icon.png}" id = "open_icon">
                 </span>
             </div>

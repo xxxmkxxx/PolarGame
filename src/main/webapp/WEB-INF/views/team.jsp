@@ -17,6 +17,8 @@
     <header th:insert="~{/templates/BasicTemplates :: difficultHeader}"></header>
     <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
+    <input type="hidden" id="team_id" th:value="${team.teamId}">
+
     <main id="main" name="main">
       <div class="sections">
         <span class="section1">
@@ -32,29 +34,23 @@
           <div class="team_description" id="team_description" th:text="${team.teamDescription}"></div>
 
           <div class="members_block">
-            <div class="team_member_row">
-              <div class="team_member_icon"><img th:src="@{/images/example_pic.png}" /></div>
-              <div class="team_member_name">ник создателя</div>
-            </div>
-
-            <div class="team_member_row">
-              <div class="team_member_icon"><img th:src="@{/images/example_pic.png}" /></div>
-              <div class="team_member_name">ник участника</div>
-            </div>
-
-            <div class="team_member_row">
-              <div class="team_member_icon"><img th:src="@{/images/example_pic.png}" /></div>
-              <div class="team_member_name">ник участника</div>
+            <div th:each="member : ${members}" class="team_member_row">
+              <div class="team_member_icon"><img th:src="@{'/images/' + ${member.user.urlUserIcon}}" /></div>
+              <div class="team_member_name" th:text="${member.nick}"></div>
             </div>
           </div>
         </span>
 
         <span class="section2">
-          <div th:replace = "~{/templates/DialogTemplates :: messagesForm}"></div>
+          <div th:replace = "~{/templates/DialogTemplates :: messagesForm}" class="messages"></div>
 
-          <div th:replace = "~{/templates/DialogTemplates :: sendMessageBlock}"></div>
+          <form id="send_message_form" th:method="POST">
+            <div th:replace = "~{/templates/DialogTemplates :: sendMessageBlock}" class="send_message_block"></div>
+          </form>
         </span>
       </div>
     </main>
+
+    <script th:src="@{/scripts/TeamController.js}"></script>
   </body>
 </html>
