@@ -56,7 +56,6 @@
                 </div>
 
                 <div th:replace="~{/templates/ProfileTemplates :: user_description}"></div>
-
           </div>
         </span>
 

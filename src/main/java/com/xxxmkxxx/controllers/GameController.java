@@ -3,6 +3,7 @@ package com.xxxmkxxx.controllers;
 import com.xxxmkxxx.controllers.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.TeamModel;
 import com.xxxmkxxx.models.UserModel;
 import com.xxxmkxxx.services.*;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class GameController {
     private PartyService partyService;
     private PartyMembersService partyMembersService;
     private UserService userService;
+    private TeamService teamService;
 
     @GetMapping("/{id}")
     public String gamePage(@PathVariable("id") int id, Model model, HttpSession session) {
@@ -31,12 +33,14 @@ public class GameController {
         if(isAuthorized) {
             UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
             GameModel game = gameService.getGame(id);
+            List<TeamModel> teams = gameService.getTeams(game);
             int gameId = game.getGameId();
             List<GameCommentModel> comments = gameCommentsService.getComments(game);
 
             model.addAttribute("authorized", true);
             model.addAttribute("user", user);
             model.addAttribute("game", game);
+            model.addAttribute("teamsGroups", teamService.groupTeams(PartiesConfig.COUNT_PARTIES_ON_ROW, teams));
             model.addAttribute("gameComments", gameCommentsService.getPartComments(0, comments));
             model.addAttribute("partyGroups", partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, partyService.getParties(gameId)));
             model.addAttribute("partyMembersService", partyMembersService);
@@ -48,11 +52,12 @@ public class GameController {
         return view;
     }
 
-    public GameController(GameService gameService, GameCommentsService gameCommentsService, PartyService partyService, PartyMembersService partyMembersService, UserService userService) {
+    public GameController(GameService gameService, GameCommentsService gameCommentsService, PartyService partyService, PartyMembersService partyMembersService, UserService userService, TeamService teamService) {
         this.gameService = gameService;
         this.gameCommentsService = gameCommentsService;
         this.partyService = partyService;
         this.partyMembersService = partyMembersService;
         this.userService = userService;
+        this.teamService = teamService;
     }
 }

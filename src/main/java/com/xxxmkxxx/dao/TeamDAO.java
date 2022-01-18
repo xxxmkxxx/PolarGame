@@ -25,6 +25,15 @@ public class TeamDAO {
         return team;
     }
 
+    public TeamModel initializeMembers(TeamModel team) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(team, LockMode.NONE);
+
+        Hibernate.initialize(team.getMembers());
+
+        return team;
+    }
+
     public void updateTeam(TeamModel team) {
         Session session = sessionFactory.getCurrentSession();
         session.update(team);

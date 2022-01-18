@@ -26,6 +26,11 @@ public class PartyDAO {
         session.save(party);
     }
 
+    public PartyModel getParty(int partyId) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(PartyModel.class, partyId);
+    }
+
     public PartyDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

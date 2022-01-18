@@ -3,6 +3,11 @@ let partyRow;
 
 $(document).ready(() => {
     connectWebSocket("/PolarGame/party-websocket");
+
+    openPartyFormEvent();
+    closePartyFormEvent();
+
+    loadPreviewEvent();
 });
 
 const searchPartyEvent = (element) => {
@@ -274,15 +279,12 @@ const readUrl = (input) => {
     }
 }
 
-const loadPreview = (input) => {
+const loadPreviewEvent = (input) => {
     $("#file").change(function() {
         console.log('load!');
         readUrl(this);
     });
-};
-
-loadPreview()
-
+}
 
 const openPasswordFieldEvent = () => {
     $("#closed_icon").click(function() {
@@ -311,27 +313,51 @@ closePasswordFieldEvent();
 //     });
 // }
 
-const openPartyForm = () => {
-    $('#open_icon').click(function() {
-    displayElement('#party_form')
+const openPartyFormEvent = () => {
+    $(".open").click(function() {
+        console.log($(".open").attr("id"))
+
+        let data = {
+            partyId : $(".open").attr("id")
+        };
+
+        $.ajax({
+            type : "POST",
+            url : "/PolarGame/ajax/game/party/get",
+            data : data,
+            success : (message) => {
+                console.log(message)
+                setPartyInfo(message.object);
+            },
+            error : function () {
+                console.log("error");
+            }
+        });
+
+        displayElement('#party_form');
     });
 }
 
-const closePartyForm = () => {
+const setPartyInfo = (party) => {
+    $("#party_descriprion").text(party.description);
+    $($(".party_icon").children("img")[0]).attr("src", '/PolarGame/images/' + party.urlPartyIcon);
+    let temp = party.members.length;
+    $("#members_here").text(temp);
+    $("#members_amount").text("/" + party.usersAmount);
+}
+
+const closePartyFormEvent = () => {
     closeOutZoneElement('#party_form');
     $('#exit_button').click(function() {
         hideElement('#party_form')
     });
 }
 
-openPartyForm();
-closePartyForm();
-
-const iAmReady = () => {
+const readyEvent = () => {
     $('#ready_button').click(function() {
         console.log('hh');
         $('#my_nick').css("border-color", "#76D874");
     })
 }
 
-iAmReady();
+readyEvent();

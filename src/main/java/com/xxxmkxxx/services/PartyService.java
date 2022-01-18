@@ -125,6 +125,12 @@ public class PartyService {
         return party;
     }
 
+    @Transactional
+    public PartyModel getParty(int partyId) {
+        return partyDAO.getParty(partyId);
+    }
+
+
     public PartyService(PartyDAO partyDAO) {
         this.partyDAO = partyDAO;
     }

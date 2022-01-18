@@ -43,6 +43,15 @@ public class GameDAO {
         return game;
     }
 
+    public GameModel initializeTeams(GameModel game) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(game, LockMode.NONE);
+
+        Hibernate.initialize(game.getTeams());
+
+        return game;
+    }
+
     public void updateGame(GameModel game) {
         Session session = sessionFactory.getCurrentSession();
         session.update(game);

@@ -15,17 +15,24 @@
 </div>
 
 <div th:fragment = "teams" class = "com_party_place" id="com_party_place">
-    <div th:each="row, i : ${partyGroups}" class="row1" th:id="rowParty + ${i.index}">
-        <span th:each="party, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
-            <div th:with="owner = ${partyMembersService.getOwner(party.members)}" class="formsdata">
+    <div th:each="row, i : ${teamsGroups}" class="row1" th:id="rowParty + ${i.index}">
+        <span th:each="team, j : ${row}" th:class="form + ${j.index % row.size() + 1}">
+            <div class="formsdata">
                 <span class="form_img">
-                    <img th:src="@{'/images/' + ${owner.urlUserIcon}}">
+                    <img th:src="@{'/images/' + ${team.urlTeamIcon}}">
                 </span>
 
-                <span class="party_creator" th:text="${owner.login}"></span>
+                <span class="party_creator" th:text="${team.teamName}"></span>
             </div>
 
-            <div th:replace = "~{/templates/GameTemplates :: openOrClosed}"></div>
+            <div class="row2">
+                <span id = "participants" class="participants" th:text="${team.members.size()} + ' из ' + ${team.teamGamersAmount}"></span>
+
+                <span class="come_in open" th:id="${team.teamId}">
+                    <img th:src="@{/images/come_in_icon.png}" id = "open_icon">
+                </span>
+            </div>
+
         </span>
     </div>
 </div>
@@ -41,7 +48,7 @@
     <span th:replace = "~{/templates/GameTemplates :: ${true} ? open : closed}"></span>
 </div>
 
-<span th:fragment = "open" class="come_in" th:id="${party.partyId}">
+<span th:fragment = "open" class="come_in open" th:id="${party.partyId}">
     <img th:src="@{/images/come_in_icon.png}" id = "open_icon">
 </span>
 
@@ -69,8 +76,8 @@
         </div>
 
         <div class="members_counter" id="members_counter">
-            <div class="members_here" id="members_here">4/</div>
-            10
+            <div class="members_here" id="members_here"></div>
+            <div id="members_amount"></div>
         </div>
 
         <div class="party_buttons">
@@ -90,5 +97,4 @@
     <div class="party_member_icon"> <img th:src="@{'/images/example_pic.png'}"></div>
     <div class="party_member_name">твой ник</div>
     <input type="text" id="my_nick" class="game_nick_input" />
-    <div class="edit_icon"> <img th:src="@{'/images/example_pic.png'}"></div>
 </div>
