@@ -26,7 +26,7 @@
 <div th:insert="~{/templates/BasicTemplates :: menu}"></div>
 
 <main id = "main" name = "main">
-
+    <div th:replace="~{/templates/BasicTemplates :: notificationsForm}"></div>
     <div th:replace = "~{/templates/GameTemplates :: party}"></div>
 
     <form id="create_party_form"> <!-- форма создания пати -->

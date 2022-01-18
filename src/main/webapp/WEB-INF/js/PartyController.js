@@ -382,4 +382,4 @@ const partyMemberRowGenerate = () => {
     $(".party_member_row").append(gameNick);
 }
 
-readyEvent(); 
+readyEvent();

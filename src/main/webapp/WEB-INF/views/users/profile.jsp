@@ -29,19 +29,8 @@
      <!--  -->
 
     <main id="main" name="main">
+        <div th:replace="~{/templates/BasicTemplates :: notificationsForm}"></div>
 
-      <div class = "notification_icon"><img th:src="@{/images/notify_icon.png}"></div>
-      <div class = "notificatation_form">
-
-        <!-- ФОРМА УВЕДОМЛЕНИЙ -->
-        <div class = "notification_one">
-          <span class = "notification_text">хочет добавить вас в друзья </span>
-          <span class = "notify_choice_of_action">
-            <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>
-            <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
-          </span>
-        </div>
-      </div>
       <div class="sections">
         <span class="section1">
             <div class="usersection">

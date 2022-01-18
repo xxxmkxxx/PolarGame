@@ -41,11 +41,18 @@
     </a>
 </div>
 
-<div th:fragment = "notificationsForm" class = "notification_one">
-    <span class = "notification_text"> хочет добавить вас в друзья"  </span>
-    <span class = "notify_choice_of_action">
-        <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>
-        <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
-    </span>
+
+<div th:fragment = "notificationsForm">
+
+<div class = "notification_icon"><img th:src="@{/images/notify_icon.png}"></div>
+<div class = "notification_form">
+    <div class = "notification_one">
+        <span class = "notification_text">хочет добавить вас в друзья </span>
+        <span class = "notify_choice_of_action">
+            <span class = "notification_icons"><img th:src="@{/images/apply_icon.png}"></span>
+            <span class = "notification_icons"><img th:src="@{/images/cancel_icon.png}"></span>
+          </span>
+    </div>
 </div>
 
+</div>
