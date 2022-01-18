@@ -360,29 +360,26 @@ const readyEvent = () => {
     })
 }
 
-<<<<<<< HEAD
 iAmReady();
 
 const partyMemberRowGenerate = () => {
     let partyMemberIcon = $("<div>", {
-        "class" : "party_member_icon"
+        "class": "party_member_icon"
     });
     let partyMemberIconImg = $("<img>", {
-        "src" : "@{'/images/example_pic.png'}"
+        "src": "@{'/images/example_pic.png'}"
     });
     let partyMemberName = $("<div>", {
-        "class" : "party_member_name"
+        "class": "party_member_name"
     });
     let gameNick = $("<div>", {
-        "class" : "game_nick"
+        "class": "game_nick"
     });
 
     partyMemberIcon.append(partyMemberIconImg);
     $(".party_member_row").append(partyMemberIconImg);
     $(".party_member_row").append(partyMemberName);
     $(".party_member_row").append(gameNick);
-
 }
-=======
-readyEvent();
->>>>>>> c2dd5e7018c7af3d4960e73464f0641240782bf2
+
+readyEvent(); 
