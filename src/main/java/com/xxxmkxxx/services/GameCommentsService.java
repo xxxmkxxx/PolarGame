@@ -15,20 +15,11 @@ import java.util.List;
 
 @Component
 public class GameCommentsService {
-    private GameCommentDAO gameCommentDAO;
     private GameDAO gameDAO;
 
     @Transactional
     public List<GameCommentModel> getComments(GameModel game) {
         return gameDAO.initializeComments(game).getComments();
-    }
-
-    @Transactional
-    public List<GameCommentModelWrapper> getCommentsWrapper(GameModel game) {
-        List<GameCommentModel> comments = gameDAO.initializeComments(game).getComments();
-        WrapperManager<GameCommentModelWrapper, GameCommentModel> wrapperManager = new WrapperManager(new GameCommentModelWrapper());
-
-        return wrapperManager.convertList(comments);
     }
 
     @Transactional
@@ -65,19 +56,7 @@ public class GameCommentsService {
         return wrapperManager.convertList(partComments);
     }
 
-    public String validateComment(String commentText) {
-        String message = "success";
-
-        boolean isCommentTextNotNull = !commentText.equals("");
-
-        if(!isCommentTextNotNull)
-            message = "null";
-
-        return message;
-    }
-
-    public GameCommentsService(GameCommentDAO gameCommentDAO, GameDAO gameDAO) {
-        this.gameCommentDAO = gameCommentDAO;
+    public GameCommentsService(GameDAO gameDAO) {
         this.gameDAO = gameDAO;
     }
 }
