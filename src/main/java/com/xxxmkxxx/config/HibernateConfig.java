@@ -1,4 +1,4 @@
-package com.xxxmkxxx.controllers.config;
+package com.xxxmkxxx.config;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;

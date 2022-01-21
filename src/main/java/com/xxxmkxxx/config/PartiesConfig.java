@@ -1,4 +1,4 @@
-package com.xxxmkxxx.controllers.config;
+package com.xxxmkxxx.config;
 
 import org.springframework.stereotype.Component;
 
