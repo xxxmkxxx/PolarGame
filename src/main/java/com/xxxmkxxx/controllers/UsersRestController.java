@@ -91,7 +91,7 @@ public class UsersRestController {
 
         if(message.equals("success")) {
             session.setAttribute("userLogin", newLogin);
-            mess = new Message(message, WrapperManager.convertUserModel(user));
+            mess = new Message(message, new UserModelWrapper(user));
         } else
             mess = new Message(message, null);
 
