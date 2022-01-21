@@ -2,6 +2,7 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
+import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.UserDAO;
 import com.xxxmkxxx.models.TeamMessageModel;
@@ -105,13 +106,9 @@ public class UserService {
     @Transactional
     public List<UserModelWrapper> getFriendsWrappers(UserModel user) {
         List<UserModel> friends = userDAO.initializeFriends(user).getFriends();
-        List<UserModelWrapper> result = new ArrayList();
+        Wrapper<UserModelWrapper, UserModel> wrapper = new UserModelWrapper();
 
-        for (int i = 0; i < friends.size(); i++) {
-            result.add(WrapperManager.convertUserModel(friends.get(i)));
-        }
-
-        return result;
+        return wrapper.convertList(friends);
     }
 
     @Transactional

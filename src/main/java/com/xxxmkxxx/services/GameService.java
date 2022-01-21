@@ -3,6 +3,7 @@ package com.xxxmkxxx.services;
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.GameModelWrapper;
+import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.dao.GameDAO;
@@ -48,17 +49,11 @@ public class GameService {
     public List<GameModelWrapper> getSortedGamesByPopularityWrapper(List<GameModel> games) {
         List<GameModel> sortedGames = games;
         SortingGamesByPopularityComparator comparator = new SortingGamesByPopularityComparator();
+        Wrapper<GameModelWrapper, GameModel> wrapper = new GameModelWrapper();
 
         Collections.sort(sortedGames, comparator);
 
-        List<GameModelWrapper> result = new ArrayList();
-
-        for (int i = 0; i < sortedGames.size(); i++) {
-            result.add(WrapperManager.convertGameModel(sortedGames.get(i)));
-        }
-
-
-        return result;
+        return wrapper.convertList(sortedGames);
     }
 
     @Transactional
@@ -95,25 +90,15 @@ public class GameService {
     public List<GameModel> getGamesByPattern(String pattern) {
         List<GameModel> resultGamesList = new ArrayList();
 
-        for (GameModel game : getGames()) {
-            if(game.getName().toUpperCase().contains(pattern.toUpperCase())) {
-                resultGamesList.add(game);
-            }
-        }
-
         return resultGamesList;
     }
 
     @Transactional
     public List<GameModelWrapper> getGamesByPatternWrapper(String pattern) {
         List<GameModel> foundGames = getGamesByPattern(pattern);
-        List<GameModelWrapper> result = new ArrayList();
+        Wrapper<GameModelWrapper, GameModel> wrapper = new GameModelWrapper();
 
-        for (int i = 0; i < foundGames.size(); i++) {
-            result.add(WrapperManager.convertGameModel(foundGames.get(i)));
-        }
-
-        return result;
+        return wrapper.convertList(foundGames);
     }
 
     @Transactional

@@ -1,13 +1,12 @@
 package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.wrappers.GenresModelWrapper;
-import com.xxxmkxxx.common.wrappers.WrapperManager;
+import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.dao.GenresDAO;
 import com.xxxmkxxx.models.GenresModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -21,14 +20,10 @@ public class GenresService {
 
     @Transactional
     public List<GenresModelWrapper> getGenresWrapper() {
-        List<GenresModel> genres = genresDAO.getAllGenres();
-        List<GenresModelWrapper> result = new ArrayList();
+        List<GenresModel> genres = getGenres();
+        Wrapper<GenresModelWrapper, GenresModel> wrapper = new GenresModelWrapper();
 
-        for (int i = 0; i < genres.size(); i++) {
-            result.add(WrapperManager.convertGenresModel(genres.get(i)));
-        }
-
-        return result;
+        return wrapper.convertList(genres);
     }
 
     public GenresService(GenresDAO genresDAO) {
