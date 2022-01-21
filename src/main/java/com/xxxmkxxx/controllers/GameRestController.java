@@ -2,7 +2,7 @@ package com.xxxmkxxx.controllers;
 
 import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.*;
-import com.xxxmkxxx.controllers.config.PartiesConfig;
+import com.xxxmkxxx.config.PartiesConfig;
 import com.xxxmkxxx.models.*;
 import com.xxxmkxxx.services.*;
 import org.springframework.web.bind.annotation.*;

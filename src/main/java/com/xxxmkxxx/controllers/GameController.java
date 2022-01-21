@@ -1,6 +1,6 @@
 package com.xxxmkxxx.controllers;
 
-import com.xxxmkxxx.controllers.config.PartiesConfig;
+import com.xxxmkxxx.config.PartiesConfig;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.TeamModel;
