@@ -1,11 +1,7 @@
 package com.xxxmkxxx.controllers.websockets;
 
-import com.xxxmkxxx.common.messages.CreateNewPartyMessage;
 import com.xxxmkxxx.common.messages.Message;
-import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
-import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.PartyModel;
-import com.xxxmkxxx.services.GameService;
 import com.xxxmkxxx.services.PartyService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,8 +15,9 @@ public class PartiesSocketsController {
 
     @MessageMapping("/parties")
     @SendTo("/topic/new/party")
-    public Message greeting(CreateNewPartyMessage socketMessage) {
-        List<PartyModel> parties = partyService.getParties(socketMessage.getGameId());
+    public Message greeting(Message<Integer> socketMessage) {
+        List<PartyModel> parties = partyService.getParties(socketMessage.getObject());
+
         Message message = new Message(
                 "success",
                 partyService.groupPartiesWrapper(3, parties)
