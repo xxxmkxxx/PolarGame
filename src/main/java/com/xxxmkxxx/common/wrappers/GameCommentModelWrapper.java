@@ -1,14 +1,7 @@
 package com.xxxmkxxx.common.wrappers;
 
 import com.xxxmkxxx.models.GameCommentModel;
-import com.xxxmkxxx.models.GameModel;
-import com.xxxmkxxx.models.PartyMemberModel;
-import com.xxxmkxxx.models.UserModel;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

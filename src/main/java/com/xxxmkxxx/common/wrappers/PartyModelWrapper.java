@@ -5,7 +5,6 @@ import com.xxxmkxxx.models.PartyModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PartyModelWrapper extends Wrapper<PartyModelWrapper, PartyModel> {
     private int partyId;
@@ -16,12 +15,6 @@ public class PartyModelWrapper extends Wrapper<PartyModelWrapper, PartyModel> {
     private String urlPartyIcon;
     private List<PartyMemberModelWrapper> members;
     private UserModelWrapper owner;
-
-    public UserModelWrapper getPartyOwner() {
-        List<PartyMemberModelWrapper> partyMembers = members.stream().filter(member -> member.getRole().equals("создатель")).collect(Collectors.toList());
-
-        return partyMembers.get(0).getUser();
-    }
 
     public int getPartyId() {
         return partyId;

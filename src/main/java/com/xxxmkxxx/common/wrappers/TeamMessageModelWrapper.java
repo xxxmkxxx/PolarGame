@@ -1,12 +1,9 @@
 package com.xxxmkxxx.common.wrappers;
 
-import com.xxxmkxxx.models.PartyMemberModel;
 import com.xxxmkxxx.models.TeamMessageModel;
-import com.xxxmkxxx.models.UserModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TeamMessageModelWrapper extends Wrapper<TeamMessageModelWrapper, TeamMessageModel> {

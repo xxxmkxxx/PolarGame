@@ -1,7 +1,5 @@
 package com.xxxmkxxx.common.wrappers;
 
-import javax.persistence.Column;
-
 public class GameModelWrapper {
     private int gameId;
     private String name;

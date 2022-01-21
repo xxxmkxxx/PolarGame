@@ -1,7 +1,5 @@
 package com.xxxmkxxx.common.wrappers;
 
-import javax.persistence.Column;
-
 public class GenresModelWrapper {
     private int genreId;
     private String genreName;
