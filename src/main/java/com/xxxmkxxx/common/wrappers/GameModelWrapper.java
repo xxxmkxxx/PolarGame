@@ -1,6 +1,8 @@
 package com.xxxmkxxx.common.wrappers;
 
-public class GameModelWrapper {
+import com.xxxmkxxx.models.GameModel;
+
+public class GameModelWrapper extends AbstractWrapper<GameModelWrapper, GameModel> {
     private int gameId;
     private String name;
     private String description;
@@ -45,6 +47,23 @@ public class GameModelWrapper {
 
     public void setPopularity(int popularity) {
         this.popularity = popularity;
+    }
+
+    @Override
+    public GameModelWrapper convertModel(GameModel game) {
+        this.gameId = game.getGameId();
+        this.name = game.getName();
+        this.description = game.getDescription();
+        this.urlGameIcon = game.getUrlGameIcon();
+        this.popularity = game.getPopularity();
+
+        return this;
+    }
+
+    public GameModelWrapper() {}
+
+    public GameModelWrapper(GameModel game) {
+        convertModel(game);
     }
 
     public GameModelWrapper(int gameId, String name, String description, String urlGameIcon, int popularity) {

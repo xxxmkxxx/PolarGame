@@ -2,10 +2,7 @@ package com.xxxmkxxx.common.wrappers;
 
 import com.xxxmkxxx.models.PartyMemberModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PartyMemberModelWrapper extends Wrapper<PartyMemberModelWrapper, PartyMemberModel> {
+public class PartyMemberModelWrapper extends AbstractWrapper<PartyMemberModelWrapper, PartyMemberModel> {
     private int partyMemberId;
     private UserModelWrapper user;
     private String nick;
@@ -44,24 +41,20 @@ public class PartyMemberModelWrapper extends Wrapper<PartyMemberModelWrapper, Pa
     }
 
     @Override
-    public List<PartyMemberModelWrapper> convertList(List<PartyMemberModel> models) {
-        List<PartyMemberModelWrapper> result = new ArrayList();
+    public PartyMemberModelWrapper convertModel(PartyMemberModel partyMember) {
+        this.partyMemberId = partyMember.getPartyMemberId();
+        this.user = new UserModelWrapper(partyMember.getUser());
+        this.nick = partyMember.getNick();
+        this.role = partyMember.getRole();
 
-        for (int i = 0; i < models.size(); i++) {
-            result.add(new PartyMemberModelWrapper(models.get(i)));
-        }
-
-        return result;
+        return this;
     }
 
     public PartyMemberModelWrapper() {
     }
 
     public PartyMemberModelWrapper(PartyMemberModel partyMember) {
-        this.partyMemberId = partyMember.getPartyMemberId();
-        this.user = new UserModelWrapper(partyMember.getUser());
-        this.nick = partyMember.getNick();
-        this.role = partyMember.getRole();
+        convertModel(partyMember);
     }
 
     public PartyMemberModelWrapper(int partyMemberId, UserModelWrapper user, String nick, String role) {

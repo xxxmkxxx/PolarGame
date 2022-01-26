@@ -2,11 +2,9 @@ package com.xxxmkxxx.common.wrappers;
 
 import com.xxxmkxxx.models.GameCommentModel;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class GameCommentModelWrapper extends Wrapper<GameCommentModelWrapper, GameCommentModel> {
+public class GameCommentModelWrapper extends AbstractWrapper<GameCommentModelWrapper, GameCommentModel> {
     private int commentId;
     private String text;
     private Date date;
@@ -45,24 +43,20 @@ public class GameCommentModelWrapper extends Wrapper<GameCommentModelWrapper, Ga
     }
 
     @Override
-    public List<GameCommentModelWrapper> convertList(List<GameCommentModel> models) {
-        List<GameCommentModelWrapper> result = new ArrayList();
+    public GameCommentModelWrapper convertModel(GameCommentModel gameComment) {
+        this.commentId = gameComment.getCommentId();
+        this.text = gameComment.getText();
+        this.date = gameComment.getDate();
+        this.user = new UserModelWrapper(gameComment.getUser());
 
-        for (int i = 0; i < models.size(); i++) {
-            result.add(new GameCommentModelWrapper(models.get(i)));
-        }
-
-        return result;
+        return this;
     }
 
     public GameCommentModelWrapper() {
     }
 
     public GameCommentModelWrapper(GameCommentModel gameComment) {
-        this.commentId = gameComment.getCommentId();
-        this.text = gameComment.getText();
-        this.date = gameComment.getDate();
-        this.user = new UserModelWrapper(gameComment.getUser());
+        convertModel(gameComment);
     }
 
     public GameCommentModelWrapper(int commentId, String text, Date date, UserModelWrapper user) {

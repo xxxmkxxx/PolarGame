@@ -2,10 +2,7 @@ package com.xxxmkxxx.common.wrappers;
 
 import com.xxxmkxxx.models.UserModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class UserModelWrapper extends Wrapper<UserModelWrapper, UserModel> {
+public class UserModelWrapper extends AbstractWrapper<UserModelWrapper, UserModel> {
     private int userId;
     private String login;
     private String mail;
@@ -53,24 +50,20 @@ public class UserModelWrapper extends Wrapper<UserModelWrapper, UserModel> {
     }
 
     @Override
-    public List<UserModelWrapper> convertList(List<UserModel> models) {
-        List<UserModelWrapper> result = new ArrayList();
-
-        for (int i = 0; i < models.size(); i++) {
-            result.add(new UserModelWrapper(models.get(i)));
-        }
-
-        return result;
-    }
-
-    public UserModelWrapper() {}
-
-    public UserModelWrapper(UserModel user) {
+    public UserModelWrapper convertModel(UserModel user) {
         this.userId = user.getUserId();
         this.login = user.getLogin();
         this.mail = user.getMail();
         this.description = user.getDescription();
         this.urlUserIcon = user.getUrlUserIcon();
+
+        return this;
+    }
+
+    public UserModelWrapper() {}
+
+    public UserModelWrapper(UserModel user) {
+        convertModel(user);
     }
 
     public UserModelWrapper(int userId, String login, String mail, String description, String urlUserIcon) {

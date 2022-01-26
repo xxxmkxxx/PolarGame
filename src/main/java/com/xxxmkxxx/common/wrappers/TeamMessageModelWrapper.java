@@ -3,10 +3,8 @@ package com.xxxmkxxx.common.wrappers;
 import com.xxxmkxxx.models.TeamMessageModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-public class TeamMessageModelWrapper extends Wrapper<TeamMessageModelWrapper, TeamMessageModel> {
+public class TeamMessageModelWrapper extends AbstractWrapper<TeamMessageModelWrapper, TeamMessageModel> {
     private String text;
     private String date;
     private UserModelWrapper user;
@@ -36,22 +34,18 @@ public class TeamMessageModelWrapper extends Wrapper<TeamMessageModelWrapper, Te
     }
 
     @Override
-    public List<TeamMessageModelWrapper> convertList(List<TeamMessageModel> models) {
-        List<TeamMessageModelWrapper> result = new ArrayList();
+    public TeamMessageModelWrapper convertModel(TeamMessageModel teamMessage) {
+        this.text = teamMessage.getMessageText();
+        this.date = new SimpleDateFormat().format(teamMessage.getMessageDate());
+        this.user = new UserModelWrapper(teamMessage.getUser());
 
-        for (int i = 0; i < models.size(); i++) {
-            result.add(new TeamMessageModelWrapper(models.get(i)));
-        }
-
-        return result;
+        return this;
     }
 
     public TeamMessageModelWrapper() {}
 
     public TeamMessageModelWrapper(TeamMessageModel teamMessage) {
-        this.text = teamMessage.getMessageText();
-        this.date = new SimpleDateFormat().format(teamMessage.getMessageDate());
-        this.user = new UserModelWrapper(teamMessage.getUser());
+        convertModel(teamMessage);
     }
 
     public TeamMessageModelWrapper(String text, String date, UserModelWrapper user) {

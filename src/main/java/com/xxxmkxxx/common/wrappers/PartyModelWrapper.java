@@ -3,10 +3,9 @@ package com.xxxmkxxx.common.wrappers;
 import com.xxxmkxxx.models.PartyMemberModel;
 import com.xxxmkxxx.models.PartyModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PartyModelWrapper extends Wrapper<PartyModelWrapper, PartyModel> {
+public class PartyModelWrapper extends AbstractWrapper<PartyModelWrapper, PartyModel> {
     private int partyId;
     private int usersAmount;
     private String closed;
@@ -81,20 +80,7 @@ public class PartyModelWrapper extends Wrapper<PartyModelWrapper, PartyModel> {
     }
 
     @Override
-    public List<PartyModelWrapper> convertList(List<PartyModel> models) {
-        List<PartyModelWrapper> result = new ArrayList();
-
-        for (int i = 0; i < models.size(); i++) {
-            result.add(new PartyModelWrapper(models.get(i)));
-        }
-
-        return result;
-    }
-
-    public PartyModelWrapper() {
-    }
-
-    public PartyModelWrapper(PartyModel party) {
+    public PartyModelWrapper convertModel(PartyModel party) {
         WrapperManager<PartyMemberModelWrapper, PartyMemberModel> wrapperManager = new WrapperManager(new PartyMemberModelWrapper());
 
         this.partyId = party.getPartyId();
@@ -104,6 +90,15 @@ public class PartyModelWrapper extends Wrapper<PartyModelWrapper, PartyModel> {
         this.description = party.getDescription();
         this.urlPartyIcon = party.getUrlPartyIcon();
         this.members = wrapperManager.convertList(party.getMembers());
+
+        return this;
+    }
+
+    public PartyModelWrapper() {
+    }
+
+    public PartyModelWrapper(PartyModel party) {
+        convertModel(party);
     }
 
     public PartyModelWrapper(int partyId, int usersAmount, String closed, String password, String description, String urlPartyIcon, List<PartyMemberModelWrapper> members, UserModelWrapper owner) {
