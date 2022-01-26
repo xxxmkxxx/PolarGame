@@ -100,7 +100,7 @@ public class UserService {
 
     @Transactional
     public List<UserModelWrapper> getFriendsWrappers(UserModel user) {
-        List<UserModel> friends = userDAO.initializeFriends(user).getFriends();
+        List<UserModel> friends = getFriends(user);
         WrapperManager<UserModelWrapper, UserModel> wrapperManager = new WrapperManager(new UserModelWrapper());
 
         return wrapperManager.convertList(friends);

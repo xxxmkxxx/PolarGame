@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
@@ -86,14 +87,21 @@ public class GameService {
     public List<GameModel> getGamesByPattern(String pattern) {
         List<GameModel> resultGamesList = new ArrayList();
 
+        resultGamesList =
+                getGames()
+                .stream()
+                .filter(game -> game.getName().toUpperCase().contains(pattern.toUpperCase()))
+                .collect(Collectors.toList());
+
         return resultGamesList;
     }
 
     @Transactional
     public List<GameModelWrapper> getGamesByPatternWrapper(String pattern) {
+        List<GameModel> foundGames = getGamesByPattern(pattern);
         WrapperManager<GameModelWrapper, GameModel> wrapperManager = new WrapperManager(new GameModelWrapper());
 
-        return wrapperManager.convertList(getGamesByPattern(pattern));
+        return wrapperManager.convertList(foundGames);
     }
 
     @Transactional
