@@ -12,7 +12,10 @@ public class PartyMemberModelWrapper extends AbstractWrapper<PartyMemberModelWra
     }
 
     public PartyMemberModelWrapper(PartyMemberModel partyMember) {
-        convertModel(partyMember);
+        this.partyMemberId = partyMember.getPartyMemberId();
+        this.user = new UserModelWrapper(partyMember.getUser());
+        this.nick = partyMember.getNick();
+        this.role = partyMember.getRole();
     }
 
     public PartyMemberModelWrapper(int partyMemberId, UserModelWrapper user, String nick, String role) {
@@ -56,11 +59,6 @@ public class PartyMemberModelWrapper extends AbstractWrapper<PartyMemberModelWra
 
     @Override
     public PartyMemberModelWrapper convertModel(PartyMemberModel partyMember) {
-        this.partyMemberId = partyMember.getPartyMemberId();
-        this.user = new UserModelWrapper(partyMember.getUser());
-        this.nick = partyMember.getNick();
-        this.role = partyMember.getRole();
-
-        return this;
+        return new PartyMemberModelWrapper(partyMember);
     }
 }

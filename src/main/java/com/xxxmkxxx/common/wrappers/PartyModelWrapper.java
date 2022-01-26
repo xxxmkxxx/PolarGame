@@ -19,7 +19,15 @@ public class PartyModelWrapper extends AbstractWrapper<PartyModelWrapper, PartyM
     }
 
     public PartyModelWrapper(PartyModel party) {
-        convertModel(party);
+        WrapperManager<PartyMemberModelWrapper, PartyMemberModel> wrapperManager = new WrapperManager(new PartyMemberModelWrapper());
+
+        this.partyId = party.getPartyId();
+        this.usersAmount = party.getUsersAmount();
+        this.closed = party.getClosed();
+        this.password = party.getPassword();
+        this.description = party.getDescription();
+        this.urlPartyIcon = party.getUrlPartyIcon();
+        this.members = wrapperManager.convertList(party.getMembers());
     }
 
     public PartyModelWrapper(int partyId, int usersAmount, String closed, String password, String description, String urlPartyIcon, List<PartyMemberModelWrapper> members, UserModelWrapper owner) {
@@ -99,16 +107,6 @@ public class PartyModelWrapper extends AbstractWrapper<PartyModelWrapper, PartyM
 
     @Override
     public PartyModelWrapper convertModel(PartyModel party) {
-        WrapperManager<PartyMemberModelWrapper, PartyMemberModel> wrapperManager = new WrapperManager(new PartyMemberModelWrapper());
-
-        this.partyId = party.getPartyId();
-        this.usersAmount = party.getUsersAmount();
-        this.closed = party.getClosed();
-        this.password = party.getPassword();
-        this.description = party.getDescription();
-        this.urlPartyIcon = party.getUrlPartyIcon();
-        this.members = wrapperManager.convertList(party.getMembers());
-
-        return this;
+        return new PartyModelWrapper(party);
     }
 }

@@ -9,7 +9,8 @@ public class GenresModelWrapper extends AbstractWrapper<GenresModelWrapper, Genr
     public GenresModelWrapper() {}
 
     public GenresModelWrapper(GenresModel genre) {
-        convertModel(genre);
+        this.genreId = genre.getGenreId();
+        this.genreName = genre.getGenreName();
     }
 
     public GenresModelWrapper(int genreId, String genreName) {
@@ -35,9 +36,6 @@ public class GenresModelWrapper extends AbstractWrapper<GenresModelWrapper, Genr
 
     @Override
     public GenresModelWrapper convertModel(GenresModel genre) {
-        this.genreId = genre.getGenreId();
-        this.genreName = genre.getGenreName();
-
-        return this;
+        return new GenresModelWrapper(genre);
     }
 }

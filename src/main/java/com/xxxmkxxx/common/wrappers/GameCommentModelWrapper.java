@@ -14,7 +14,10 @@ public class GameCommentModelWrapper extends AbstractWrapper<GameCommentModelWra
     }
 
     public GameCommentModelWrapper(GameCommentModel gameComment) {
-        convertModel(gameComment);
+        this.commentId = gameComment.getCommentId();
+        this.text = gameComment.getText();
+        this.date = gameComment.getDate();
+        this.user = new UserModelWrapper(gameComment.getUser());
     }
 
     public GameCommentModelWrapper(int commentId, String text, Date date, UserModelWrapper user) {
@@ -58,11 +61,6 @@ public class GameCommentModelWrapper extends AbstractWrapper<GameCommentModelWra
 
     @Override
     public GameCommentModelWrapper convertModel(GameCommentModel gameComment) {
-        this.commentId = gameComment.getCommentId();
-        this.text = gameComment.getText();
-        this.date = gameComment.getDate();
-        this.user = new UserModelWrapper(gameComment.getUser());
-
-        return this;
+        return new GameCommentModelWrapper(gameComment);
     }
 }

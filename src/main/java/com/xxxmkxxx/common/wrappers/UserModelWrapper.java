@@ -12,7 +12,11 @@ public class UserModelWrapper extends AbstractWrapper<UserModelWrapper, UserMode
     public UserModelWrapper() {}
 
     public UserModelWrapper(UserModel user) {
-        convertModel(user);
+        this.userId = user.getUserId();
+        this.login = user.getLogin();
+        this.mail = user.getMail();
+        this.description = user.getDescription();
+        this.urlUserIcon = user.getUrlUserIcon();
     }
 
     public UserModelWrapper(int userId, String login, String mail, String description, String urlUserIcon) {
@@ -65,12 +69,6 @@ public class UserModelWrapper extends AbstractWrapper<UserModelWrapper, UserMode
 
     @Override
     public UserModelWrapper convertModel(UserModel user) {
-        this.userId = user.getUserId();
-        this.login = user.getLogin();
-        this.mail = user.getMail();
-        this.description = user.getDescription();
-        this.urlUserIcon = user.getUrlUserIcon();
-
-        return this;
+        return new UserModelWrapper(user);
     }
 }
