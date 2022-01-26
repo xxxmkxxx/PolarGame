@@ -8,6 +8,20 @@ public class PartyMemberModelWrapper extends AbstractWrapper<PartyMemberModelWra
     private String nick;
     private String role;
 
+    public PartyMemberModelWrapper() {
+    }
+
+    public PartyMemberModelWrapper(PartyMemberModel partyMember) {
+        convertModel(partyMember);
+    }
+
+    public PartyMemberModelWrapper(int partyMemberId, UserModelWrapper user, String nick, String role) {
+        this.partyMemberId = partyMemberId;
+        this.user = user;
+        this.nick = nick;
+        this.role = role;
+    }
+
     public int getPartyMemberId() {
         return partyMemberId;
     }
@@ -48,19 +62,5 @@ public class PartyMemberModelWrapper extends AbstractWrapper<PartyMemberModelWra
         this.role = partyMember.getRole();
 
         return this;
-    }
-
-    public PartyMemberModelWrapper() {
-    }
-
-    public PartyMemberModelWrapper(PartyMemberModel partyMember) {
-        convertModel(partyMember);
-    }
-
-    public PartyMemberModelWrapper(int partyMemberId, UserModelWrapper user, String nick, String role) {
-        this.partyMemberId = partyMemberId;
-        this.user = user;
-        this.nick = nick;
-        this.role = role;
     }
 }

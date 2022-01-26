@@ -9,6 +9,18 @@ public class TeamMessageModelWrapper extends AbstractWrapper<TeamMessageModelWra
     private String date;
     private UserModelWrapper user;
 
+    public TeamMessageModelWrapper() {}
+
+    public TeamMessageModelWrapper(TeamMessageModel teamMessage) {
+        convertModel(teamMessage);
+    }
+
+    public TeamMessageModelWrapper(String text, String date, UserModelWrapper user) {
+        this.text = text;
+        this.date = date;
+        this.user = user;
+    }
+
     public String getText() {
         return text;
     }
@@ -40,17 +52,5 @@ public class TeamMessageModelWrapper extends AbstractWrapper<TeamMessageModelWra
         this.user = new UserModelWrapper(teamMessage.getUser());
 
         return this;
-    }
-
-    public TeamMessageModelWrapper() {}
-
-    public TeamMessageModelWrapper(TeamMessageModel teamMessage) {
-        convertModel(teamMessage);
-    }
-
-    public TeamMessageModelWrapper(String text, String date, UserModelWrapper user) {
-        this.text = text;
-        this.date = date;
-        this.user = user;
     }
 }

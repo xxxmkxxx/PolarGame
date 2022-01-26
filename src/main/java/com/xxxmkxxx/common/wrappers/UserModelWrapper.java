@@ -9,6 +9,20 @@ public class UserModelWrapper extends AbstractWrapper<UserModelWrapper, UserMode
     private String description;
     private String urlUserIcon;
 
+    public UserModelWrapper() {}
+
+    public UserModelWrapper(UserModel user) {
+        convertModel(user);
+    }
+
+    public UserModelWrapper(int userId, String login, String mail, String description, String urlUserIcon) {
+        this.userId = userId;
+        this.login = login;
+        this.mail = mail;
+        this.description = description;
+        this.urlUserIcon = urlUserIcon;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -58,19 +72,5 @@ public class UserModelWrapper extends AbstractWrapper<UserModelWrapper, UserMode
         this.urlUserIcon = user.getUrlUserIcon();
 
         return this;
-    }
-
-    public UserModelWrapper() {}
-
-    public UserModelWrapper(UserModel user) {
-        convertModel(user);
-    }
-
-    public UserModelWrapper(int userId, String login, String mail, String description, String urlUserIcon) {
-        this.userId = userId;
-        this.login = login;
-        this.mail = mail;
-        this.description = description;
-        this.urlUserIcon = urlUserIcon;
     }
 }

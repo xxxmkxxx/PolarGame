@@ -9,6 +9,20 @@ public class GameModelWrapper extends AbstractWrapper<GameModelWrapper, GameMode
     private String urlGameIcon;
     private int popularity;
 
+    public GameModelWrapper() {}
+
+    public GameModelWrapper(GameModel game) {
+        convertModel(game);
+    }
+
+    public GameModelWrapper(int gameId, String name, String description, String urlGameIcon, int popularity) {
+        this.gameId = gameId;
+        this.name = name;
+        this.description = description;
+        this.urlGameIcon = urlGameIcon;
+        this.popularity = popularity;
+    }
+
     public int getGameId() {
         return gameId;
     }
@@ -58,19 +72,5 @@ public class GameModelWrapper extends AbstractWrapper<GameModelWrapper, GameMode
         this.popularity = game.getPopularity();
 
         return this;
-    }
-
-    public GameModelWrapper() {}
-
-    public GameModelWrapper(GameModel game) {
-        convertModel(game);
-    }
-
-    public GameModelWrapper(int gameId, String name, String description, String urlGameIcon, int popularity) {
-        this.gameId = gameId;
-        this.name = name;
-        this.description = description;
-        this.urlGameIcon = urlGameIcon;
-        this.popularity = popularity;
     }
 }
