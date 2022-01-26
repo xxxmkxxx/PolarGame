@@ -1,8 +1,8 @@
 package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
-import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.GameModelWrapper;
+import com.xxxmkxxx.common.wrappers.AbstractWrapper;
 import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameCommentDAO;
@@ -47,13 +47,9 @@ public class GameService {
 
     @Transactional
     public List<GameModelWrapper> getSortedGamesByPopularityWrapper(List<GameModel> games) {
-        List<GameModel> sortedGames = games;
-        SortingGamesByPopularityComparator comparator = new SortingGamesByPopularityComparator();
-        Wrapper<GameModelWrapper, GameModel> wrapper = new GameModelWrapper();
+        WrapperManager<GameModelWrapper, GameModel> wrapperManager = new WrapperManager(new GameModelWrapper());
 
-        Collections.sort(sortedGames, comparator);
-
-        return wrapper.convertList(sortedGames);
+        return wrapperManager.convertList(getSortedGamesByPopularity(games));
     }
 
     @Transactional
@@ -95,10 +91,9 @@ public class GameService {
 
     @Transactional
     public List<GameModelWrapper> getGamesByPatternWrapper(String pattern) {
-        List<GameModel> foundGames = getGamesByPattern(pattern);
-        Wrapper<GameModelWrapper, GameModel> wrapper = new GameModelWrapper();
+        WrapperManager<GameModelWrapper, GameModel> wrapperManager = new WrapperManager(new GameModelWrapper());
 
-        return wrapper.convertList(foundGames);
+        return wrapperManager.convertList(getGamesByPattern(pattern));
     }
 
     @Transactional

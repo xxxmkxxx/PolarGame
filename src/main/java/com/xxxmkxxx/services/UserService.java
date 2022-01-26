@@ -1,20 +1,15 @@
 package com.xxxmkxxx.services;
 
-import com.xxxmkxxx.common.messages.Message;
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
-import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.UserDAO;
 import com.xxxmkxxx.models.TeamMessageModel;
 import com.xxxmkxxx.models.UserModel;
-import org.hibernate.Hibernate;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -106,9 +101,9 @@ public class UserService {
     @Transactional
     public List<UserModelWrapper> getFriendsWrappers(UserModel user) {
         List<UserModel> friends = userDAO.initializeFriends(user).getFriends();
-        Wrapper<UserModelWrapper, UserModel> wrapper = new UserModelWrapper();
+        WrapperManager<UserModelWrapper, UserModel> wrapperManager = new WrapperManager(new UserModelWrapper());
 
-        return wrapper.convertList(friends);
+        return wrapperManager.convertList(friends);
     }
 
     @Transactional
