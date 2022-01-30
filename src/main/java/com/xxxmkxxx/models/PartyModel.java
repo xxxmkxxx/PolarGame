@@ -32,6 +32,9 @@ public class PartyModel implements Serializable {
     @Column(name = "party_icon")
     private String urlPartyIcon;
 
+    @ManyToOne
+    private GameModel game;
+
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
     private List<PartyMemberModel> members;
@@ -90,6 +93,14 @@ public class PartyModel implements Serializable {
 
     public void setUrlPartyIcon(String urlPartyIcon) {
         this.urlPartyIcon = urlPartyIcon;
+    }
+
+    public GameModel getGame() {
+        return game;
+    }
+
+    public void setGame(GameModel game) {
+        this.game = game;
     }
 
     public List<PartyMemberModel> getMembers() {

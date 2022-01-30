@@ -39,6 +39,9 @@ public class GameModel implements Serializable {
     private List<GenresModel> genres;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private List<PartyModel> parties;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
     private List<TeamModel> teams;
 
     public int getGameId() {
@@ -95,6 +98,14 @@ public class GameModel implements Serializable {
 
     public void setGenres(List<GenresModel> genres) {
         this.genres = genres;
+    }
+
+    public List<PartyModel> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<PartyModel> parties) {
+        this.parties = parties;
     }
 
     public List<TeamModel> getTeams() {
