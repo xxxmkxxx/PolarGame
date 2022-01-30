@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenresDAOImpl extends AbstractDAO<GenresModel> {
+public class GenresDAOImpl extends AbstractDAO<GenresModel> implements GenresDAO {
     private SessionFactory factory;
 
     public GenresDAOImpl(SessionFactory factory) {

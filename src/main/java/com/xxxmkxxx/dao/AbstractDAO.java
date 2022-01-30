@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public abstract class AbstractDataBaseDAO<T> implements DAO<T>{
+public abstract class AbstractDAO<T> implements DAO<T>{
     protected SessionFactory sessionFactory;
     protected Class<T> modelClass;
 

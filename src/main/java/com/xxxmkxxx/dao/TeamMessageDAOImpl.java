@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TeamMessageDataBaseDAOImpl extends AbstractDataBaseDAO<TeamMessageModel> {
+public class TeamMessageDAOImpl extends AbstractDAO<TeamMessageModel> {
     SessionFactory sessionFactory;
 
-    public TeamMessageDataBaseDAOImpl(SessionFactory sessionFactory) {
+    public TeamMessageDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 }

@@ -7,10 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component("UserDAO")
-public class UserDataBaseDAOImpl extends AbstractDataBaseDAO<UserModel> implements UserDAO {
+public class UserDAOImpl extends AbstractDAO<UserModel> implements UserDAO {
     @Override
     public UserModel getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
@@ -87,7 +88,7 @@ public class UserDataBaseDAOImpl extends AbstractDataBaseDAO<UserModel> implemen
         session.update(user);
     }
 
-    public UserDataBaseDAOImpl(SessionFactory sessionFactory) {
+    public UserDAOImpl(SessionFactory sessionFactory) {
         this.modelClass = UserModel.class;
         this.sessionFactory = sessionFactory;
     }

@@ -9,10 +9,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PartyMemberDataBaseDAOImpl extends AbstractDataBaseDAO<PartyMemberModel> implements PartyMemberDAO {
+public class PartyMemberDAOImpl extends AbstractDAO<PartyMemberModel> implements PartyMemberDAO {
     private SessionFactory sessionFactory;
 
-    public PartyMemberDataBaseDAOImpl(SessionFactory sessionFactory) {
+    public PartyMemberDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
