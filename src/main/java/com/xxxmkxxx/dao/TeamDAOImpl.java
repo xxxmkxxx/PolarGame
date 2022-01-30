@@ -8,14 +8,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TeamDAO {
+public class TeamDAOImpl extends AbstractDAO<TeamModel> implements TeamDAO {
     private SessionFactory sessionFactory;
 
-    public TeamModel getTeam(int teamId) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(TeamModel.class, teamId);
-    }
-
+    @Override
     public TeamModel initializeMessages(TeamModel team) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(team, LockMode.NONE);
@@ -25,6 +21,7 @@ public class TeamDAO {
         return team;
     }
 
+    @Override
     public TeamModel initializeMembers(TeamModel team) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(team, LockMode.NONE);
@@ -34,12 +31,7 @@ public class TeamDAO {
         return team;
     }
 
-    public void updateTeam(TeamModel team) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(team);
-    }
-
-    public TeamDAO(SessionFactory sessionFactory) {
+    public TeamDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 }
