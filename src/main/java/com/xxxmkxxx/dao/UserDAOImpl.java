@@ -8,13 +8,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class UserDAO {
-    private static SessionFactory sessionFactory;
-
-    public UserModel getUserById(int id) {
+@Component("UserDAO")
+public class UserDAO extends AbstractDAO<UserModel>{
+    private UserModel getUserById(int id) {
         Session session = sessionFactory.getCurrentSession();
 
         return session.get(UserModel.class, id);
@@ -49,14 +48,18 @@ public class UserDAO {
             return users.get(0);
     }
 
-    public void saveUser(UserModel user) {
+    public boolean saveUser(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
+
+        return true;
     }
 
-    public void updateUser(UserModel user) {
+    public boolean updateUser(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.update(user);
+
+        return true;
     }
 
     public UserModel initializeFriends(UserModel user) {
@@ -102,6 +105,7 @@ public class UserDAO {
     }
 
     public UserDAO(SessionFactory sessionFactory) {
+        this.modelClass = UserModel.class;
         this.sessionFactory = sessionFactory;
     }
 }
