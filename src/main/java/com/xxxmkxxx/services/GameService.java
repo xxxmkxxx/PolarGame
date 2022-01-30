@@ -3,9 +3,7 @@ package com.xxxmkxxx.services;
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
 import com.xxxmkxxx.common.wrappers.GameModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
-import com.xxxmkxxx.dao.GameCommentDAO;
-import com.xxxmkxxx.dao.GameDAO;
-import com.xxxmkxxx.dao.TeamDAOImpl;
+import com.xxxmkxxx.dao.GameDAOImpl;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.TeamModel;
@@ -19,18 +17,20 @@ import java.util.stream.Collectors;
 
 @Component
 public class GameService {
-    private TeamDAOImpl teamDAOImpl;
-    private GameDAO gameDAO;
-    private GameCommentDAO gameCommentDAO;
+    private GameDAOImpl dao;
+
+    public GameService(GameDAOImpl dao) {
+        this.dao = dao;
+    }
 
     @Transactional
     public GameModel getGame(int gameId) {
-        return gameDAO.getGameById(gameId);
+        return dao.read(gameId);
     }
 
     @Transactional
     public List<GameModel> getGames() {
-        return gameDAO.getAllGames();
+        return dao.read();
     }
 
     @Transactional
@@ -124,29 +124,14 @@ public class GameService {
 
     @Transactional
     public String addComment(GameModel game, GameCommentModel comment) {
-        gameCommentDAO.saveComment(comment);
-
-        gameDAO.initializeComments(game).getComments().add(comment);
-        gameDAO.updateGame(game);
+        dao.initializeComments(game).getComments().add(comment);
+        dao.update(game);
 
         return "success";
     }
 
     @Transactional
     public List<TeamModel> getTeams(GameModel game) {
-        List<TeamModel> teams = gameDAO.initializeTeams(game).getTeams();
-
-        for (int i = 0; i < teams.size(); i++) {
-            teamDAOImpl.initializeMembers(teams.get(i));
-        }
-
-        return teams;
-    }
-
-
-    public GameService(TeamDAOImpl teamDAOImpl, GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
-        this.teamDAOImpl = teamDAOImpl;
-        this.gameDAO = gameDAO;
-        this.gameCommentDAO = gameCommentDAO;
+        return dao.initializeTeams(game).getTeams();
     }
 }
