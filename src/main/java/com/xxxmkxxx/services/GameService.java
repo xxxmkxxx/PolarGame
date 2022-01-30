@@ -6,6 +6,7 @@ import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameDAOImpl;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
+import com.xxxmkxxx.models.PartyModel;
 import com.xxxmkxxx.models.TeamModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,6 +129,16 @@ public class GameService {
         dao.update(game);
 
         return "success";
+    }
+
+    @Transactional
+    public List<PartyModel> initParties(GameModel game) {
+        return dao.initializeParties(game).getParties();
+    }
+
+    @Transactional
+    public List<GameCommentModel> initComments(GameModel game) {
+        return dao.initializeComments(game).getComments();
     }
 
     @Transactional
