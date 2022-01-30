@@ -3,10 +3,8 @@ package com.xxxmkxxx.services;
 import com.xxxmkxxx.common.wrappers.GameCommentModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.config.GameCommentConfig;
-import com.xxxmkxxx.dao.GameCommentDAO;
-import com.xxxmkxxx.dao.GameDAO;
+import com.xxxmkxxx.dao.GameCommentDAOImpl;
 import com.xxxmkxxx.models.GameCommentModel;
-import com.xxxmkxxx.models.GameModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +13,10 @@ import java.util.List;
 
 @Component
 public class GameCommentsService {
-    private GameDAO gameDAO;
+    private GameCommentDAOImpl dao;
 
-    @Transactional
-    public List<GameCommentModel> getComments(GameModel game) {
-        return gameDAO.initializeComments(game).getComments();
+    public GameCommentsService(GameCommentDAOImpl dao) {
+        this.dao = dao;
     }
 
     @Transactional
@@ -44,19 +41,9 @@ public class GameCommentsService {
     }
 
     @Transactional
-    public List<GameCommentModel> getMoreComments(int lastCommentId, GameModel game) {
-        return getPartComments(lastCommentId, getComments(game));
-    }
+    public String addComment(GameCommentModel comment) {
+        dao.create(comment);
 
-    @Transactional
-    public List<GameCommentModelWrapper> getMoreCommentsWrapper(int lastCommentId, GameModel game) {
-        List<GameCommentModel> partComments = getMoreComments(lastCommentId, game);
-        WrapperManager<GameCommentModelWrapper, GameCommentModel> wrapperManager = new WrapperManager(new GameCommentModelWrapper());
-
-        return wrapperManager.convertList(partComments);
-    }
-
-    public GameCommentsService(GameDAO gameDAO) {
-        this.gameDAO = gameDAO;
+        return "success";
     }
 }
