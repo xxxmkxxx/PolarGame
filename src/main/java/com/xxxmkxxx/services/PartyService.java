@@ -2,11 +2,10 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.wrappers.PartyModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
-import com.xxxmkxxx.dao.PartyDAO;
+import com.xxxmkxxx.dao.PartyDAOImpl;
 import com.xxxmkxxx.models.PartyModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class PartyService {
-    private PartyDAO partyDAO;
+    private PartyDAOImpl dao;
 
-    @Transactional
-    public List<PartyModel> getParties(int gameId) {
-        return new ArrayList(partyDAO.getAllParties(gameId));
+    public PartyService(PartyDAOImpl dao) {
+        this.dao = dao;
     }
 
     @Transactional
@@ -63,11 +61,11 @@ public class PartyService {
     }
 
     @Transactional
-    public List<PartyModel> getPartiesByPattern(String pattern, int gameId) {
+    public List<PartyModel> getPartiesByPattern(String pattern, List<PartyModel> parties) {
         final String temp = pattern;
         List<PartyModel> resultPartiesList = new ArrayList();
 
-        for(PartyModel party : getParties(gameId)) {
+        for(PartyModel party : parties) {
             boolean flag = party.getMembers()
                     .stream()
                     .anyMatch(member -> member.getUser().getLogin().contains(temp));
@@ -81,26 +79,26 @@ public class PartyService {
     }
 
     @Transactional
-    public List<PartyModel> getPartiesByFilters(String filterStatus, int amountPlayers, int gameId) {
+    public List<PartyModel> getPartiesByFilters(String filterStatus, int amountPlayers, List<PartyModel> parties) {
         List<PartyModel> resultPartiesList = new ArrayList();
         final int amount = amountPlayers;
 
         switch(filterStatus) {
             case "all" :
-                resultPartiesList = getParties(gameId)
+                resultPartiesList = parties
                         .stream()
                         .filter(party -> party.getUsersAmount() == amount)
                         .collect(Collectors.toList());;
                 break;
             case "public" : {
-                resultPartiesList = getParties(gameId)
+                resultPartiesList = parties
                         .stream()
                         .filter(party -> party.getClosed().equals("открытая") && party.getUsersAmount() == amount)
                         .collect(Collectors.toList());
                 break;
             }
             case "private" : {
-                resultPartiesList = getParties(gameId)
+                resultPartiesList = parties
                         .stream()
                         .filter(party -> party.getClosed().equals("закрытая") && party.getUsersAmount() == amount)
                         .collect(Collectors.toList());
@@ -120,18 +118,13 @@ public class PartyService {
                 password,
                 description);
 
-        partyDAO.safeParty(party);
+        dao.create(party);
 
         return party;
     }
 
     @Transactional
     public PartyModel getParty(int partyId) {
-        return partyDAO.getParty(partyId);
-    }
-
-
-    public PartyService(PartyDAO partyDAO) {
-        this.partyDAO = partyDAO;
+        return dao.read(partyId);
     }
 }
