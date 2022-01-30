@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PartyDAOImpl extends AbstractDAO<PartyModel> {
+public class PartyDAOImpl extends AbstractDAO<PartyModel> implements PartyDAO {
     private SessionFactory sessionFactory;
 
     public PartyDAOImpl(SessionFactory sessionFactory) {
