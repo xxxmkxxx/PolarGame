@@ -1,36 +1,24 @@
 package com.xxxmkxxx.services;
 
-import com.xxxmkxxx.dao.TeamDAO;
-import com.xxxmkxxx.dao.UserDAOImpl;
-import com.xxxmkxxx.models.TeamMemberModel;
+import com.xxxmkxxx.dao.TeamDAOImpl;
 import com.xxxmkxxx.models.TeamModel;
-import com.xxxmkxxx.models.UserModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class TeamService {
-    private UserDAOImpl userDAOImpl;
-    private TeamDAO teamDAO;
+    private TeamDAOImpl dao;
 
-    @Transactional
-    public List<TeamModel> getUserTeams(UserModel user) {
-        List<TeamModel> teams = new ArrayList();
-
-        for (TeamMemberModel member : userDAOImpl.initializeTeamMembers(user).getTeamMembers()) {
-            teams.add(member.getTeam());
-        }
-
-        return teams.stream().distinct().collect(Collectors.toList());
+    public TeamService(TeamDAOImpl dao) {
+        this.dao = dao;
     }
 
     @Transactional
     public TeamModel getTeam(int teamId) {
-        return teamDAO.getTeam(teamId);
+        return dao.read(teamId);
     }
 
     @Transactional
@@ -63,11 +51,6 @@ public class TeamService {
 
     @Transactional
     public TeamModel initMembers(TeamModel teamModel) {
-        return teamDAO.initializeMembers(teamModel);
-    }
-
-    public TeamService(UserDAOImpl userDAOImpl, TeamDAO teamDAO) {
-        this.userDAOImpl = userDAOImpl;
-        this.teamDAO = teamDAO;
+        return dao.initializeMembers(teamModel);
     }
 }

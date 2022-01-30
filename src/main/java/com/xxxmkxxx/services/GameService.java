@@ -2,12 +2,10 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.sorting.SortingGamesByPopularityComparator;
 import com.xxxmkxxx.common.wrappers.GameModelWrapper;
-import com.xxxmkxxx.common.wrappers.AbstractWrapper;
-import com.xxxmkxxx.common.wrappers.Wrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
 import com.xxxmkxxx.dao.GameCommentDAO;
 import com.xxxmkxxx.dao.GameDAO;
-import com.xxxmkxxx.dao.TeamDAO;
+import com.xxxmkxxx.dao.TeamDAOImpl;
 import com.xxxmkxxx.models.GameCommentModel;
 import com.xxxmkxxx.models.GameModel;
 import com.xxxmkxxx.models.TeamModel;
@@ -17,12 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
 public class GameService {
-    private TeamDAO teamDAO;
+    private TeamDAOImpl teamDAOImpl;
     private GameDAO gameDAO;
     private GameCommentDAO gameCommentDAO;
 
@@ -140,15 +137,15 @@ public class GameService {
         List<TeamModel> teams = gameDAO.initializeTeams(game).getTeams();
 
         for (int i = 0; i < teams.size(); i++) {
-            teamDAO.initializeMembers(teams.get(i));
+            teamDAOImpl.initializeMembers(teams.get(i));
         }
 
         return teams;
     }
 
 
-    public GameService(TeamDAO teamDAO, GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
-        this.teamDAO = teamDAO;
+    public GameService(TeamDAOImpl teamDAOImpl, GameDAO gameDAO, GameCommentDAO gameCommentDAO) {
+        this.teamDAOImpl = teamDAOImpl;
         this.gameDAO = gameDAO;
         this.gameCommentDAO = gameCommentDAO;
     }
