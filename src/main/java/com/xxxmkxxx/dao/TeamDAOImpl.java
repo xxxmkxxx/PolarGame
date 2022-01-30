@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TeamDAOImpl extends AbstractDAO<TeamModel> implements TeamDAO {
+public class TeamDataBaseDAOImpl extends AbstractDataBaseDAO<TeamModel> implements TeamDAO {
     private SessionFactory sessionFactory;
 
     @Override
@@ -31,7 +31,7 @@ public class TeamDAOImpl extends AbstractDAO<TeamModel> implements TeamDAO {
         return team;
     }
 
-    public TeamDAOImpl(SessionFactory sessionFactory) {
+    public TeamDataBaseDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 }
