@@ -6,19 +6,13 @@ import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component("UserDAO")
-public class UserDAO extends AbstractDAO<UserModel>{
-    private UserModel getUserById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-
-        return session.get(UserModel.class, id);
-    }
-
+public class UserDAOImpl extends AbstractDAO<UserModel> implements UserDAO {
+    @Override
     public UserModel getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
         String query =
@@ -34,6 +28,7 @@ public class UserDAO extends AbstractDAO<UserModel>{
 
     }
 
+    @Override
     public UserModel getUserByMail(String mail) {
         Session session = sessionFactory.getCurrentSession();
         String query =
@@ -48,20 +43,7 @@ public class UserDAO extends AbstractDAO<UserModel>{
             return users.get(0);
     }
 
-    public boolean saveUser(UserModel user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(user);
-
-        return true;
-    }
-
-    public boolean updateUser(UserModel user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(user);
-
-        return true;
-    }
-
+    @Override
     public UserModel initializeFriends(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(user, LockMode.NONE);
@@ -71,6 +53,7 @@ public class UserDAO extends AbstractDAO<UserModel>{
         return user;
     }
 
+    @Override
     public UserModel initializeTeamMessages(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(user, LockMode.NONE);
@@ -80,6 +63,7 @@ public class UserDAO extends AbstractDAO<UserModel>{
         return user;
     }
 
+    @Override
     public UserModel initializeTeamMembers(UserModel user) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(user, LockMode.NONE);
@@ -104,7 +88,7 @@ public class UserDAO extends AbstractDAO<UserModel>{
         session.update(user);
     }
 
-    public UserDAO(SessionFactory sessionFactory) {
+    public UserDAOImpl(SessionFactory sessionFactory) {
         this.modelClass = UserModel.class;
         this.sessionFactory = sessionFactory;
     }
