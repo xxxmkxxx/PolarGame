@@ -1,8 +1,7 @@
 package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.dao.TeamDAO;
-import com.xxxmkxxx.dao.UserDAO;
-import com.xxxmkxxx.models.PartyModel;
+import com.xxxmkxxx.dao.UserDAOImpl;
 import com.xxxmkxxx.models.TeamMemberModel;
 import com.xxxmkxxx.models.TeamModel;
 import com.xxxmkxxx.models.UserModel;
@@ -15,14 +14,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class TeamService {
-    private UserDAO userDAO;
+    private UserDAOImpl userDAOImpl;
     private TeamDAO teamDAO;
 
     @Transactional
     public List<TeamModel> getUserTeams(UserModel user) {
         List<TeamModel> teams = new ArrayList();
 
-        for (TeamMemberModel member : userDAO.initializeTeamMembers(user).getTeamMembers()) {
+        for (TeamMemberModel member : userDAOImpl.initializeTeamMembers(user).getTeamMembers()) {
             teams.add(member.getTeam());
         }
 
@@ -67,8 +66,8 @@ public class TeamService {
         return teamDAO.initializeMembers(teamModel);
     }
 
-    public TeamService(UserDAO userDAO, TeamDAO teamDAO) {
-        this.userDAO = userDAO;
+    public TeamService(UserDAOImpl userDAOImpl, TeamDAO teamDAO) {
+        this.userDAOImpl = userDAOImpl;
         this.teamDAO = teamDAO;
     }
 }

@@ -2,7 +2,7 @@ package com.xxxmkxxx.services;
 
 import com.xxxmkxxx.common.wrappers.UserModelWrapper;
 import com.xxxmkxxx.common.wrappers.WrapperManager;
-import com.xxxmkxxx.dao.UserDAO;
+import com.xxxmkxxx.dao.UserDAOImpl;
 import com.xxxmkxxx.models.TeamMessageModel;
 import com.xxxmkxxx.models.UserModel;
 import org.springframework.context.annotation.PropertySource;
@@ -16,21 +16,21 @@ import java.util.List;
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
 public class UserService {
     private Environment environment;
-    private UserDAO userDAO;
+    private UserDAOImpl dao;
 
     @Transactional
     public UserModel getUserById(int userId) {
-        return userDAO.getUserById(userId);
+        return dao.read(userId);
     }
 
     @Transactional
     public UserModel getUserByLogin(String userLogin) {
-        return userDAO.getUserByLogin(userLogin);
+        return dao.getUserByLogin(userLogin);
     }
 
     @Transactional
     public UserModel getUserByMail(String userMail) {
-        return userDAO.getUserByMail(userMail);
+        return dao.getUserByMail(userMail);
     }
 
     public boolean validateLogin(String login) {
@@ -61,7 +61,7 @@ public class UserService {
             message = environment.getRequiredProperty("error.registerPage.mailAlreadyExists");
 
         if(message.equals("success"))
-            userDAO.saveUser(new UserModel(login, reg_form_password, reg_form_mail));
+            dao.create(new UserModel(login, reg_form_password, reg_form_mail));
 
         return message;
     }
@@ -95,7 +95,7 @@ public class UserService {
 
     @Transactional
     public List<UserModel> getFriends(UserModel user) {
-        return userDAO.initializeFriends(user).getFriends();
+        return dao.initializeFriends(user).getFriends();
     }
 
     @Transactional
@@ -108,19 +108,19 @@ public class UserService {
 
     @Transactional
     public void removeFriend(UserModel user, UserModel friend) {
-        userDAO.removeFriend(user, friend);
+        dao.removeFriend(user, friend);
     }
 
     @Transactional
     public void updateDescription(UserModel user, String description) {
         user.setDescription(description);
 
-        userDAO.updateUser(user);
+        dao.update(user);
     }
 
     @Transactional
     public List<TeamMessageModel> getTeamMessages(UserModel user) {
-        return userDAO.initializeTeamMessages(user).getTeamMessages();
+        return dao.initializeTeamMessages(user).getTeamMessages();
     }
 
     @Transactional
@@ -147,15 +147,15 @@ public class UserService {
             user.setLogin(newLogin);
             user.setPassword(newPassword);
 
-            userDAO.updateUser(user);
+            dao.update(user);
         }
 
         return message;
     }
 
 
-    public UserService(Environment environment, UserDAO userDAO) {
+    public UserService(Environment environment, UserDAOImpl dao) {
         this.environment = environment;
-        this.userDAO = userDAO;
+        this.dao = dao;
     }
 }
