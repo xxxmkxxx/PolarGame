@@ -21,7 +21,8 @@ public class GameRestController {
 
     @PostMapping("/party/search")
     public Message searchParty(String searchPattern, int gameId) {
-        List<PartyModel> foundedParties = partyService.getPartiesByPattern(searchPattern, gameId);
+        GameModel game = gameService.getGame(gameId);
+        List<PartyModel> foundedParties = partyService.getPartiesByPattern(searchPattern, gameService.initParties(game));
         List<List<PartyModelWrapper>> groupedParties = partyService.groupPartiesWrapper(PartiesConfig.COUNT_PARTIES_ON_ROW, foundedParties);
         Message<PartyModelWrapper> message = new Message(
                 "success",
@@ -71,7 +72,8 @@ public class GameRestController {
 
     @GetMapping("/party/filters")
     public Message useFilters(String filterStatus, int amountPlayers, int gameId) {
-        List<PartyModel> foundedParties = partyService.getPartiesByFilters(filterStatus, amountPlayers, gameId);
+        GameModel game = gameService.getGame(gameId);
+        List<PartyModel> foundedParties = partyService.getPartiesByFilters(filterStatus, amountPlayers, gameService.initParties(game));
 
         System.err.println(foundedParties.size());
 
@@ -86,7 +88,7 @@ public class GameRestController {
     @PostMapping("/comments/more")
     public Message getMoreGameComments(int lastCommentId, int gameId) {
         GameModel game = gameService.getGame(gameId);
-        List<GameCommentModelWrapper> comments = gameCommentsService.getMoreCommentsWrapper(lastCommentId, game);
+        List<GameCommentModelWrapper> comments = gameCommentsService.getPartCommentsWrapper(lastCommentId, gameService.initComments(game));
         Message message = new Message("success", comments);
 
         return message;
@@ -97,7 +99,7 @@ public class GameRestController {
         GameModel game = gameService.getGame(gameId);
         List<GameCommentModelWrapper> comments = gameCommentsService.getPartCommentsWrapper(
                 0,
-                gameCommentsService.getComments(game)
+                gameService.initComments(game)
         );
         Message message = new Message("success", comments);
 
@@ -109,7 +111,11 @@ public class GameRestController {
         UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
         GameModel game = gameService.getGame(gameId);
         GameCommentModel comment = new GameCommentModel(game, text, user);
-        String statusMessage = gameService.addComment(game, comment);
+        String statusMessage = (
+                gameService.addComment(game, comment).equals(gameCommentsService.addComment(comment))
+                        ? "success"
+                        : "error"
+        );
         Message<Object> message = new Message(
                 statusMessage,
                 null

@@ -34,15 +34,14 @@ public class GameController {
             UserModel user = userService.getUserByLogin((String) session.getAttribute("userLogin"));
             GameModel game = gameService.getGame(id);
             List<TeamModel> teams = gameService.getTeams(game);
-            int gameId = game.getGameId();
-            List<GameCommentModel> comments = gameCommentsService.getComments(game);
+            List<GameCommentModel> comments = gameService.initComments(game);
 
             model.addAttribute("authorized", true);
             model.addAttribute("user", user);
             model.addAttribute("game", game);
             model.addAttribute("teamsGroups", teamService.groupTeams(PartiesConfig.COUNT_PARTIES_ON_ROW, teams));
             model.addAttribute("gameComments", gameCommentsService.getPartComments(0, comments));
-            model.addAttribute("partyGroups", partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, partyService.getParties(gameId)));
+            model.addAttribute("partyGroups", partyService.groupParties(PartiesConfig.COUNT_PARTIES_ON_ROW, gameService.initParties(game)));
             model.addAttribute("partyMembersService", partyMembersService);
             model.addAttribute("countAllComments", comments.size());
         } else {
