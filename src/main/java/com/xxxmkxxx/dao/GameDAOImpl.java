@@ -15,6 +15,7 @@ public class GameDAOImpl extends AbstractDAO<GameModel> implements GameDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public GameModel initializeComments(GameModel game) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(game, LockMode.NONE);
@@ -24,6 +25,17 @@ public class GameDAOImpl extends AbstractDAO<GameModel> implements GameDAO {
         return game;
     }
 
+    @Override
+    public GameModel initializeParties(GameModel game) {
+        Session session = sessionFactory.getCurrentSession();
+        session.lock(game, LockMode.NONE);
+
+        Hibernate.initialize(game.getParties());
+
+        return game;
+    }
+
+    @Override
     public GameModel initializeTeams(GameModel game) {
         Session session = sessionFactory.getCurrentSession();
         session.lock(game, LockMode.NONE);
